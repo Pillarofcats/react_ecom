@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  .selected {
+    border: 1px solid green;
+  }
+
+  .nav-focus {
+    @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-cyan-400 focus-visible:z-50;
+  }
+
+  a {
+    @apply font-semibold;
+  }
+
+  a, select, button, input {
+    @apply nav-focus;
+  }
+
+  select {
+    @apply bg-orange-300 font-medium px-2;
+  }
+
+  option {
+    @apply bg-orange-300 font-medium;
+  }
+
+  label {
+    @apply font-semibold;
+  }
+}
+
+*, *::before *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  /* height: 100vh; */
+  overflow-y: scroll;
+}
