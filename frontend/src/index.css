@@ -30,6 +30,14 @@
   label {
     @apply font-semibold;
   }
+
+  .formButton {
+    @apply self-center bg-orange-300 rounded-full px-4 py-2 w-fit font-semibold;
+  }
+
+  .formInput {
+    @apply indent-1 border border-slate-800 rounded-sm;
+  }
 }
 
 *, *::before *::after {

@@ -20,7 +20,6 @@ export default function NavItemSearch() {
 
   return (
     <form onSubmit={ handleSubmit } className="flex h-8 self-center relative w-[40%]">
-
       <select
         className="bg-orange-300 h-8 hover:cursor-pointer hover:bg-orange-400 rounded-l-md text-black"
         value={ dropdownValue }
@@ -34,7 +33,8 @@ export default function NavItemSearch() {
 
       <input
         className="text-black h-8 indent-2 w-full font-medium"
-        type="text" name="search" id="search" placeholder={`Search.. ${dropdownValue}`} />
+        type="text" name="search" id="search" placeholder={`Search.. ${dropdownValue}`}
+      />
 
       <button
         className="flex items-center px-1 bg-orange-300 h-8 hover:cursor-pointer hover:bg-orange-400 rounded-r-md text-black"
@@ -42,7 +42,6 @@ export default function NavItemSearch() {
         onClick={() => console.log("Searching")} >
           <BiSearch size={25}/>
       </button>
-
     </form>
   )
 }
