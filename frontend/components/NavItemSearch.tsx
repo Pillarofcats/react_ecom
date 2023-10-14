@@ -25,10 +25,16 @@ export default function NavItemSearch() {
         value={ dropdownValue }
         onChange={(e) => setDropdownValue(e.target.value)}>
           <option value="all">All</option>
-          <option value="clothes">Clothes</option>
+          <option value="apparel">Apparel</option>
+          <option value="cookware">Cookware</option>
+          <option value="cosmetics">Cosmetics</option>
           <option value="electronics">Electronics</option>
-          <option value="jewelry">Jewelry</option>
+          <option value="furniture">Furniture</option>
           <option value="food">Food</option>
+          <option value="instruments">Instruments</option>
+          <option value="jewelry">Jewelry</option>
+          <option value="tools">Tools</option>
+          <option value="toys">Toys</option>
       </select>
 
       <input

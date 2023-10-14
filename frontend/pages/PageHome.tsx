@@ -1,33 +1,10 @@
-import { useState, useEffect } from "react"
-
-const mockProducts = [
-  "shirt",
-  "tv",
-  "toy",
-  "chips",
-  "ring",
-]
-
+import Products from "../components/Products"
 
 export default function PageHome() {
 
-  const [products, setProducts] = useState<string[] | null>(null)
-
-  useEffect(() => {
-    setProducts(mockProducts)
-  }, [])
-
   return (
-    <div className="flex flex-1 flex-col gap-3 justify-center items-center selected">
-      {
-        products?.map((product, index) => {
-          return (
-            <div key={ index }>
-              <p>Product: { product }</p>
-            </div>
-          )
-        })
-      }
+    <div className="flex flex-1 flex-col items-center flex-wrap gap-5 p-5">
+      <Products />
     </div>
   )
 }

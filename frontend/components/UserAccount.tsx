@@ -77,7 +77,7 @@ export default function UserAccount() {
 
         <div className="flex flex-col">
           <label  htmlFor="birthday">Birthday</label>
-          <input className={`formInput  ${ changedBirthday ? "text-black" : "text-gray-400" }`} onChange={ handleChangeBirthday } type="date" name="birthday" id="birthday" value={ birthday }/>
+          <input className={`formInput ${ changedBirthday ? "text-black" : "text-gray-400" }`} onChange={ handleChangeBirthday } type="date" name="birthday" id="birthday" value={ birthday }/>
         </div>
 
         <button className="formButton" type="submit">Update account</button>

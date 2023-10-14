@@ -1,6 +1,6 @@
 import dbQuery from "../models/db/db.js";
 import bcrypt from "bcrypt";
-const usersRegister = async function (req, res) {
+const userSignUp = async function (req, res) {
     const { username, email, password } = req.body;
     // console.log("username:", username, "email:", email, "password:", password)
     try {
@@ -9,8 +9,8 @@ const usersRegister = async function (req, res) {
         if (selectUser.rows.length !== 0)
             return res.status(200).json("User already exists");
         const hashedPassword = await bcrypt.hash(password, 10);
-        const userRegistered = await dbQuery("INSERT INTO ecom.all_users(username, email, password) VALUES($1, $2, $3) RETURNING u_id", [username, email, hashedPassword]);
-        const { u_id } = userRegistered.rows[0];
+        const signedUp = await dbQuery("INSERT INTO ecom.all_users(username, email, password) VALUES($1, $2, $3) RETURNING u_id", [username, email, hashedPassword]);
+        const { u_id } = signedUp.rows[0];
         // console.log("user registered", u_id)
         await dbQuery("INSERT INTO ecom.user_info(u_id, username, email) VALUES($1, $2, $3)", [u_id, username, email]);
         // console.log("insert user info", insertUserInfo.rows[0])
@@ -21,16 +21,16 @@ const usersRegister = async function (req, res) {
     }
     return res.status(500);
 };
-const usersLogin = async function (req, res) {
+const userSignIn = async function (req, res) {
     const { email, password } = req.body;
     // console.log("email:", email, "password:", password)
     try {
-        const login = await dbQuery("SELECT * FROM ecom.all_users WHERE email = $1", [email]);
+        const signin = await dbQuery("SELECT * FROM ecom.all_users WHERE email = $1", [email]);
         // console.log("login", login.rows)
-        const hashedPassword = login.rows[0]?.password;
-        const u_id = login.rows[0]?.u_id;
+        const hashedPassword = signin.rows[0]?.password;
+        const u_id = signin.rows[0]?.u_id;
         // console.log("HashedPass", hashedPassword)
-        if (login.rows.length === 0)
+        if (signin.rows.length === 0)
             return res.status(200).json("Login failed");
         const validPassword = await bcrypt.compare(password, hashedPassword);
         if (!validPassword)
@@ -44,7 +44,7 @@ const usersLogin = async function (req, res) {
     return res.status(500);
 };
 const usersController = {
-    usersLogin,
-    usersRegister
+    userSignUp,
+    userSignIn
 };
 export { usersController };

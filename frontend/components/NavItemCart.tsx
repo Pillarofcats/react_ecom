@@ -4,7 +4,7 @@ import { useState } from "react"
 
 export default function NavItemCart() {
 
-  const [numItems, setNumItems] = useState(0)
+  const [numItems] = useState(0)
 
   return (
     <Link to={"/cart"}
