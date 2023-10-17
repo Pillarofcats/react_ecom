@@ -1,24 +1,30 @@
 import { useNavigate } from "react-router-dom"
+import { useMemo } from "react"
+import useURLParams from "../hooks/useURLParams"
 
-type tPagination = {
-  currentPage: number,
-  numPages: number
-}
-
-export default function Pagination({ currentPage, numPages }:tPagination) {
+export default function Pagination({ numPages }:{ numPages: number }) {
+  console.log("Render Pagination")
 
   const navigate = useNavigate()
+  const { currentPage, queryParams } = useURLParams()
 
-  const pageNumbers = Array.from({ length: numPages }, (_, ind) => ind+1)
+  const pageNumbers = useMemo(() => Array.from({ length: numPages }, (_, ind) => ind+1), [numPages])
 
   function backButton() {
     if(currentPage === 1) return
-    navigate(`/?page=${currentPage-1}`)
+    queryParams.set("page", `${currentPage-1}`)
+    navigate({ search: queryParams.toString() })
   }
 
-  function forwardButton() { 
+  function pageClick(n:number) {
+    queryParams.set("page", `${n}`)
+    navigate({ search: queryParams.toString() }) 
+  }
+
+  function nextButton() { 
     if(currentPage === numPages) return
-    navigate(`/?page=${currentPage+1}`)
+    queryParams.set("page", `${currentPage+1}`)
+    navigate({ search: queryParams.toString() })
   }
 
   return (
@@ -26,13 +32,13 @@ export default function Pagination({ currentPage, numPages }:tPagination) {
       <button onClick={ backButton }>Back</button>
       { 
         pageNumbers.map((n, i) => {
-          return <p key={i} 
-                    onClick={()=> { navigate(`/?page=${n}`) }}
+          return <button key={i} 
+                    onClick={() => pageClick(n)} 
                     className={`${ n === currentPage ? "font-bold text-orange-400" : ""}`}>{ n }
-                  </p>
+                </button>
         })
       }
-      <button onClick={ forwardButton }>Forward</button>
+      <button onClick={ nextButton }>Next</button>
     </div>
   )
 }

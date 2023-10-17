@@ -3,7 +3,7 @@ import { productsController } from "../controllers/productsController.js"
 
 const router = express.Router()
 
-router.get("/allproducts", productsController.allProducts)
+router.post("/bytype", productsController.byType)
 
 router.all("*", (req:express.Request, res:express.Response) => {
   res.send("404")

@@ -5,25 +5,26 @@ import PageSignIn from "../pages/PageSignIn"
 import PageCart from "../pages/PageCart"
 import PageProduct from "../pages/PageProduct"
 //COMPONENTS
-import Navbar from "../components/Navbar"
+// import Navbar from "../components/Navbar"
+import RootLayout from "../components/RootLayout"
 //LIBS
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route, Navigate } from "react-router-dom"
 
 export default function App() {
   
   return (
     <>
-      <Navbar />
-      <div className="flex flex-col h-[calc(100vh-4rem)]">
-        <Routes>
-          <Route path="/" element={ <PageHome />} />
+      <Routes>
+        <Route element={<RootLayout />}>
+          <Route index element={ <Navigate to="/products" />} />
+          <Route path="/products" element={ <PageHome />} />
+          <Route path="/products/:pid" element={<PageProduct />} />
           <Route path="/account" element={ <PageUserAccount /> } />
           <Route path="/sign-in" element={ <PageSignIn /> } />
           <Route path="/cart" element={ <PageCart /> } />
-          <Route path="/products/:pid" element={<PageProduct />} />
-          <Route path="/*" element={ <PageHome /> }  />
-        </Routes>
-      </div>
+          <Route path="/*" element={ <Navigate to="/products" replace/> }  />
+        </Route>
+      </Routes>
     </>
   )
 }

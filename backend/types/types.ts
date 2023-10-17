@@ -23,11 +23,37 @@ type tUserAccount = object & {
   birthday?: string,
 }
 
+type tProduct = {
+  p_id: string,
+  title: string,
+  description: string,
+  price_cent: number,
+  weight_lbs: number,
+  product_type: string,
+  quantity: number,
+  quantity_sold?: number | null,
+  stars: number
+}
 
+type tProducts = tProduct[]
+type tType = "all" | "apparel" | "cookware" | "cosmetics" | "electronics" | "furniture" | "food" | " instruments" | "jewelry" | "tools" | "toys"
+type tProductsStatus = "pending" | "fulfilled" | "rejected"
+type tProductsError = string | null
+
+type tProductsSlice = {
+  products: tProducts,
+  type: tType,
+  status: tProductsStatus,
+  error: tProductsError
+}
 
 export type {
   tSignUp,
   tSignIn,
   tSetToggleSignIn,
-  tUserAccount
+  tUserAccount,
+  tProduct,
+  tProducts,
+  tProductsSlice,
+  tType
 }
