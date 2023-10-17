@@ -4,14 +4,13 @@ import { tProductsSlice, tProducts, tType } from "../../../backend/types/types"
 
 const initialState:tProductsSlice = {
   products: [],
-  type: "all",
   status: "pending",
   error: null
 }
 
 export const getProducts = createAsyncThunk("queryProducts", async (productType:tType) => {
   const p = { type: productType }
-  
+
   const response = await fetch(`http://localhost:5000/api/products/bytype`, {
     method: "POST",
     headers: {"Content-Type": "application/json"},
@@ -26,9 +25,6 @@ export const productsSlice = createSlice({
   reducers: {
     setProducts: (state, action:PayloadAction<tProducts>) => {
       state.products = action.payload
-    },
-    setProductType: (state, action:PayloadAction<tType>) => {
-      state.type = action.payload
     },
   },
   extraReducers:(builder) => {
@@ -46,5 +42,5 @@ export const productsSlice = createSlice({
   }
 })
 
-export const { setProducts, setProductType } = productsSlice.actions
+export const { setProducts } = productsSlice.actions
 export default productsSlice.reducer

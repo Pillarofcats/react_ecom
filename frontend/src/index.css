@@ -11,9 +11,9 @@
     @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-cyan-400 focus-visible:z-50;
   }
 
-  a {
+  /* a {
     @apply font-semibold;
-  }
+  } */
 
   a, select, button, input {
     @apply nav-focus;
@@ -36,7 +36,7 @@
   }
 
   .productButton {
-    @apply self-center bg-orange-400 text-white rounded-full px-8 py-2 w-fit font-semibold;
+    @apply bg-orange-400 text-white rounded-full px-8 py-2 w-fit font-semibold self-center;
   }
 
   .formInput {
@@ -50,7 +50,7 @@
     justify-items: center;
     display: grid;
     gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     /* grid-auto-rows: 25rem; */
   }
 }

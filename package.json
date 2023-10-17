@@ -6,6 +6,7 @@
   "main": "index.js",
   "scripts": {
     "frontback": "concurrently \"cd backend && npm run start\" \"cd frontend && npm run dev\"",
+    "production": "concurrently \"cd backend && npm run start\" \"cd frontend && npm run preview\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

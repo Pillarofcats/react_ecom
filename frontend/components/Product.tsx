@@ -1,4 +1,4 @@
-import ProductCard from "../components/ProductCard"
+import ProductCardShort from "../components/ProductCardShort"
 import { tProduct } from "../../backend/types/types"
 import { useNavigate } from "react-router-dom"
 
@@ -7,10 +7,17 @@ export default function Product({ product }:{ product: tProduct }) {
 
   return (
     <a
-      className="flex flex-col gap-1 p-3 mx-auto w-fit hover:cursor-pointer" 
-      onClick={()=> navigate(`/products/${product.p_id}`, { state: product }) }
+      className="flex flex-col gap-1 p-3 mx-auto w-fit h-fit hover:cursor-pointer " 
+      onClick={()=> navigate({
+                      pathname:`/products/${product.p_id}`,
+                      search:""
+                    },
+                    { 
+                      state: product
+                    })
+              }
     >
-      <ProductCard product={ product } />
+      <ProductCardShort product={ product } />
     </a>
   )
 }

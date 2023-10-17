@@ -1,30 +1,35 @@
-type tProduct = {
-  p_id: string,
-  title: string,
-  description: string,
-  price_cent: number,
-  weight_lbs: number,
-  product_type: string,
-  quantity: number,
-  quantity_sold?: number | null,
-  stars: number
-}
+import ProductStars from "../components/ProductStars"
+import { tProduct } from "../../backend/types/types"
 
 export default function ProductCard({ product }:{ product:tProduct }) {
 
-  const stars = Array.from({ length: product.stars }, (_, ind) => ind+1)
-  const price = Number(product.price_cent * .01).toFixed(2)
-
   return (
-    <div className="flex flex-col gap-1">
-      <p>Title: { product.title }</p>
-      <img className="h-auto w-[15rem]" src={ `/products/${product.p_id}.jpg` } alt={ product.title } />
-      <p className="w-[15rem]">{ `${product.description}..` }</p>
-      <p>{ `Type: ${ product.product_type}` }</p>
-      <p>{ `Lbs: ${ product.weight_lbs}` }</p>
-      <p>{ `Qty: ${ product.quantity}` }</p>
-      <div className="flex">{ stars.map((_, ind) => <p key={ind}>*</p>) }</div>
-      <p>{ `$ ${ price }` }</p>
+    <div className="flex gap-3">
+      <div className="flex flex-col gap-2">
+        <img className="h-auto w-[15rem]" src={ `/products/${product.p_id}.jpg` } alt={ product.title } />
+        <label className="text-xl">{ product.title }</label>
+        <ProductStars stars={ product.stars }/>
+        <p>{ `$ ${ (product.price_cent * .01).toPrecision(2) }` }</p>
+        <button className="productButton" onClick={() => console.log("Adding to cart:", product)}>Buy</button>
+      </div>
+      <div className="flex flex-col gap-3">
+        <div>
+          <label>Description</label>
+          <i className="block w-[15rem] ml-3">{ `${product.description}..` }</i>
+        </div>
+        <div>
+          <label>Type</label>
+          <p className="ml-3">{ `${ product.product_type}` }</p>
+        </div>
+        <div>
+          <label>Weight</label>
+          <p className="ml-3">{ `${ product.weight_lbs} lbs` }</p>
+        </div>
+        <div>
+          <label>Quantity</label>
+          <p className="ml-3">{ `${ product.quantity}` }</p>
+        </div>
+      </div>
     </div>
   )
 }

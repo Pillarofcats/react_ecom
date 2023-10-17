@@ -20,7 +20,7 @@ export default function Products() {
   const navigate = useNavigate()
   const { currentPage, currentType } = useURLParams()
 
-  const pageRange = 2
+  const pageRange = 8
   const pagePointerStart = (currentPage * pageRange) - pageRange
   const pagePointerEnd = currentPage * pageRange
 
@@ -28,15 +28,13 @@ export default function Products() {
   const filterProductsCurrentPage = useMemo(() => products.slice(pagePointerStart, pagePointerEnd), [products, pagePointerStart, pagePointerEnd])
 
   useEffect(() => {
-    console.log('product change', currentType)
     if(!currentType) return
     dispatch(getProducts(currentType as tType))
-  }, [currentType])
+  }, [currentType, dispatch])
 
   useEffect(() => {
-    console.log("page change", currentPage)
     navigate({ search: `page=${currentPage}&type=${currentType}` }, { replace: true })
-  }, [currentPage])
+  }, [currentPage, currentType, navigate])
 
   return (
     <>

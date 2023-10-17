@@ -42,7 +42,6 @@ type tProductsError = string | null
 
 type tProductsSlice = {
   products: tProducts,
-  type: tType,
   status: tProductsStatus,
   error: tProductsError
 }

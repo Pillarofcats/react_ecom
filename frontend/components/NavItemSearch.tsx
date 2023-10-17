@@ -2,9 +2,6 @@ import { BiSearch } from "react-icons/bi"
 import { useNavigate, useLocation} from "react-router-dom"
 import { useEffect, useRef } from "react"
 
-// import { useAppDispatch, useAppSelector } from "../redux/hooks/default"
-// import { setProductType } from "../redux/slices/productsSlice"
-
 import useURLParams from "../hooks/useURLParams"
 
 export default function NavItemSearch() {
@@ -28,14 +25,14 @@ export default function NavItemSearch() {
   }
 
   useEffect(() => {
-    console.log("location changes", location)
-    if(location.pathname === "/products" && location.search === "?page=1&type=all") {
+    //Reset product type when navigating outside of /products or query params are default
+    if(location.pathname !== "/products" || location.search === "?page=1&type=all") {
       if(typeSelectRef.current) typeSelectRef.current.value = "all"
     }
   }, [location])
 
   return (
-    <div  className="flex h-8 self-center w-[50%] selected">
+    <div  className="flex h-8 self-center w-[50%]">
       <select
         ref={ typeSelectRef }
         className="bg-orange-300 h-8 hover:cursor-pointer hover:bg-orange-400 rounded-l-md text-black"
