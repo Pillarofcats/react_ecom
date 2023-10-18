@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from "react"
-import { useNavigate } from "react-router-dom"
+// import { useNavigate } from "react-router-dom"
 
 import { shallowEqual } from "react-redux"
 import { useAppSelector, useAppDispatch } from "../redux/hooks/default"
@@ -17,10 +17,10 @@ export default function Products() {
 
   const { products } = useAppSelector( (state) => state.products, shallowEqual)
   const dispatch = useAppDispatch()
-  const navigate = useNavigate()
+
   const { currentPage, currentType } = useURLParams()
 
-  const pageRange = 8
+  const pageRange = 6
   const pagePointerStart = (currentPage * pageRange) - pageRange
   const pagePointerEnd = currentPage * pageRange
 
@@ -31,10 +31,6 @@ export default function Products() {
     if(!currentType) return
     dispatch(getProducts(currentType as tType))
   }, [currentType, dispatch])
-
-  useEffect(() => {
-    navigate({ search: `page=${currentPage}&type=${currentType}` }, { replace: true })
-  }, [currentPage, currentType, navigate])
 
   return (
     <>

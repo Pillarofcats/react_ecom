@@ -1,26 +1,41 @@
+import { useEffect } from "react"
 import ProductCard from "../components/ProductCard"
-import { useLocation } from "react-router"
-// import useRemoveURLParams from "../hooks/useRemoveURLParams"
+import ProductReviews from "../components/ProductReviews"
+
+import { useParams } from "react-router-dom"
+
+import { shallowEqual } from "react-redux"
+import { useAppSelector, useAppDispatch } from "../redux/hooks/default"
+import { getSingleProduct } from "../redux/slices/productsSlice"
 
 export default function PageProduct() {
-  // useRemoveURLParams()
-  const product = useLocation().state
-  
+  const { pid } = useParams()
+  console.log("id", pid)
+
+  const { dynamicPageProduct } = useAppSelector((state) => state.products, shallowEqual)
+  const dispatch = useAppDispatch()
+
+  const currentProduct = dynamicPageProduct
+  console.log("currentProduct", currentProduct)
+
+  useEffect(() => {
+    console.log("Product Page #")
+    dispatch(getSingleProduct( Number(pid) ))
+  }, [])
+
+  const MOCKREVIEWS = [{r: "Review 1"}, {r: "Review 2"}, {r: "Review 3"}, {r: "Review 4"}]
 
   return (
-    <div className="flex flex-col items-center justify-center flex-1 gap-5">
-      <div className="flex flex-col">
-        <ProductCard product={ product } />
+    <div className="flex flex-col gap-5">
+      <div className="flex flex-col w-full items-center py-12">
+        { currentProduct ?
+            <ProductCard product={ currentProduct } />
+            :
+            null
+        }
       </div>
-      
-      <div>
-        <h1>Reviews</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio repellendus magnam aut doloribus vitae magni similique corporis, dolorum iste expedita consequatur pariatur voluptatem nesciunt beatae sapiente sed assumenda ipsam necessitatibus quae distinctio, iusto asperiores? Delectus iusto soluta natus exercitationem voluptates rem officiis sequi et. Similique inventore alias soluta sed numquam!</p>
 
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio repellendus magnam aut doloribus vitae magni similique corporis, dolorum iste expedita consequatur pariatur voluptatem nesciunt beatae sapiente sed assumenda ipsam necessitatibus quae distinctio, iusto asperiores? Delectus iusto soluta natus exercitationem voluptates rem officiis sequi et. Similique inventore alias soluta sed numquam!</p>
-
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio repellendus magnam aut doloribus vitae magni similique corporis, dolorum iste expedita consequatur pariatur voluptatem nesciunt beatae sapiente sed assumenda ipsam necessitatibus quae distinctio, iusto asperiores? Delectus iusto soluta natus exercitationem voluptates rem officiis sequi et. Similique inventore alias soluta sed numquam!</p>
-      </div>
+      <ProductReviews reviews={ MOCKREVIEWS } />
     </div>
   )
 }

@@ -4,7 +4,7 @@
 
 @layer base {
   .selected {
-    border: 1px solid green;
+    border: 2px solid red;
   }
 
   .nav-focus {
@@ -15,7 +15,10 @@
     @apply font-semibold;
   } */
 
-  a, select, button, input {
+  a,
+  select,
+  button,
+  input {
     @apply nav-focus;
   }
 
@@ -44,18 +47,16 @@
   }
 
   .productsContainer {
-    /* @apply selected; */
-    width: 80%;
     padding: 1rem;
-    justify-items: center;
     display: grid;
     gap: 1rem;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     /* grid-auto-rows: 25rem; */
   }
 }
 
-*, *::before *::after {
+*,
+*::before *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;

@@ -36,12 +36,14 @@ type tProduct = {
 }
 
 type tProducts = tProduct[]
+type tDynamicPageProduct = tProduct | null
 type tType = "all" | "apparel" | "cookware" | "cosmetics" | "electronics" | "furniture" | "food" | " instruments" | "jewelry" | "tools" | "toys"
 type tProductsStatus = "pending" | "fulfilled" | "rejected"
 type tProductsError = string | null
 
 type tProductsSlice = {
   products: tProducts,
+  dynamicPageProduct: tDynamicPageProduct,
   status: tProductsStatus,
   error: tProductsError
 }
@@ -54,5 +56,6 @@ export type {
   tProduct,
   tProducts,
   tProductsSlice,
-  tType
+  tType,
+  tDynamicPageProduct
 }

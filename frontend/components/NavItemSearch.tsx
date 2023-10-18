@@ -26,13 +26,17 @@ export default function NavItemSearch() {
 
   useEffect(() => {
     //Reset product type when navigating outside of /products or query params are default
-    if(location.pathname !== "/products" || location.search === "?page=1&type=all") {
-      if(typeSelectRef.current) typeSelectRef.current.value = "all"
+    const typeParam = queryParams.get("type")
+
+    if(typeSelectRef.current) {
+      if(!typeParam) typeSelectRef.current.value = "all"
+      else typeSelectRef.current.value = typeParam
     }
-  }, [location])
+    
+  }, [location, queryParams])
 
   return (
-    <div  className="flex h-8 self-center w-[50%]">
+    <div  className="md:flex hidden h-8 self-center min-w-fit w-[50%]">
       <select
         ref={ typeSelectRef }
         className="bg-orange-300 h-8 hover:cursor-pointer hover:bg-orange-400 rounded-l-md text-black"

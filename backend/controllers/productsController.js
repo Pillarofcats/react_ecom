@@ -14,7 +14,19 @@ const byType = async function (req, res) {
     }
     res.status(500);
 };
+const singleProduct = async function (req, res) {
+    const { pid } = req.body;
+    try {
+        const products = await dbQuery("SELECT * FROM ecom.all_products WHERE p_id = $1", [pid]);
+        return res.status(200).json(products.rows[0]);
+    }
+    catch (error) {
+        console.error(error);
+    }
+    res.status(500);
+};
 const productsController = {
-    byType
+    byType,
+    singleProduct
 };
 export { productsController };

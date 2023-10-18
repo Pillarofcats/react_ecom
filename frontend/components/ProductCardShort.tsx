@@ -1,14 +1,18 @@
+import ProductImage from "./ProductImage"
+import ProductTitle from "./ProductTitle"
 import ProductStars from "../components/ProductStars"
+import ProductPrice from "../components/ProductPrice"
+
 import { tProduct } from "../../backend/types/types"
 
 export default function ProductCardShort({ product }:{ product:tProduct }) {
 
   return (
-    <div className="flex flex-col gap-1">
-      <img className="h-auto w-[15rem]" src={ `/products/${product.p_id}.jpg` } alt={ product.title } />
-      <h1 className="text-xl">{ product.title }</h1>
+    <div className="flex flex-col items-center gap-1">
+      <ProductImage src={ `/products/${product.p_id}.jpg` } alt={ product.title }/>
+      <ProductTitle title={ product.title }/>
       <ProductStars stars={ product.stars }/>
-      <p>{ `$ ${ (product.price_cent * .01).toFixed(2) }` }</p>
+      <ProductPrice price={ product.price_cent }/>
     </div>
   )
 }
