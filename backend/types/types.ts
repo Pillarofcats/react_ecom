@@ -13,7 +13,8 @@ type tSetToggleSignIn = {
   setToggleSignIn: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-type tUserAccount = object & {
+type tUserAccount = {
+  u_id?: number
   username?: string,
   email?: string,
   firstname?: string,
@@ -34,6 +35,8 @@ type tProduct = {
   quantity_sold?: number | null,
   stars: number
 }
+
+type tParams = (string | number)[]
 
 type tProducts = tProduct[]
 type tDynamicPageProduct = tProduct | null
@@ -57,5 +60,6 @@ export type {
   tProducts,
   tProductsSlice,
   tType,
-  tDynamicPageProduct
+  tDynamicPageProduct,
+  tParams
 }

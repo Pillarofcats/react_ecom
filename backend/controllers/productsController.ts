@@ -37,4 +37,4 @@ const productsController = {
   singleProduct
 }
 
-export { productsController }
+export default productsController

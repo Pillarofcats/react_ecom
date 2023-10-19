@@ -1,5 +1,6 @@
 import dotenv from "dotenv"
 dotenv.config()
+import { tParams } from "../../types/types.js"
 import pg from "pg"
 const { Pool } = pg
 
@@ -10,8 +11,6 @@ const pool = new Pool({
   password: process.env.PSQL_PASSWORD,
   port: Number(process.env.PSQL_PORT),
 })
-
-type tParams = (string | number)[]
 
 const dbQuery = (text: string, params: tParams) => {
   return pool.query(text, params)

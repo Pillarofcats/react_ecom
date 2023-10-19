@@ -14,6 +14,7 @@ const __dirname = path.dirname(__filename)
 
 //Routers
 import usersRouter from "../routes/usersRouter.js"
+import userInfoRouter from "../routes/userInfoRouter.js"
 import productsRouter from "../routes/productsRouter.js"
 
 //App
@@ -34,6 +35,7 @@ console.log("uuid", uuidv4())
 
 //Routes
 app.use("/api/users", usersRouter)
+app.use("/api/userinfo", userInfoRouter)
 app.use("/api/products", productsRouter)
 
 app.get("/", (req:Request, res:Response) => {

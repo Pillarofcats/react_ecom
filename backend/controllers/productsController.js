@@ -29,4 +29,4 @@ const productsController = {
     byType,
     singleProduct
 };
-export { productsController };
+export default productsController;

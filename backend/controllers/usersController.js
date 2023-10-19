@@ -9,7 +9,7 @@ const userSignUp = async function (req, res) {
         if (selectUser.rows.length !== 0)
             return res.status(200).json("User already exists");
         const hashedPassword = await bcrypt.hash(password, 10);
-        const signedUp = await dbQuery("INSERT INTO ecom.all_users(username, email, password) VALUES($1, $2, $3) RETURNING u_id", [username, email, hashedPassword]);
+        const signedUp = await dbQuery("INSERT INTO ecom.all_users (username, email, password) VALUES($1, $2, $3) RETURNING u_id", [username, email, hashedPassword]);
         const { u_id } = signedUp.rows[0];
         // console.log("user registered", u_id)
         await dbQuery("INSERT INTO ecom.user_info(u_id, username, email) VALUES($1, $2, $3)", [u_id, username, email]);
@@ -47,4 +47,4 @@ const usersController = {
     userSignUp,
     userSignIn
 };
-export { usersController };
+export default usersController;

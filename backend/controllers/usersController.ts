@@ -6,7 +6,7 @@ import bcrypt from "bcrypt"
 const userSignUp = async function(req:Request, res:Response) {
   const {username, email, password}:tSignUp = req.body
   // console.log("username:", username, "email:", email, "password:", password)
-  
+
   try {
     const selectUser = await dbQuery("SELECT email FROM ecom.all_users WHERE email = $1", [email])
     // console.log("user exist", selectUser.rows)
@@ -14,7 +14,7 @@ const userSignUp = async function(req:Request, res:Response) {
 
     const hashedPassword = await bcrypt.hash(password, 10)
 
-    const signedUp = await dbQuery("INSERT INTO ecom.all_users(username, email, password) VALUES($1, $2, $3) RETURNING u_id", [username, email, hashedPassword])
+    const signedUp = await dbQuery("INSERT INTO ecom.all_users (username, email, password) VALUES($1, $2, $3) RETURNING u_id", [username, email, hashedPassword])
     const { u_id } = signedUp.rows[0]
     // console.log("user registered", u_id)
 
@@ -62,4 +62,4 @@ const usersController = {
   userSignIn
 }
 
-export { usersController }
+export default usersController

@@ -13,6 +13,7 @@ const __filename = fileURLToPath(import.meta.url); // get the resolved path to t
 const __dirname = path.dirname(__filename);
 //Routers
 import usersRouter from "../routes/usersRouter.js";
+import userInfoRouter from "../routes/userInfoRouter.js";
 import productsRouter from "../routes/productsRouter.js";
 //App
 const expressPORT = process.env.PORT || 5000;
@@ -28,6 +29,7 @@ app.use(helmet());
 console.log("uuid", uuidv4());
 //Routes
 app.use("/api/users", usersRouter);
+app.use("/api/userinfo", userInfoRouter);
 app.use("/api/products", productsRouter);
 app.get("/", (req, res) => {
     res.status(200).json("got it");

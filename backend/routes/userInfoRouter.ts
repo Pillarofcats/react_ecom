@@ -1,10 +1,9 @@
 import express from "express"
-import usersController from "../controllers/usersController.js"
+import userInfoController from "../controllers/userInfoController.js"
 
 const router = express.Router()
 
-router.post("/signin", usersController.userSignIn)
-router.post("/signup", usersController.userSignUp)
+router.put("/updateuser", userInfoController.updateUserInfo)
 
 router.all("*", (req:express.Request, res:express.Response) => {
   res.send("404")

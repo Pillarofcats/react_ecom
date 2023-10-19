@@ -17,6 +17,8 @@ export default function UserAccount() {
 
     const data:tUserAccount = {}
 
+    data.u_id = 1
+
     if(usernameRef.current?.value) data.username = usernameRef.current.value
     if(emailRef.current?.value) data.email = emailRef.current.value
     if(firstnameRef.current?.value) data.firstname = firstnameRef.current.value
@@ -27,11 +29,20 @@ export default function UserAccount() {
 
     if(Object.keys(data).length === 0) return
 
+    console.log("dataSent", data)
     formSubmit(data)
   }
 
   async function formSubmit(data:tUserAccount) {
-    console.log("data:", data)
+
+    const response = await fetch("http://localhost:5000/api/userinfo/updateuser", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    })
+
+    const d = await response.json()
+    console.log("dataReturned", d)
   }
 
   function handleChangeBirthday(e:React.ChangeEvent<HTMLInputElement>) {
