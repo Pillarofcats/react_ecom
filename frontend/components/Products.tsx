@@ -20,7 +20,7 @@ export default function Products() {
 
   const { currentPage, currentType } = useURLParams()
 
-  const pageRange = 6
+  const pageRange = 8
   const pagePointerStart = (currentPage * pageRange) - pageRange
   const pagePointerEnd = currentPage * pageRange
 

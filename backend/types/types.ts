@@ -51,6 +51,8 @@ type tProductsSlice = {
   error: tProductsError
 }
 
+type tProductButtonType = "buy" | "remove"
+
 export type {
   tSignUp,
   tSignIn,
@@ -61,5 +63,6 @@ export type {
   tProductsSlice,
   tType,
   tDynamicPageProduct,
-  tParams
+  tParams,
+  tProductButtonType
 }

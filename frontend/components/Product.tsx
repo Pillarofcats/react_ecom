@@ -9,7 +9,7 @@ export default function Product({ product }:{ product: tProduct }) {
 
   return (
     <a
-      className="flex flex-col h-fit gap-1 p-3 hover:cursor-pointer" 
+      className="w-fit h-fit gap-1 p-3 hover:cursor-pointer self-center" 
       onClick={() => navigate({ pathname:`/products/${product.p_id}` }) }>
         <ProductCardShort product={ product } />
     </a>

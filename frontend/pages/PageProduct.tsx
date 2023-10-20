@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom"
 
 import { shallowEqual } from "react-redux"
 import { useAppSelector, useAppDispatch } from "../redux/hooks/default"
+
 import { getSingleProduct } from "../redux/slices/productsSlice"
 
 export default function PageProduct() {
@@ -29,7 +30,7 @@ export default function PageProduct() {
     <div className="flex flex-col gap-5">
       <div className="flex flex-col w-full items-center py-12">
         { currentProduct ?
-            <ProductCard product={ currentProduct } />
+            <ProductCard product={ currentProduct } type="buy" />
             :
             null
         }
