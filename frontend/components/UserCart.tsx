@@ -1,24 +1,23 @@
-import ProductCard from "./ProductCard"
+import ProductCardCart from "./ProductCardCart"
 import { useAppSelector } from "../redux/hooks/default"
-// import { removeCartItem } from "../redux/slices/userSlice"
 
 export default function UserCart() {
 
-  const cart = useAppSelector((state) => state.user.cart)
+  const cart = useAppSelector((state) => state.cart.cart)
   const totalPrice = cart.reduce((acc, curr) => {
-    return acc + curr.price_cent 
+    return acc + (curr.item.price_cent * curr.qty)
   }, 0)
-
 
   return (
     <div className="flex flex-col gap-5">
-      <div>
-        <h1 className="text-center text-3xl font-semibold">Items in Cart</h1>
+      <h1 className="text-center text-3xl font-semibold">Items in Cart</h1>
+
+      <div className="grid gap-2">
         {
           cart.map((product, index) => {
             return (
               <div className="flex flex-col self-center" key={index}>
-                <ProductCard product={product} type="remove" />
+                <ProductCardCart product={product.item} />
               </div>
             )
           })

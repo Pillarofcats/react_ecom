@@ -5,7 +5,7 @@ export default function PageCart() {
   // useRemoveURLParams()
 
   return (
-    <div className="flex justify-center">
+    <div className="flex flex-col flex-1 items-center">
       <UserCart />
     </div>
   )

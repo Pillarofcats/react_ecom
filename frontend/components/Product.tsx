@@ -7,9 +7,10 @@ export default function Product({ product }:{ product: tProduct }) {
 
   const navigate = useNavigate()
 
+//self-center
   return (
     <a
-      className="w-fit h-fit gap-1 p-3 hover:cursor-pointer self-center" 
+      className="h-fit w-fit p-2 hover:cursor-pointer" 
       onClick={() => navigate({ pathname:`/products/${product.p_id}` }) }>
         <ProductCardShort product={ product } />
     </a>

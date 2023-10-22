@@ -5,11 +5,12 @@ import ProductStars from "../components/ProductStars"
 import { tProduct } from "../../backend/types/types"
 import { useRef } from "react"
 import { useAppDispatch, useAppSelector } from "../redux/hooks/default"
-import { addCartItem } from "../redux/slices/cartSlice"
+import { updateCartItemQty, removeCartItem } from "../redux/slices/cartSlice"
 
-export default function ProductCard({ product }:{ product:tProduct }) {
+export default function ProductCardCart({ product }:{ product:tProduct }) {
 
   const cart = useAppSelector((state) => state.cart.cart)
+  const currentCartProduct = useAppSelector((state) => state.cart.cart.find((item) => item.item.p_id === product.p_id))
   const dispatch = useAppDispatch()
 
   const qtySelectRef = useRef<HTMLSelectElement>(null)
@@ -17,7 +18,10 @@ export default function ProductCard({ product }:{ product:tProduct }) {
   const optionArray = Array.from({ length: product.quantity }, (_, i) => ++i)
 
   function onChangeSelectProductQty(e:React.ChangeEvent<HTMLSelectElement>) {
-    if(qtySelectRef.current) qtySelectRef.current.value = e.target.value
+    if(qtySelectRef.current) {
+      dispatch((updateCartItemQty({qty:Number(qtySelectRef.current.value), product:product})))
+      qtySelectRef.current.value = e.target.value
+    }
   }
 
   console.log("CART:", cart)
@@ -64,16 +68,12 @@ export default function ProductCard({ product }:{ product:tProduct }) {
             </div>
             <div className="grid grid-cols-2 gap-2 ml-[18%]">
               <select className="hover:cursor-pointer hover:bg-orange-400 rounded-l-md w-fit" 
-                      ref={ qtySelectRef } onChange={ onChangeSelectProductQty }  defaultValue="1">
+                      ref={ qtySelectRef } onChange={ onChangeSelectProductQty }  defaultValue={currentCartProduct?.qty}>
                       {
                         optionArray.map((qty) => <option key={qty} value={`${qty}`}>{`${qty}`}</option>)
                       }
               </select> 
-              <button 
-                onClick={() => dispatch((addCartItem({qty: Number(qtySelectRef.current?.value), product: product})))}
-                className="productButton">
-                  Add
-              </button>
+              <button onClick={() => dispatch((removeCartItem(product.p_id)))} className="productButton">Remove</button>
             </div>
           </div>
           

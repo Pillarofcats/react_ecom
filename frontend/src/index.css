@@ -39,7 +39,7 @@
   }
 
   .productButton {
-    @apply bg-orange-400 text-white rounded-full px-8 py-2 w-fit font-semibold self-center;
+    @apply bg-orange-400 text-white rounded-full px-4 py-2 w-fit font-semibold self-center;
   }
 
   .formInput {
@@ -47,21 +47,19 @@
   }
 
   .productsContainer {
-    width: 75%;
-    padding: 1rem;
+    width: 85%;
     display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    /* grid-auto-rows: 25rem; */
+    padding: 1rem;
+    gap: 3rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr));
   }
 }
 
 .cartProductsContainer {
-  /* width: 75%; */
   padding: 1rem;
   display: grid;
   gap: 1rem;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 100%));
+  grid-template-columns: repeat(auto-fill, minmax(auto, 100%));
 }
 
 *,

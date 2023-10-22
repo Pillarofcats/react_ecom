@@ -8,7 +8,7 @@ import { tProduct } from "../../backend/types/types"
 export default function ProductCardShort({ product }:{ product:tProduct }) {
 
   return (
-    <div className="flex flex-col items-center gap-1">
+    <div className="flex flex-col items-center gap-1 border-2 border-gray-800 rounded-md">
       <ProductImage src={ `/products/${product.p_id}.jpg` } alt={ product.title }/>
       <ProductTitle title={ product.title }/>
       <ProductStars stars={ product.stars }/>

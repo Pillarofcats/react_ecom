@@ -30,7 +30,7 @@ export default function PageProduct() {
     <div className="flex flex-col gap-5">
       <div className="flex flex-col w-full items-center py-12">
         { currentProduct ?
-            <ProductCard product={ currentProduct } type="buy" />
+            <ProductCard product={ currentProduct }/>
             :
             null
         }
