@@ -10,12 +10,15 @@ import RootLayout from "../components/RootLayout"
 //LIBS
 import { Routes, Route, Navigate } from "react-router-dom"
 
+//<Navigate to="/products" />
 export default function App() {
   
   return (
     <Routes>
       <Route element={<RootLayout />}>
-        <Route path="/" element={ <Navigate to="/products" />} />
+        <Route path="/" element={ <div>Home</div> } />
+        <Route path="/privacy" element={ <h1>PRIVACY</h1> } />
+        <Route path="/tos" element={ <h1>TOS</h1> } />
         <Route path="/products" element={ <PageHome />} />
         <Route path="/products/:pid" element={<PageProduct />} />
         <Route path="/account" element={ <PageUserAccount /> } />

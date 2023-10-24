@@ -1,4 +1,5 @@
 import React, { useRef } from "react"
+import GoogleSignInButton from "../components/GoogleSignInButton"
 import { tSignIn, tSetToggleSignIn } from "../../backend/types/types.js"
 
 
@@ -28,6 +29,7 @@ export default function SignIn({ setToggleSignIn }:tSetToggleSignIn) {
     try {
       const response = await fetch("http://localhost:5000/api/users/signin", {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json"
         },
@@ -60,8 +62,10 @@ export default function SignIn({ setToggleSignIn }:tSetToggleSignIn) {
         <button className="formButton" type="submit">Submit</button>
       </form>
 
-      <p className="text-center">Don't have an account? 
-        <a className="text-orange-300 hover:text-orange-400 hover:cursor-pointer" onClick={() => setToggleSignIn(prev => !prev) }> Sign-up</a>
+      <GoogleSignInButton />
+
+      <p className="text-center">Don't have an account?
+        <button className="font-semibold indent-1 text-sky-300 hover:text-sky-400 hover:cursor-pointer" onClick={() => setToggleSignIn(prev => !prev) }>Sign-up</button>
       </p>
     </div>
   )

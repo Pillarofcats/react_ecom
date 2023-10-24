@@ -39,7 +39,7 @@ export default function NavItemSearch() {
     <div  className="md:flex hidden h-8 self-center min-w-fit w-[50%]">
       <select
         ref={ typeSelectRef }
-        className="bg-orange-300 h-8 hover:cursor-pointer hover:bg-orange-400 rounded-l-md text-black"
+        className=" h-8 hover:cursor-pointer hover:bg-sky-400  rounded-l-md text-black"
         defaultValue={ currentType }
         onChange={ onProductTypeChange }>
           <option value="all">All</option>
@@ -62,7 +62,7 @@ export default function NavItemSearch() {
         />
 
         <button
-          className="px-1 bg-orange-300 h-8 hover:cursor-pointer hover:bg-orange-400 rounded-r-md text-black"
+          className="px-1 h-8 bg-sky-300 hover:cursor-pointer hover:bg-sky-400 rounded-r-md text-black"
           type="submit"
           onClick={() => console.log("Searching")} >
             <BiSearch size={25}/>

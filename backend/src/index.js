@@ -2,6 +2,7 @@
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
+import cookieParser from "cookie-parser";
 import { v4 as uuidv4 } from "uuid";
 //dotenv ESM
 import dotenv from "dotenv";
@@ -15,19 +16,23 @@ const __dirname = path.dirname(__filename);
 import usersRouter from "../routes/usersRouter.js";
 import userInfoRouter from "../routes/userInfoRouter.js";
 import productsRouter from "../routes/productsRouter.js";
+import oauthRouter from "../routes/oauthRouter.js";
 //App
 const expressPORT = process.env.PORT || 5000;
 const app = express();
+app.use("/static", express.static(path.join(__dirname, "public")));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(cors({
     credentials: true,
     origin: ["http://localhost:5173"]
 }));
-app.use("/static", express.static(path.join(__dirname, "public")));
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
 app.use(helmet());
 console.log("uuid", uuidv4());
 //Routes
+//GOOGLE OAUTH URI: http://localhost:5000/api/oauth/google/session
+app.use("/api/oauth", oauthRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/userinfo", userInfoRouter);
 app.use("/api/products", productsRouter);

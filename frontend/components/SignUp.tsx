@@ -1,5 +1,5 @@
 import React, { useRef } from "react"
-import { tSignUp, tSetToggleSignIn } from "../../backend/types/types.js"
+import { tSignUp, tSetToggleSignIn } from "../../backend/types/types"
 
 export default function SignUp({ setToggleSignIn }:tSetToggleSignIn) {
 
@@ -68,7 +68,7 @@ export default function SignUp({ setToggleSignIn }:tSetToggleSignIn) {
       </form>
 
       <p className="text-center">Already have an account? 
-        <a className="text-orange-300 hover:text-orange-400 hover:cursor-pointer" onClick={() => setToggleSignIn(prev => !prev) }> Sign-in</a>
+        <button className="font-semibold indent-1 text-sky-300 hover:text-sky-400 hover:cursor-pointer" onClick={() => setToggleSignIn(prev => !prev) }> Sign-in</button>
       </p>
     </div>
   )

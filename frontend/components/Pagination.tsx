@@ -34,7 +34,7 @@ export default function Pagination({ numPages }:{ numPages: number }) {
         pageNumbers.map((n, i) => {
           return <button key={i} 
                     onClick={() => pageClick(n)} 
-                    className={`${ n === currentPage ? "font-bold text-orange-400" : ""}`}>{ n }
+                    className={`${ n === currentPage ? "font-bold text-sky-400" : ""}`}>{ n }
                 </button>
         })
       }

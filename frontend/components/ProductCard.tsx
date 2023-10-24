@@ -22,10 +22,10 @@ export default function ProductCard({ product }:{ product:tProduct }) {
 
   console.log("CART:", cart)
   return (
-    <div className="flex flex-col border-2 border-gray-800 rounded-md">
+    <div className="flex flex-col border-2 border-[#292F36] rounded-md">
 
       <div className="sm:flex gap-3">
-        <div className="flex flex-col m-5 selected">
+        <div className="flex flex-col m-5">
           <ProductImage src={ `/products/${product.p_id}.jpg` } alt={ product.title }/>
           <div className="self-center">
             <ProductTitle title={ product.title } />
@@ -33,7 +33,7 @@ export default function ProductCard({ product }:{ product:tProduct }) {
           </div>
         </div>
 
-        <div className="flex flex-col justify-center w-full selected">
+        <div className="flex flex-col justify-center w-full">
 
           <div className="cartProductsContainer">
             <div className="col-span-full ml-[18%]">
@@ -63,7 +63,7 @@ export default function ProductCard({ product }:{ product:tProduct }) {
               </div>
             </div>
             <div className="grid grid-cols-2 gap-2 ml-[18%]">
-              <select className="hover:cursor-pointer hover:bg-orange-400 rounded-l-md w-fit" 
+              <select className="hover:cursor-pointer hover:hover:bg-sky-400 rounded-l-md w-fit" 
                       ref={ qtySelectRef } onChange={ onChangeSelectProductQty }  defaultValue="1">
                       {
                         optionArray.map((qty) => <option key={qty} value={`${qty}`}>{`${qty}`}</option>)

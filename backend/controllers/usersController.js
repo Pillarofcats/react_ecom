@@ -1,4 +1,5 @@
 import dbQuery from "../models/db/db.js";
+import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 const userSignUp = async function (req, res) {
     const { username, email, password } = req.body;
@@ -22,6 +23,19 @@ const userSignUp = async function (req, res) {
     return res.status(500);
 };
 const userSignIn = async function (req, res) {
+    console.log("cookies", req.cookies);
+    console.log("signed cookies", req.signedCookies);
+    if (req.signedCookies) {
+        const token = req.signedCookies["3b_uid"];
+        console.log("token", token);
+        try {
+            const userId = jwt.verify(token, process.env.JWT_SECRET);
+            console.log("UserId", userId);
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
     const { email, password } = req.body;
     // console.log("email:", email, "password:", password)
     try {
@@ -36,6 +50,13 @@ const userSignIn = async function (req, res) {
         if (!validPassword)
             return res.status(200).json("Bad password");
         const selectUserInfo = await dbQuery("SELECT * FROM ecom.user_info WHERE u_id = $1", [u_id]);
+        const userIdToken = jwt.sign({ u_id: u_id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const cookieOptions = {
+            maxAge: 1000 * 60 * 60,
+            httpOnly: true,
+            signed: true,
+        };
+        res.cookie("3b_uid", userIdToken, cookieOptions);
         return res.status(200).json(selectUserInfo.rows[0]);
     }
     catch (error) {
