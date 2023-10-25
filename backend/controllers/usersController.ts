@@ -19,7 +19,7 @@ const userSignUp = async function(req:Request, res:Response) {
     const { u_id } = signedUp.rows[0]
     // console.log("user registered", u_id)
 
-    await dbQuery("INSERT INTO ecom.user_info(u_id, username, email) VALUES($1, $2, $3)", [u_id, username, email])
+    await dbQuery("INSERT INTO ecom.user_info(u_id, username, email, firstname, lastname, phone, address, birthday) VALUES($1, $2, $3, $4, $5, $6, $7, $8)", [u_id, username, email, "", "" ,"", "", ""])
     // console.log("insert user info", insertUserInfo.rows[0])
 
     return res.status(200)
@@ -33,29 +33,14 @@ const userSignUp = async function(req:Request, res:Response) {
 
 const userSignIn = async function(req:Request, res:Response) {
 
-  console.log("cookies", req.cookies)
-  console.log("signed cookies", req.signedCookies)
-
-  if(req.signedCookies) {
-    const token = req.signedCookies["3b_uid"]
-    console.log("token", token)
-    try {
-      const userId = jwt.verify(token, process.env.JWT_SECRET)
-      console.log("UserId", userId)
-    } catch(error) {
-      console.log(error)
-    }
-  }
-
   const { email, password }:tSignIn = req.body
-  // console.log("email:", email, "password:", password)
 
   try {
     const signin = await dbQuery("SELECT * FROM ecom.all_users WHERE email = $1", [email])
-    // console.log("login", login.rows)
+
     const hashedPassword = signin.rows[0]?.password
+
     const u_id = signin.rows[0]?.u_id
-    // console.log("HashedPass", hashedPassword)
 
     if(signin.rows.length === 0) return res.status(200).json("Login failed")
 
@@ -69,13 +54,14 @@ const userSignIn = async function(req:Request, res:Response) {
 
     const cookieOptions = {
       maxAge: 1000*60*60,
-      httpOnly: true,
-      signed: true,
+      httpOnly: false,
+      signed: true
     }
 
     res.cookie("3b_uid", userIdToken, cookieOptions)
 
     return res.status(200).json(selectUserInfo.rows[0])
+
   } catch(error) {
     console.error(error)
   }
@@ -83,9 +69,44 @@ const userSignIn = async function(req:Request, res:Response) {
   return res.status(500)
 }
 
+const userAuth = async function(req:Request, res:Response) {
+
+  console.log("cookies", req.cookies)
+  console.log("signed cookies", req.signedCookies)
+
+  if(!req.signedCookies["3b_uid"]) return res.status(401)
+
+  const token = req.signedCookies["3b_uid"]
+  console.log("token", token)
+  
+  let userId
+
+  try {
+    userId = jwt.verify(token, process.env.JWT_SECRET)
+    console.log("UserId", userId)
+  } catch(error) {
+    console.log(error)
+    return res.status(401)
+  }
+
+  type tUserId = {
+    u_id: string
+  }
+  
+  const { u_id } = userId as tUserId
+  console.log("u_id", u_id)
+
+  const selectUserInfo = await dbQuery("SELECT * FROM ecom.user_info WHERE u_id = $1", [u_id])
+
+  console.log("userinfo", selectUserInfo.rows[0])
+
+  return res.status(200).json(selectUserInfo.rows[0])
+}
+
 const usersController = {
   userSignUp,
-  userSignIn
+  userSignIn,
+  userAuth
 }
 
 export default usersController

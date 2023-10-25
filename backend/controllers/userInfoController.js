@@ -15,7 +15,6 @@ const updateUserInfo = async function (req, res) {
     queryValues.push(data.u_id);
     try {
         const updateUserInfo = await dbQuery(`UPDATE ecom.user_info SET ${queryStrings.join(", ")} WHERE u_id = $${queryInitStringNumber} RETURNING *`, queryValues);
-        console.log("Changed Firstname", updateUserInfo.rows[0]);
         return res.status(200).json(updateUserInfo.rows[0]);
     }
     catch (error) {

@@ -13,17 +13,6 @@ type tSetToggleSignIn = {
   setToggleSignIn: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-type tUserAccount = {
-  u_id?: number
-  username?: string,
-  email?: string,
-  firstname?: string,
-  lastname?: string,
-  address?: string,
-  phone?: string,
-  birthday?: string,
-}
-
 type tProduct = {
   p_id: string,
   title: string,
@@ -36,30 +25,56 @@ type tProduct = {
   stars: number
 }
 
+type tCartItem = {
+  qty: number,
+  item: tProduct
+}
+
+type tCartSlice = { 
+  u_id?: number | null,
+  cart: tCartItem[]
+}
+
+type tUserInfo = {
+  u_id?: number,
+  email?: string,
+  username?: string,
+  firstname?: string,
+  lastname?: string,
+  birthday?: string,
+  address?: string,
+  phone?: string,
+  purchases?: tCartItem[],
+  cart?: tCartItem[]
+}
+
 type tParams = (string | number)[]
 
-type tProducts = tProduct[]
-type tDynamicPageProduct = tProduct | null
 type tType = "all" | "apparel" | "cookware" | "cosmetics" | "electronics" | "furniture" | "food" | " instruments" | "jewelry" | "tools" | "toys"
-type tProductsStatus = "pending" | "fulfilled" | "rejected"
-type tProductsError = string | null
+
+type tUserSlice = {
+  user: tUserInfo | null,
+  status: "pending" | "fulfilled" | "rejected",
+  error: string | null
+}
 
 type tProductsSlice = {
-  products: tProducts,
-  dynamicPageProduct: tDynamicPageProduct,
-  status: tProductsStatus,
-  error: tProductsError
+  products: tProduct[],
+  dynamicPageProduct: tProduct | null,
+  status: "pending" | "fulfilled" | "rejected",
+  error: string | null
 }
 
 export type {
   tSignUp,
   tSignIn,
   tSetToggleSignIn,
-  tUserAccount,
   tProduct,
-  tProducts,
   tProductsSlice,
   tType,
-  tDynamicPageProduct,
-  tParams
+  tParams,
+  tCartItem,
+  tCartSlice,
+  tUserInfo,
+  tUserSlice
 }

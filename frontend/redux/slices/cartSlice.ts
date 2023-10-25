@@ -1,15 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
-import { tProduct } from "../../../backend/types/types"
-
-type tCartItem = {
-  qty: number,
-  item: tProduct
-}
-
-type tCartSlice = { 
-  u_id?: number | null,
-  cart: tCartItem[]
-}
+import { tProduct, tCartSlice } from "../../../backend/types/types"
 
 const initialState:tCartSlice = {
   u_id: null,

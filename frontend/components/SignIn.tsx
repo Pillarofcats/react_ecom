@@ -1,9 +1,11 @@
 import React, { useRef } from "react"
 import GoogleSignInButton from "../components/GoogleSignInButton"
 import { tSignIn, tSetToggleSignIn } from "../../backend/types/types.js"
-
+import { useAppDispatch } from "../redux/hooks/default.js"
+import { setUserInfoOnSignIn } from "../redux/slices/userSlice.js"
 
 export default function SignIn({ setToggleSignIn }:tSetToggleSignIn) {
+  const dispatch = useAppDispatch()
 
   const emailRef = useRef<HTMLInputElement>(null)
   const passwordRef = useRef<HTMLInputElement>(null)
@@ -30,6 +32,7 @@ export default function SignIn({ setToggleSignIn }:tSetToggleSignIn) {
       const response = await fetch("http://localhost:5000/api/users/signin", {
         method: "POST",
         credentials: "include",
+        mode: "cors",
         headers: {
           "Content-Type": "application/json"
         },
@@ -37,7 +40,7 @@ export default function SignIn({ setToggleSignIn }:tSetToggleSignIn) {
       })
 
       const data = await response.json()
-      console.log("Login", data)
+      dispatch(setUserInfoOnSignIn(data))
     }
     catch(error) {
       console.log(error)

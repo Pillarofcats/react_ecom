@@ -1,6 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
-import { tProductsSlice, tProducts, tProduct, tType } from "../../../backend/types/types"
+import { tProductsSlice, tProduct, tType } from "../../../backend/types/types"
 
 const initialState:tProductsSlice = {
   products: [],
@@ -9,7 +9,7 @@ const initialState:tProductsSlice = {
   error: null
 }
 
-export const getProducts = createAsyncThunk("queryProducts", async (productType:tType) => {
+export const getProducts = createAsyncThunk("getProducts", async (productType:tType) => {
   const p = { type: productType }
 
   const response = await fetch(`http://localhost:5000/api/products/bytype`, {
@@ -20,15 +20,15 @@ export const getProducts = createAsyncThunk("queryProducts", async (productType:
   return await response.json()
 })
 
-export const getSingleProduct = createAsyncThunk("querySingleProduct", async (pid:number) => {
+export const getSingleProduct = createAsyncThunk("querySingleProduct", async function(pid:number) {
   const p = { pid: pid }
 
-  const response = await fetch(`http://localhost:5000/api/products/singleproduct`, {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify(p)
-  })
-  return await response.json()
+    const response = await fetch(`http://localhost:5000/api/products/singleproduct`, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(p)
+    })
+    return await response.json()
 })
 
 export const productsSlice = createSlice({
@@ -36,16 +36,16 @@ export const productsSlice = createSlice({
   initialState,
   reducers: {
     //Query all products or by type and store in products
-    setProducts: (state, action:PayloadAction<tProducts>) => {
-      state.products = action.payload
-    },
+    // setProducts: (state, action:PayloadAction<tProduct[]>) => {
+    //   state.products = action.payload
+    // },
     //Query individual products and push them intp dynamicPageProducts
     setDynamicPageProducts: (state, action:PayloadAction<tProduct>) => {
       state.dynamicPageProduct = action.payload
     },
   },
   extraReducers:(builder) => {
-    builder.addCase(getProducts.fulfilled, (state, action:PayloadAction<tProducts>) => {
+    builder.addCase(getProducts.fulfilled, (state, action:PayloadAction<tProduct[]>) => {
       state.products = action.payload
       state.status = "fulfilled"
     }),
@@ -70,5 +70,5 @@ export const productsSlice = createSlice({
   }
 })
 
-export const { setProducts, setDynamicPageProducts } = productsSlice.actions
+export const { setDynamicPageProducts } = productsSlice.actions
 export default productsSlice.reducer
