@@ -23,11 +23,11 @@ export default function UserAccount() {
   function handleFormSubmit(e:React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
-    if(!user?.u_id) return
+    if(!user.user?.u_id) return
 
     const data:tUserInfo = {}
 
-    data.u_id = user.u_id
+    data.u_id = user.user?.u_id
 
     if(usernameRef.current?.value) {
       data.username = usernameRef.current.value
