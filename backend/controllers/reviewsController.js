@@ -12,7 +12,20 @@ const productReview = async function (req, res) {
     }
     res.status(500);
 };
+const addReview = async function (req, res) {
+    const { p_id, u_id, username, review, stars } = req.body;
+    console.log("review", review);
+    try {
+        const addedReview = await dbQuery("INSERT INTO ecom.product_reviews (p_id, u_id, username, review, stars) VALUES($1, $2, $3, $4, $5) RETURNING *", [p_id, u_id, username, review, stars]);
+        res.status(200).json(addedReview.rows[0]);
+    }
+    catch (error) {
+        console.error("Failed to get reviews", error);
+    }
+    res.status(500);
+};
 const reviewsController = {
-    productReview
+    productReview,
+    addReview
 };
 export default reviewsController;

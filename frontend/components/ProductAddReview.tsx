@@ -1,11 +1,14 @@
 import React, { useRef, useState } from "react"
 import { tReview } from "../../backend/types/types"
 import { AiFillStar, AiOutlineStar } from "react-icons/ai"
+import { useDispatch } from "react-redux"
+import { addReview } from "../redux/slices/reviewsSlice"
 
 export default function ProductAddReview({u_id, p_id, username,}:{u_id:number|undefined, p_id:string|undefined, username:string|undefined}) {
 
   console.log("review props:", u_id, p_id, username)
-  
+  const dispatch = useDispatch()
+
   const [hoverStars, setHoverStars] = useState<number>(0)
   console.log("hover stars", hoverStars)
 
@@ -25,24 +28,21 @@ export default function ProductAddReview({u_id, p_id, username,}:{u_id:number|un
     userReview.review = reviewRef.current.value
     userReview.stars = stars
 
-    console.log("review", userReview)
-
     submitReview(userReview)
   }
 
   async function submitReview(userReview:tReview) {
     try {
-      const response = await fetch("URL", {
+      const response = await fetch("http://localhost:5000/api/reviews/addreview", {
         method: "POST",
         credentials: "include",
         mode: "cors",
         headers: {"Content-Type":"application/json"},
         body: JSON.stringify(userReview)
       })
-      
       const data = await response.json()
-      console.log("submitReview Response", data)
-      return data
+      console.log("added Review", data)
+      dispatch(addReview(data))
     } catch(error) {
       console.error("Submit review error", error)
     }

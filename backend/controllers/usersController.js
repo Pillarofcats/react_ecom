@@ -13,7 +13,7 @@ const userSignUp = async function (req, res) {
         const signedUp = await dbQuery("INSERT INTO ecom.all_users (username, email, password) VALUES($1, $2, $3) RETURNING u_id", [username, email, hashedPassword]);
         const { u_id } = signedUp.rows[0];
         // console.log("user registered", u_id)
-        await dbQuery("INSERT INTO ecom.user_info(u_id, username, email, firstname, lastname, phone, address, birthday) VALUES($1, $2, $3, $4, $5, $6, $7, $8)", [u_id, username, email, "", "", "", "", ""]);
+        await dbQuery("INSERT INTO ecom.user_info (u_id, username, email, firstname, lastname, phone, address, birthday) VALUES($1, $2, $3, $4, $5, $6, $7, $8)", [u_id, username, email, "", "", "", "", ""]);
         // console.log("insert user info", insertUserInfo.rows[0])
         return res.status(200);
     }
@@ -40,6 +40,8 @@ const userSignIn = async function (req, res) {
             httpOnly: false,
             signed: true
         };
+        console.log("signed in yay.");
+        res.clearCookie("3b_uid");
         res.cookie("3b_uid", userIdToken, cookieOptions);
         return res.status(200).json(selectUserInfo.rows[0]);
     }

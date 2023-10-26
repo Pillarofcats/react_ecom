@@ -27,7 +27,11 @@ export const getProductReviews = createAsyncThunk("getProductReviews", async fun
 const reviewsSlice = createSlice({
   name: "reviews",
   initialState,
-  reducers: {},
+  reducers: {
+    addReview: (state, action:PayloadAction<tReview>) => {
+      state.reviews.push(action.payload)
+    }
+  },
   extraReducers:(builder) => {
       builder.addCase(getProductReviews.fulfilled, (state, action:PayloadAction<tReview[]>) => {
       state.reviews = action.payload
@@ -43,5 +47,5 @@ const reviewsSlice = createSlice({
   }
 })
 
-// export const { } = reviewsSlice.actions
+export const { addReview } = reviewsSlice.actions
 export default reviewsSlice.reducer

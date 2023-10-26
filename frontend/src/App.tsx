@@ -20,7 +20,7 @@ export default function App() {
   return (
     <Routes>
       <Route element={<RootLayout />}>
-        <Route path="/" element={ <div>Home</div> } />
+        <Route path="/" element={ <Navigate to="/products" /> } />
         <Route path="/privacy" element={ <h1>PRIVACY</h1> } />
         <Route path="/tos" element={ <h1>TOS</h1> } />
         <Route path="/products" element={ <PageHome />} />
