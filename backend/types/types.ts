@@ -30,11 +30,6 @@ type tCartItem = {
   item: tProduct
 }
 
-type tCartSlice = { 
-  u_id?: number | null,
-  cart: tCartItem[]
-}
-
 type tUserInfo = {
   u_id?: number,
   email?: string,
@@ -48,21 +43,37 @@ type tUserInfo = {
   cart?: tCartItem[]
 }
 
-type tParams = (string | number)[]
+type tReview = {
+  u_id: number,
+  p_id: number,
+  username: string,
+  review: string,
+  stars: number
+}
 
+type tParams = (string | number)[]
 type tType = "all" | "apparel" | "cookware" | "cosmetics" | "electronics" | "furniture" | "food" | " instruments" | "jewelry" | "tools" | "toys"
 
+//Redux toolkit state slice types
 type tUserSlice = {
   user: tUserInfo | null,
   status: "pending" | "fulfilled" | "rejected",
   error: string | null
 }
-
 type tProductsSlice = {
   products: tProduct[],
   dynamicPageProduct: tProduct | null,
   status: "pending" | "fulfilled" | "rejected",
   error: string | null
+}
+type tReviewsSlice = {
+  reviews: tReview[],
+  status: "pending" | "fulfilled" | "rejected",
+  error: string | null
+}
+type tCartSlice = { 
+  u_id?: number | null,
+  cart: tCartItem[]
 }
 
 export type {
@@ -76,5 +87,7 @@ export type {
   tCartItem,
   tCartSlice,
   tUserInfo,
-  tUserSlice
+  tUserSlice,
+  tReview,
+  tReviewsSlice
 }

@@ -22,10 +22,10 @@ export default function ProductCard({ product }:{ product:tProduct }) {
 
   console.log("CART:", cart)
   return (
-    <div className="flex flex-col border-2 border-[#292F36] rounded-md">
+    <div className="flex flex-col border-2 border-[#292F36] rounded-md md:w-[70%]">
 
-      <div className="sm:flex gap-3">
-        <div className="flex flex-col m-5">
+      <div className="sm:flex gap-3 p-2">
+        <div className="flex flex-col">
           <ProductImage src={ `/products/${product.p_id}.jpg` } alt={ product.title }/>
           <div className="self-center">
             <ProductTitle title={ product.title } />

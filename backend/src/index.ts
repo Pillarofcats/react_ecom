@@ -18,6 +18,7 @@ import usersRouter from "../routes/usersRouter.js"
 import userInfoRouter from "../routes/userInfoRouter.js"
 import productsRouter from "../routes/productsRouter.js"
 import oauthRouter from "../routes/oauthRouter.js"
+import reviewsRouter from "../routes/reviewsRouter.js"
 
 //App
 const expressPORT = process.env.PORT || 5000
@@ -39,16 +40,18 @@ app.use(helmet())
 
 //Routes
 //GOOGLE OAUTH URI: http://localhost:5000/api/oauth/google/session
+app.use("/api/reviews", reviewsRouter)
 app.use("/api/oauth", oauthRouter)
 app.use("/api/users", usersRouter)
 app.use("/api/userinfo", userInfoRouter)
 app.use("/api/products", productsRouter)
 
 
+
 // app.get("/", (req:Request, res:Response) => {
 //   res.status(200).json("got it")
 // })
-
+console.log("is this the end")
 app.use("*", (req:express.Request, res:express.Response) => {
   res.send("404")
 })
