@@ -25,10 +25,10 @@ export default function ProductCard({ product }:{ product:tProduct }) {
     <div className="flex flex-col border-2 border-[#292F36] rounded-md md:w-[70%]">
 
       <div className="sm:flex gap-3 p-2">
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-2">
           <ProductImage src={ `/products/${product.p_id}.jpg` } alt={ product.title }/>
-          <div className="self-center">
-            <ProductTitle title={ product.title } />
+          <div className="flex flex-col items-center gap-1">
+            <ProductTitle title={ product.title }/>
             <ProductStars stars={ product.stars }/>
           </div>
         </div>
