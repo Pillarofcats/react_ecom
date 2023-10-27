@@ -3,6 +3,8 @@ import ProductCard from "../components/ProductCard"
 import ProductReviews from "../components/ProductReviews"
 import ProductAddReview from "../components/ProductAddReview"
 
+import cookieAuth from "../utility/cookieAuth"
+
 import { useParams } from "react-router-dom"
 
 import { shallowEqual } from "react-redux"
@@ -20,7 +22,8 @@ export default function PageProduct() {
   const { dynamicPageProduct } = useAppSelector((state) => state.products, shallowEqual)
   const dispatch = useAppDispatch()
 
-  console.log("reviews", reviews.reviews)
+  const hasUserMadeReview = reviews.reviews.find((review) => review?.u_id === user?.u_id)
+  console.log("made review?", hasUserMadeReview)
 
   const currentProduct = dynamicPageProduct
   console.log("currentProduct", currentProduct)
@@ -46,8 +49,12 @@ export default function PageProduct() {
         }
       </div>
 
-      <div className="md:flex">
-        <ProductAddReview u_id={user?.u_id} p_id={pid} username={user?.username} />
+      <div className="md:flex justify-center">
+        { !hasUserMadeReview && cookieAuth() ?
+            <ProductAddReview u_id={user?.u_id} p_id={pid} username={user?.username} />
+            :
+            null
+        }
 
         { reviews ? 
             <ProductReviews rev={ reviews } />

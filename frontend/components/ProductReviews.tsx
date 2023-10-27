@@ -4,7 +4,7 @@ import ProductStars from "./ProductStars"
 export default function ProductReviews({ rev }:{rev:tReviewsSlice}) {
 
   return (
-    <div className="flex flex-1 flex-col gap-2 items-center p-2">
+    <div className="flex flex-col gap-2 items-center w-full md:w-[50%] p-2">
       <label className="text-2xl">Product Reviews</label>
       {
         rev.reviews.map((rev,i) => {
@@ -14,6 +14,8 @@ export default function ProductReviews({ rev }:{rev:tReviewsSlice}) {
               <p>{`${rev?.username}`}</p>
               <p>Stars:</p>
               <ProductStars stars={rev?.stars}/>
+              <p>Date:</p>
+              <p>{`${rev?.r_date}`.slice(0,10)}</p>
               <p>Review:</p>
               <p>{`${rev?.review}`}</p>
             </div>

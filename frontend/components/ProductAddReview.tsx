@@ -1,13 +1,14 @@
 import React, { useRef, useState } from "react"
 import { tReview } from "../../backend/types/types"
 import { AiFillStar, AiOutlineStar } from "react-icons/ai"
-import { useDispatch } from "react-redux"
+import { useAppDispatch } from "../redux/hooks/default"
 import { addReview } from "../redux/slices/reviewsSlice"
+import { getSingleProduct } from "../redux/slices/productsSlice"
 
 export default function ProductAddReview({u_id, p_id, username,}:{u_id:number|undefined, p_id:string|undefined, username:string|undefined}) {
 
   console.log("review props:", u_id, p_id, username)
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   const [hoverStars, setHoverStars] = useState<number>(0)
   console.log("hover stars", hoverStars)
@@ -42,6 +43,8 @@ export default function ProductAddReview({u_id, p_id, username,}:{u_id:number|un
       })
       const data = await response.json()
       console.log("added Review", data)
+
+      dispatch(getSingleProduct( data.p_id ))
       dispatch(addReview(data))
     } catch(error) {
       console.error("Submit review error", error)
@@ -63,7 +66,7 @@ export default function ProductAddReview({u_id, p_id, username,}:{u_id:number|un
   }
 
   return (
-    <div className="flex flex-col items-center  gap-2 w-full md:w-[75%] flex-1 p-2">
+    <div className="flex flex-col items-center gap-2 w-full md:w-[50%] p-2">
       <label className="text-2xl" htmlFor="review">Rate and Review</label>
 
       <div onMouseLeave={() => starContainerOnMouseLeave()} className="flex justify-center gap-2">
