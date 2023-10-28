@@ -32,7 +32,7 @@ export default function PageProduct() {
     console.log("Product Page #")
     dispatch(getProductReviews( Number(pid) ))
     dispatch(getSingleProduct( Number(pid) ))
-  }, [])
+  }, [pid, dispatch])
 
 
   if(!pid || !user) return null

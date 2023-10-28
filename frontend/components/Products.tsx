@@ -18,14 +18,19 @@ export default function Products() {
   const { products } = useAppSelector( (state) => state.products, shallowEqual)
   const dispatch = useAppDispatch()
 
-  const { currentPage, currentType } = useURLParams()
+  const { currentSearch, currentPage, currentType } = useURLParams()
 
   const pageRange = 10
   const pagePointerStart = (currentPage * pageRange) - pageRange
   const pagePointerEnd = currentPage * pageRange
 
-  const numPages = useMemo(() => Math.ceil(products.length / pageRange), [products.length])
-  const filterProductsCurrentPage = useMemo(() => products.slice(pagePointerStart, pagePointerEnd), [products, pagePointerStart, pagePointerEnd])
+  console.log("currentSearch", currentSearch)
+  
+  const filteredProductsBySearch = useMemo(() => products.filter((product) => product.title.toLowerCase().includes(currentSearch.toLowerCase())), [products, currentSearch])
+
+  const filterProductsCurrentPage = useMemo(() => filteredProductsBySearch.slice(pagePointerStart, pagePointerEnd), [filteredProductsBySearch, pagePointerStart, pagePointerEnd])
+
+  const numPages = useMemo(() => Math.ceil(filteredProductsBySearch.length / pageRange), [filteredProductsBySearch.length])
 
   useEffect(() => {
     if(!currentType) return

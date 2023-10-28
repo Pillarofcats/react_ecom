@@ -1,6 +1,8 @@
 import { BiSearch } from "react-icons/bi"
-import { useNavigate, useLocation} from "react-router-dom"
-import { useEffect, useRef } from "react"
+import { useNavigate, useLocation } from "react-router-dom"
+import { useEffect, useRef, useState, useMemo } from "react"
+import { useAppSelector } from "../redux/hooks/default"
+import NavLocalSearchProducts from "../components/NavLocalSearchProducts"
 
 import useURLParams from "../hooks/useURLParams"
 
@@ -9,20 +11,48 @@ export default function NavItemSearch() {
 
   const navigate = useNavigate()
   const location = useLocation()
-  const { currentType, queryParams } = useURLParams()
-  const typeSelectRef = useRef<HTMLSelectElement>(null)
 
-  function handleFormSubmit(e:React.FormEvent<HTMLFormElement>) {
+  const { products } = useAppSelector((state) => state.products)
+
+  const [localSearch, setLocalSearch] = useState<string>("")
+
+  const filteredProductsByLocalSearch = useMemo(() => products.filter((product) => product.title.toLowerCase().includes(localSearch.toLowerCase())).slice(0,5), [localSearch, products] )
+
+  console.log("localSearch", localSearch)
+  // const [searchParam, setSearchParam] = useSearchParams()
+
+  const { currentType, queryParams } = useURLParams()
+
+  const typeSelectRef = useRef<HTMLSelectElement>(null)
+  const localSearchInputRef = useRef<HTMLInputElement>(null)
+
+  function handleSearchFormSubmit(e:React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    console.log("searching for...")
+    if (document.activeElement !== localSearchInputRef.current) return
+    console.log("SEARCH SUBMIT", localSearch)
+    // navigate(`/products?${queryParams.toString()}`)
   }
 
   function onProductTypeChange(e:React.ChangeEvent<HTMLSelectElement>) {
     queryParams.set("page", "1")
     queryParams.set("type", `${e.target.value}`)
-    navigate(`/products?${queryParams.toString()}`);
-    return currentType
+    navigate(`/products?${queryParams.toString()}`)
+    // return currentType
   }
+
+
+  function onSearchChange(e:React.ChangeEvent<HTMLInputElement>) {
+    console.log("Search", e.target.value)
+    setLocalSearch(e.target.value)
+  }
+
+  // function onSearchChange(e:React.ChangeEvent<HTMLInputElement>) {
+  //   console.log("Search", e.target.value)
+  //   setSearchParam((prev) => {
+  //     prev.set("search", `${e.target.value}`)
+  //     return prev
+  //   }, { replace: true })
+  // }
 
   useEffect(() => {
     //Reset product type when navigating outside of /products or query params are default
@@ -55,16 +85,25 @@ export default function NavItemSearch() {
           <option value="toys">Toys</option>
       </select>
 
-      <form className="flex flex-1" onSubmit={ handleFormSubmit }>
+      <form className="relative flex flex-1" onSubmit={ handleSearchFormSubmit }>
+
         <input
+          ref={localSearchInputRef}
+          onChange={ onSearchChange }
           className="w-full text-black h-8 indent-2 font-medium"
+          value={ localSearch }
           type="text" name="search" id="search" placeholder={`Search.. `}
         />
 
+        { localSearch ?
+            <NavLocalSearchProducts filteredLocalSearchProducts={filteredProductsByLocalSearch} setLocalSearch={setLocalSearch} />
+            :
+            null
+        }
+
         <button
           className="px-1 h-8 bg-sky-300 hover:cursor-pointer hover:bg-sky-400 rounded-r-md text-black"
-          type="submit"
-          onClick={() => console.log("Searching")} >
+          type="submit">
             <BiSearch size={25}/>
         </button>
       </form>

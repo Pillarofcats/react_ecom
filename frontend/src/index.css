@@ -16,9 +16,10 @@
   } */
 
   a,
-  select,
-  button,
-  input {
+  select, 
+  input,
+  button
+  {
     @apply nav-focus;
   }
 
