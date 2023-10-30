@@ -35,7 +35,7 @@ export default function PageProduct() {
   }, [pid, dispatch])
 
 
-  if(!pid || !user) return null
+  // if(!pid || !user) return null
 
   return (
     <div className="flex flex-1 flex-col justify-center gap-5">
