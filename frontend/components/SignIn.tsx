@@ -3,6 +3,7 @@ import GoogleSignInButton from "../components/GoogleSignInButton"
 import { tSignIn, tSetToggleSignIn } from "../../backend/types/types.js"
 import { useAppDispatch } from "../redux/hooks/default.js"
 import { setUserInfoOnSignIn } from "../redux/slices/userSlice.js"
+import { redirect } from "react-router"
 
 export default function SignIn({ setToggleSignIn }:tSetToggleSignIn) {
   const dispatch = useAppDispatch()
@@ -41,6 +42,7 @@ export default function SignIn({ setToggleSignIn }:tSetToggleSignIn) {
 
       const data = await response.json()
       dispatch(setUserInfoOnSignIn(data))
+      redirect("/sign-in")
     }
     catch(error) {
       console.log(error)

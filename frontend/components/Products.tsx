@@ -1,12 +1,6 @@
-import { useEffect, useMemo } from "react"
-// import { useNavigate } from "react-router-dom"
-
+import { useMemo } from "react"
 import { shallowEqual } from "react-redux"
-import { useAppSelector, useAppDispatch } from "../redux/hooks/default"
-import { getProducts } from "../redux/slices/productsSlice"
-
-import { tType } from "../../backend/types/types"
-
+import { useAppSelector } from "../redux/hooks/default"
 import useURLParams from "../hooks/useURLParams"
 
 import Product from "../components/Product"
@@ -16,9 +10,7 @@ export default function Products() {
   console.log("Render Products")
 
   const { products } = useAppSelector( (state) => state.products, shallowEqual)
-  const dispatch = useAppDispatch()
-
-  const { currentSearch, currentPage, currentType } = useURLParams()
+  const { currentSearch, currentPage } = useURLParams()
 
   const pageRange = 10
   const pagePointerStart = (currentPage * pageRange) - pageRange
@@ -31,11 +23,6 @@ export default function Products() {
   const filterProductsCurrentPage = useMemo(() => filteredProductsBySearch.slice(pagePointerStart, pagePointerEnd), [filteredProductsBySearch, pagePointerStart, pagePointerEnd])
 
   const numPages = useMemo(() => Math.ceil(filteredProductsBySearch.length / pageRange), [filteredProductsBySearch.length])
-
-  useEffect(() => {
-    if(!currentType) return
-    dispatch(getProducts(currentType as tType))
-  }, [currentType, dispatch])
 
   return (
     <>

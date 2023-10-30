@@ -1,5 +1,5 @@
 import NavItemLogo from "./NavItemLogo"
-import NavItemSearch from "./NavItemSearch"
+import NavItemSearch from "./NavItemSearch/NavItemSearch"
 import NavItemPageLinks from "./NavItemPageLinks"
 import NavItemCart from "./NavItemCart"
 
