@@ -9,10 +9,6 @@ type tSignIn = {
   password: string;
 }
 
-type tSetToggleSignIn = {
-  setToggleSignIn: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
 type tProduct = {
   p_id: string,
   title: string,
@@ -80,7 +76,6 @@ type tCartSlice = {
 export type {
   tSignUp,
   tSignIn,
-  tSetToggleSignIn,
   tProduct,
   tProductsSlice,
   tType,
