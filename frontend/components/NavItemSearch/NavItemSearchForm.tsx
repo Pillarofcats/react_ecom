@@ -4,7 +4,7 @@ import { BiSearch } from "react-icons/bi"
 
 import NavItemLocalSearchProducts from "./NavItemLocalSearchProducts"
 
-export default function NavItemLocalSearchForm({ localSearch, setLocalSearch, toggleLocalSearch, setToggleLocalSearch, filteredProductsByLocalSearch }:{ localSearch:string, setLocalSearch:React.Dispatch<React.SetStateAction<string>>, toggleLocalSearch:boolean, setToggleLocalSearch:React.Dispatch<React.SetStateAction<boolean>>, filteredProductsByLocalSearch:tProduct[] }) {
+export default function NavItemSearchForm({ localSearch, setLocalSearch, toggleLocalSearch, setToggleLocalSearch, filteredProductsByLocalSearch }:{ localSearch:string, setLocalSearch:React.Dispatch<React.SetStateAction<string>>, toggleLocalSearch:boolean, setToggleLocalSearch:React.Dispatch<React.SetStateAction<boolean>>, filteredProductsByLocalSearch:tProduct[] }) {
 
   const localSearchInputRef = useRef<HTMLInputElement>(null)
   const formSearchRef = useRef<HTMLFormElement>(null)

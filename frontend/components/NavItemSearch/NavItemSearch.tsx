@@ -4,7 +4,7 @@ import { getProducts } from "../../redux/slices/productsSlice"
 import { tType } from "../../types/types"
 
 import NavItemSearchTypeSelect from "./NavItemSearchTypeSelect"
-import NavItemLocalSearchForm from "./NavItemSearchForm"
+import NavItemSearchForm from "./NavItemSearchForm"
 
 import useURLParams from "../../hooks/useURLParams"
 
@@ -24,8 +24,8 @@ export default function NavItemSearch() {
 
 
   const filteredProductsByLocalSearch = useMemo(() => {
-    if(!products) return []
-    products.filter((product) => product.title.toLowerCase().includes(localSearch.toLowerCase())).slice(0,5)
+    // if(!products) return [] as tProduct[]
+    return products.filter((product) => product.title.toLowerCase().includes(localSearch.toLowerCase())).slice(0,5)
   }, [localSearch, products])
 
   useEffect(() => {
@@ -39,7 +39,7 @@ export default function NavItemSearch() {
         currentType={currentType}
         queryParams={queryParams}/>
 
-      <NavItemLocalSearchForm 
+      <NavItemSearchForm 
         localSearch={localSearch}
         setLocalSearch={setLocalSearch}
         toggleLocalSearch={toggleLocalSearch}
