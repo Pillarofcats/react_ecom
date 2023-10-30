@@ -1,12 +1,36 @@
 import ProductCardCart from "./ProductCardCart"
-import { useAppSelector } from "../redux/hooks/default"
+import { useAppSelector, useAppDispatch } from "../redux/hooks/default"
+import { clearCart } from "../redux/slices/cartSlice"
 
 export default function UserCart() {
 
   const cart = useAppSelector((state) => state.cart.cart)
+  const dispatch = useAppDispatch()
+
   const totalPrice = cart.reduce((acc, curr) => {
     return acc + (curr.item.price_cent * curr.qty)
   }, 0)
+
+  async function purchase() {
+
+    if(!cart) return
+
+    try {
+      const response = await fetch("http://localhost:5000/api/products/purchase", {
+        method: "POST",
+        mode: "cors",
+        credentials: "include",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({cart:cart})
+      })
+
+      const data = await response.json()
+      console.log("successful purchase", data)
+      dispatch(clearCart())
+    } catch(error) {
+      console.log("error")
+    }
+  }
 
   return (
     <div className="flex flex-col gap-5">
@@ -24,9 +48,10 @@ export default function UserCart() {
         }
       </div>
       
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center gap-2">
         <h1 className="text-center text-3xl font-semibold">Total Price</h1>
         <p>{`Total Price: $${(totalPrice * .01).toFixed(2)}`}</p>
+        <button className="productButton" onClick={() => purchase() }>Buy</button>
       </div>
       
     </div>

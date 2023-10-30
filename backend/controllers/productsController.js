@@ -25,8 +25,14 @@ const singleProduct = async function (req, res) {
     }
     res.status(500);
 };
+const purchase = async function (req, res) {
+    const { cart } = req.body;
+    console.log("purchase", cart[0]);
+    res.status(200).json(cart[0]);
+};
 const productsController = {
     byType,
-    singleProduct
+    singleProduct,
+    purchase
 };
 export default productsController;
