@@ -8,7 +8,7 @@ const initialState:tReviewsSlice = {
 }
 
 export const getProductReviews = createAsyncThunk("getProductReviews", async function(pid:number) {
-  try {
+  // try {
     const response = await fetch("http://localhost:5000/api/reviews/productreview", {
       method: "POST",
       mode: "cors",
@@ -19,9 +19,9 @@ export const getProductReviews = createAsyncThunk("getProductReviews", async fun
     const data = await response.json()
     console.log("Product Reviews", data)
     return data
-  } catch(error) {
-    console.error("Failed to get product reviews", error)
-  }
+  // } catch(error) {
+  //   console.log("Failed to get product reviews")
+  // }
 })
 
 const reviewsSlice = createSlice({
