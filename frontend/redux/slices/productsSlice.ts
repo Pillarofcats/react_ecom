@@ -40,10 +40,6 @@ export const productsSlice = createSlice({
   reducers: {},
   extraReducers:(builder) => {
     builder.addCase(getProducts.fulfilled, (state, action:PayloadAction<tProduct[]>) => {
-      if(!action.payload) {
-        state.products = []
-        return
-      }
       state.products = action.payload
       state.status = "fulfilled"
     }),
