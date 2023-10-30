@@ -12,10 +12,14 @@ export const cartSlice = createSlice({
   reducers: {
     addCartItem: (state, action:PayloadAction<{qty:number, product:tProduct}>) => {
       const productIndex = state.cart.findIndex((item) => item.item.p_id === action.payload.product.p_id)
+      
       if(productIndex >= 0) {
-        const updatedQty = state.cart[productIndex].qty + action.payload.qty
-        console.log("UPDATED QTY", updatedQty)
-        state.cart[productIndex].qty = updatedQty
+        const productQtyCart = state.cart[productIndex].qty
+        const productQtyAdded = action.payload.qty
+        const updatedProductQty = productQtyCart + productQtyAdded
+        if(updatedProductQty > state.cart[productIndex].item.quantity) {
+          state.cart[productIndex].qty = state.cart[productIndex].item.quantity
+        } else state.cart[productIndex].qty = updatedProductQty
       } else {
         state.cart.push({qty:action.payload.qty, item:action.payload.product})
       }

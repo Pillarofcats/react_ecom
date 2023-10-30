@@ -4,12 +4,11 @@ import ProductStars from "../components/ProductStars"
 
 import { tProduct } from "../types/types"
 import { useRef } from "react"
-import { useAppDispatch, useAppSelector } from "../redux/hooks/default"
+import { useAppDispatch } from "../redux/hooks/default"
 import { addCartItem } from "../redux/slices/cartSlice"
 
 export default function ProductCard({ product }:{ product:tProduct }) {
 
-  const cart = useAppSelector((state) => state.cart.cart)
   const dispatch = useAppDispatch()
 
   const qtySelectRef = useRef<HTMLSelectElement>(null)
@@ -20,7 +19,6 @@ export default function ProductCard({ product }:{ product:tProduct }) {
     if(qtySelectRef.current) qtySelectRef.current.value = e.target.value
   }
 
-  console.log("CART:", cart)
   return (
     <div className="flex flex-col border-2 border-[#292F36] rounded-md md:w-[70%]">
 
@@ -62,6 +60,12 @@ export default function ProductCard({ product }:{ product:tProduct }) {
                 <p>{ `${ product.quantity}` }</p>
               </div>
             </div>
+
+            { product.quantity === 0 ?
+            <div className="grid grid-cols-1 ml-[18%]">
+              <label className=" text-red-500">Sold Out</label>
+            </div>
+            :
             <div className="grid grid-cols-2 gap-2 ml-[18%]">
               <select className="hover:cursor-pointer hover:hover:bg-sky-400 rounded-l-md w-fit" 
                       ref={ qtySelectRef } onChange={ onChangeSelectProductQty }  defaultValue="1">
@@ -75,6 +79,7 @@ export default function ProductCard({ product }:{ product:tProduct }) {
                   Add
               </button>
             </div>
+            }
           </div>
           
         </div>

@@ -1,6 +1,7 @@
 import ProductCardCart from "./ProductCardCart"
 import { useAppSelector, useAppDispatch } from "../redux/hooks/default"
 import { clearCart } from "../redux/slices/cartSlice"
+// import { tCartItem } from "../types/types"
 
 export default function UserCart() {
 
@@ -24,9 +25,13 @@ export default function UserCart() {
         body: JSON.stringify({cart:cart})
       })
 
-      const data = await response.json()
-      console.log("successful purchase", data)
-      dispatch(clearCart())
+      console.log("response", response)
+
+      if(response.ok) {
+        console.log("successful purchase")
+        dispatch(clearCart())
+      }
+      
     } catch(error) {
       console.log("error")
     }
@@ -51,7 +56,7 @@ export default function UserCart() {
       <div className="flex flex-col items-center gap-2">
         <h1 className="text-center text-3xl font-semibold">Total Price</h1>
         <p>{`Total Price: $${(totalPrice * .01).toFixed(2)}`}</p>
-        <button className="productButton" onClick={() => purchase() }>Buy</button>
+        <button className="productButton" onClick={ purchase }>Buy</button>
       </div>
       
     </div>

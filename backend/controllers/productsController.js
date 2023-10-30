@@ -27,8 +27,23 @@ const singleProduct = async function (req, res) {
 };
 const purchase = async function (req, res) {
     const { cart } = req.body;
-    console.log("purchase", cart[0]);
-    res.status(200).json(cart[0]);
+    const queryValues = [];
+    let updatedProductQuantity;
+    for (const index in cart) {
+        updatedProductQuantity = cart[index].item.quantity - cart[index].qty;
+        queryValues.push([updatedProductQuantity, cart[index].item.p_id]);
+    }
+    //updatePurchasedProducts
+    try {
+        for (const index in queryValues) {
+            console.log("updated Qty:", queryValues[index]);
+            await dbQuery(`UPDATE ecom.all_products SET quantity = $1 WHERE p_id = $2`, queryValues[index]);
+        }
+    }
+    catch (error) {
+        console.log("Error updating product quantity");
+    }
+    return res.status(200).end();
 };
 const productsController = {
     byType,
