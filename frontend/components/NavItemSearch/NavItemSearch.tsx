@@ -22,7 +22,7 @@ export default function NavItemSearch() {
   // const [toggleSearchByStars, setToggleSearchByStars] = useState(false)
   // const [toggleSearchByPrice, setToggleSearchByPrice] = useState(false)
   
-  const filteredProductsByLocalSearch = useMemo(() => products.filter((product) => product.title.toLowerCase().includes(localSearch.toLowerCase())).slice(0,5) || [], [localSearch, products])
+  const filteredProductsByLocalSearch = useMemo(() => products?.filter((product) => product.title.toLowerCase().includes(localSearch.toLowerCase())).slice(0,5), [localSearch, products])
 
   useEffect(() => {
     if(!currentType) return
