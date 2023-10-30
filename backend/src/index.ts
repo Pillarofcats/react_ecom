@@ -46,8 +46,6 @@ app.use("/api/users", usersRouter)
 app.use("/api/userinfo", userInfoRouter)
 app.use("/api/products", productsRouter)
 
-
-
 // app.get("/", (req:Request, res:Response) => {
 //   res.status(200).json("got it")
 // })
