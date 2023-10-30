@@ -1,4 +1,4 @@
-import { tReviewsSlice } from "../../backend/types/types"
+import { tReviewsSlice } from "../types/types"
 import ProductStars from "./ProductStars"
 
 export default function ProductReviews({ rev }:{rev:tReviewsSlice}) {

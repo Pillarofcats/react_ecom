@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react"
-import { tUserInfo } from "../../backend/types/types"
+import { tUserInfo } from "../types/types"
 import { useAppSelector, useAppDispatch } from "../redux/hooks/default"
 import { setUserInfoOnSignIn } from "../redux/slices/userSlice"
 import { Navigate } from "react-router-dom"

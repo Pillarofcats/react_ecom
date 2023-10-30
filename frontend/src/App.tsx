@@ -5,14 +5,12 @@ import PageSignIn from "../pages/PageSignIn"
 import PageCart from "../pages/PageCart"
 import PageProduct from "../pages/PageProduct"
 //COMPONENTS
-// import Navbar from "../components/Navbar"
 import RootLayout from "../components/RootLayout"
 //LIBS
 import { Routes, Route, Navigate } from "react-router-dom"
 
 import useAuthUser from "../hooks/useAuthUser"
 
-//<Navigate to="/products" />
 export default function App() {
 
   useAuthUser()

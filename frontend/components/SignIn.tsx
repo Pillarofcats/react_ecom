@@ -1,6 +1,6 @@
 import React, { useRef } from "react"
 import GoogleSignInButton from "../components/GoogleSignInButton"
-import { tSignIn, tSetToggleSignIn } from "../../backend/types/types.js"
+import { tSignIn, tSetToggleSignIn } from "../types/types"
 import { useAppDispatch } from "../redux/hooks/default.js"
 import { setUserInfoOnSignIn } from "../redux/slices/userSlice.js"
 import { redirect } from "react-router"

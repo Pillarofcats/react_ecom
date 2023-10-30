@@ -1,5 +1,5 @@
 import ProductCardShort from "../components/ProductCardShort"
-import { tProduct } from "../../backend/types/types"
+import { tProduct } from "../types/types"
 
 import { useNavigate } from "react-router-dom"
 

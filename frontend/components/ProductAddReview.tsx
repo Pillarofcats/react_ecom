@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react"
-import { tReview } from "../../backend/types/types"
+import { tReview } from "../types/types"
 import { AiFillStar, AiOutlineStar } from "react-icons/ai"
 import { useAppDispatch } from "../redux/hooks/default"
 import { addReview } from "../redux/slices/reviewsSlice"

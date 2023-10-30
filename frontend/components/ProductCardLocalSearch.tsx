@@ -1,4 +1,4 @@
-import { tProduct } from "../../backend/types/types"
+import { tProduct } from "../types/types"
 
 export default function ProductCardLocalSearch({ product }:{ product:tProduct }) {
 

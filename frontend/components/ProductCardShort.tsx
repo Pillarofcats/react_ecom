@@ -3,7 +3,7 @@ import ProductTitle from "./ProductTitle"
 import ProductStars from "../components/ProductStars"
 import ProductPrice from "../components/ProductPrice"
 
-import { tProduct } from "../../backend/types/types"
+import { tProduct } from "../types/types"
 
 export default function ProductCardShort({ product }:{ product:tProduct }) {
 

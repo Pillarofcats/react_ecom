@@ -2,7 +2,7 @@ import ProductImage from "../components/ProductImage"
 import ProductTitle from "../components/ProductTitle"
 import ProductStars from "../components/ProductStars"
 
-import { tProduct } from "../../backend/types/types"
+import { tProduct } from "../types/types"
 import { useRef } from "react"
 import { useAppDispatch, useAppSelector } from "../redux/hooks/default"
 import { addCartItem } from "../redux/slices/cartSlice"

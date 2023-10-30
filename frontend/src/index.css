@@ -11,15 +11,10 @@
     @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-sky-400 focus-visible:z-50;
   }
 
-  /* a {
-    @apply font-semibold;
-  } */
-
   a,
-  select, 
+  select,
   input,
-  button
-  {
+  button {
     @apply nav-focus;
   }
 

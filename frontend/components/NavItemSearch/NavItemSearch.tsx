@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from "react"
 import { useAppSelector, useAppDispatch } from "../../redux/hooks/default"
 import { getProducts } from "../../redux/slices/productsSlice"
-import { tType } from "../../../backend/types/types"
+import { tType } from "../../types/types"
 
 import NavItemSearchTypeSelect from "./NavItemSearchTypeSelect"
 import NavItemLocalSearchForm from "./NavItemSearchForm"

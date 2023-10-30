@@ -1,5 +1,5 @@
 import React, { useRef } from "react"
-import { tSignUp, tSetToggleSignIn } from "../../backend/types/types"
+import { tSignUp, tSetToggleSignIn } from "../types/types"
 
 export default function SignUp({ setToggleSignIn }:tSetToggleSignIn) {
 

@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-import { tReview, tReviewsSlice } from "../../../backend/types/types"
+import { tReview, tReviewsSlice } from "../../types/types"
 
 const initialState:tReviewsSlice = {
   reviews: [],

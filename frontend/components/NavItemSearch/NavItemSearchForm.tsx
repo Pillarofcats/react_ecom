@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react"
-import { tProduct } from "../../../backend/types/types"
+import { tProduct } from "../../types/types"
 import { BiSearch } from "react-icons/bi"
 
 import NavItemLocalSearchProducts from "./NavItemLocalSearchProducts"

@@ -1,5 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { tProductsSlice, tProduct, tType } from "../../../backend/types/types"
+import { tProductsSlice, tProduct, tType } from "../../types/types"
 
 const initialState:tProductsSlice = {
   products: [],

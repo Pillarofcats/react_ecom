@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit"
-import { tUserInfo, tUserSlice } from "../../../backend/types/types"
+import { tUserInfo, tUserSlice } from "../../types/types"
 
 const initialState:tUserSlice = {
   user: {} as tUserInfo | null,
