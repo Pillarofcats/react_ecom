@@ -27,7 +27,11 @@ export default function Products() {
   return (
     <>
       <div className="productsContainer flex-1">
-        { filterProductsCurrentPage?.map((product, index) => <Product key={ index } product={ product }/>) }
+        { filterProductsCurrentPage ?
+            filterProductsCurrentPage?.map((product, index) => <Product key={ index } product={ product }/>)
+            :
+            null
+        }
       </div>
       <Pagination numPages={ numPages }/>
     </>
