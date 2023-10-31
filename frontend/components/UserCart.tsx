@@ -1,7 +1,6 @@
 import ProductCardCart from "./ProductCardCart"
 import { useAppSelector, useAppDispatch } from "../redux/hooks/default"
 import { clearCart } from "../redux/slices/cartSlice"
-// import { tCartItem } from "../types/types"
 
 export default function UserCart() {
 

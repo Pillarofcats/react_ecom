@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
-import { tProduct, tCartSlice } from "../../types/types"
+import { tProduct, tCartSlice, tCartItem } from "../../types/types"
 
 const initialState:tCartSlice = {
   u_id: null,
@@ -14,12 +14,15 @@ export const cartSlice = createSlice({
       const productIndex = state.cart.findIndex((item) => item.item.p_id === action.payload.product.p_id)
       
       if(productIndex >= 0) {
+
         const productQtyCart = state.cart[productIndex].qty
         const productQtyAdded = action.payload.qty
         const updatedProductQty = productQtyCart + productQtyAdded
+
         if(updatedProductQty > state.cart[productIndex].item.quantity) {
           state.cart[productIndex].qty = state.cart[productIndex].item.quantity
         } else state.cart[productIndex].qty = updatedProductQty
+
       } else {
         state.cart.push({qty:action.payload.qty, item:action.payload.product})
       }
@@ -33,9 +36,12 @@ export const cartSlice = createSlice({
     },
     clearCart: (state) => {
       state.cart = []
+    },
+    setCart: (state, action:PayloadAction<tCartItem[]>) => {
+      state.cart = action.payload
     }
   }
 })
 
-export const { addCartItem, updateCartItemQty, removeCartItem, clearCart } = cartSlice.actions
+export const { addCartItem, updateCartItemQty, removeCartItem, clearCart, setCart } = cartSlice.actions
 export default cartSlice.reducer

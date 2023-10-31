@@ -18,17 +18,17 @@ export default function Products() {
 
   console.log("currentSearch", currentSearch)
   
-  const filteredProductsBySearch = useMemo(() => products.filter((product) => product.title.toLowerCase().includes(currentSearch.toLowerCase())), [products, currentSearch])
+  // const filteredProductsBySearch = useMemo(() => products.filter((product) => product.title.toLowerCase().includes(currentSearch.toLowerCase())), [products, currentSearch])
 
-  const filterProductsCurrentPage = useMemo(() => filteredProductsBySearch.slice(pagePointerStart, pagePointerEnd), [filteredProductsBySearch, pagePointerStart, pagePointerEnd])
+  const filterProductsCurrentPage = useMemo(() => products.slice(pagePointerStart, pagePointerEnd), [products, pagePointerStart, pagePointerEnd])
 
-  const numPages = useMemo(() => Math.ceil(filteredProductsBySearch.length / pageRange), [filteredProductsBySearch.length])
+  const numPages = useMemo(() => Math.ceil(products.length / pageRange), [products.length])
 
   return (
     <>
       <div className="productsContainer flex-1">
         { filterProductsCurrentPage ?
-            filterProductsCurrentPage?.map((product, index) => <Product key={ index } product={ product }/>)
+            filterProductsCurrentPage?.map((product) => <Product key={ product.p_id } product={ product }/>)
             :
             null
         }

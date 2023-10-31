@@ -14,8 +14,8 @@ import { getSingleProduct } from "../redux/slices/productsSlice"
 import { getProductReviews } from "../redux/slices/reviewsSlice"
 
 export default function PageProduct() {
+  // const cart = useAppSelector((state) => state.cart.cart, shallowEqual)
   const { pid } = useParams()
-  console.log("id", pid)
 
   const user = useAppSelector((state) => state.user.user, shallowEqual)
   const reviews = useAppSelector((state) => state.reviews)
@@ -33,7 +33,6 @@ export default function PageProduct() {
     dispatch(getProductReviews( Number(pid) ))
     dispatch(getSingleProduct( Number(pid) ))
   }, [pid, dispatch])
-
 
   // if(!pid || !user) return null
 

@@ -1,4 +1,4 @@
-import React, { useRef } from "react"
+import React, { useRef, useEffect } from "react"
 import { tSignUp, tSetToggleSignIn } from "../types/types"
 
 export default function SignUp({ setToggleSignIn }:tSetToggleSignIn) {
@@ -6,6 +6,8 @@ export default function SignUp({ setToggleSignIn }:tSetToggleSignIn) {
   const usernameRef = useRef<HTMLInputElement>(null)
   const emailRef = useRef<HTMLInputElement>(null)
   const passwordRef = useRef<HTMLInputElement>(null)
+
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   function handleFormSubmit(e:React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -26,7 +28,7 @@ export default function SignUp({ setToggleSignIn }:tSetToggleSignIn) {
   }
 
   async function formSubmit(o:tSignUp) {
-
+    
     try {
       const response = await fetch("http://localhost:5000/api/users/signup", {
         method: "POST",
@@ -36,13 +38,21 @@ export default function SignUp({ setToggleSignIn }:tSetToggleSignIn) {
         body: JSON.stringify(o)
       })
 
-      const data = await response.json()
-      console.log("Login", data)
+      if(response.ok) {
+        timeoutRef.current = setTimeout(() => {
+          setToggleSignIn((prev) => !prev)
+        }, 1200)
+      }
+    
     }
     catch(error) {
       console.log(error)
     }
   }
+
+  useEffect(() => {
+    clearTimeout(timeoutRef.current as NodeJS.Timeout)
+  }, [])
 
   return (
     <div className="flex flex-col gap-5">

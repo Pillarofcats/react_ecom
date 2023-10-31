@@ -7,12 +7,13 @@ import NavItemSearchTypeSelect from "./NavItemSearchTypeSelect"
 import NavItemSearchForm from "./NavItemSearchForm"
 
 import useURLParams from "../../hooks/useURLParams"
+import { shallowEqual } from "react-redux"
 
 export default function NavItemSearch() {
   console.log("Render NavItemSearch")
   const dispatch = useAppDispatch()
   const { currentType, queryParams } = useURLParams()
-  const { products } = useAppSelector((state) => state.products)
+  const { products } = useAppSelector((state) => state.products, shallowEqual)
 
   console.log("products in navitemsearch", products)
 
@@ -21,7 +22,6 @@ export default function NavItemSearch() {
 
   // const [toggleSearchByStars, setToggleSearchByStars] = useState(false)
   // const [toggleSearchByPrice, setToggleSearchByPrice] = useState(false)
-
 
   const filteredProductsByLocalSearch = useMemo(() => {
     // if(!products) return [] as tProduct[]

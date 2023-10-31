@@ -6,8 +6,8 @@ const byType = async function(req: Request, res: Response) {
   const { type } = req.body
   const productType = type.charAt(0).toUpperCase() + type.slice(1)
 
-  const queryAll:[string, []] = [ "SELECT * FROM ecom.all_products", [] ]
-  const queryType:[string, string[]] = [ "SELECT * FROM ecom.all_products WHERE product_type = $1", [productType] ]
+  const queryAll:[string, []] = [ "SELECT * FROM ecom.all_products ORDER BY p_id", [] ]
+  const queryType:[string, string[]] = [ "SELECT * FROM ecom.all_products WHERE product_type = $1 ORDER BY p_id", [productType] ]
 
   const query = productType === "All" ? queryAll : queryType
 

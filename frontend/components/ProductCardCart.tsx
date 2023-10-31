@@ -7,6 +7,8 @@ import { useRef } from "react"
 import { useAppDispatch, useAppSelector } from "../redux/hooks/default"
 import { updateCartItemQty, removeCartItem } from "../redux/slices/cartSlice"
 
+import useSetLocalCart from "../hooks/useSetLocalCart"
+
 export default function ProductCardCart({ product }:{ product:tProduct }) {
 
   const cart = useAppSelector((state) => state.cart.cart)
@@ -23,6 +25,8 @@ export default function ProductCardCart({ product }:{ product:tProduct }) {
       qtySelectRef.current.value = e.target.value
     }
   }
+
+  useSetLocalCart()
 
   console.log("CART:", cart)
   return (

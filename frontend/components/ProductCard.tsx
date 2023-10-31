@@ -7,6 +7,8 @@ import { useRef } from "react"
 import { useAppDispatch } from "../redux/hooks/default"
 import { addCartItem } from "../redux/slices/cartSlice"
 
+import useSetLocalCart from "../hooks/useSetLocalCart"
+
 export default function ProductCard({ product }:{ product:tProduct }) {
 
   const dispatch = useAppDispatch()
@@ -18,6 +20,8 @@ export default function ProductCard({ product }:{ product:tProduct }) {
   function onChangeSelectProductQty(e:React.ChangeEvent<HTMLSelectElement>) {
     if(qtySelectRef.current) qtySelectRef.current.value = e.target.value
   }
+
+  useSetLocalCart()
 
   return (
     <div className="flex flex-col border-2 border-[#292F36] rounded-md md:w-[70%]">
@@ -74,7 +78,9 @@ export default function ProductCard({ product }:{ product:tProduct }) {
                       }
               </select> 
               <button 
-                onClick={() => dispatch((addCartItem({qty: Number(qtySelectRef.current?.value), product: product})))}
+                onClick={() => {
+                  dispatch((addCartItem({qty: Number(qtySelectRef.current?.value), product: product})))
+                }}
                 className="productButton">
                   Add
               </button>

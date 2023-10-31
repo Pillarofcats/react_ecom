@@ -10,11 +10,13 @@ import RootLayout from "../components/RootLayout"
 import { Routes, Route, Navigate } from "react-router-dom"
 
 import useAuthUser from "../hooks/useAuthUser"
+import useGetLocalCart from "../hooks/useGetLocalCart"
 
 export default function App() {
 
   useAuthUser()
-  
+  useGetLocalCart()
+
   return (
     <Routes>
       <Route element={<RootLayout />}>
