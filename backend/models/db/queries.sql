@@ -13,9 +13,15 @@ CREATE TABLE ecom.user_info (
 	lastname VARCHAR(255),
 	birthday VARCHAR(10),
   address VARCHAR(255),
-	phone VARCHAR(255),
-  purchases JSONB,
-  cart JSONB
+	phone VARCHAR(255)
+);
+
+CREATE TABLE ecom.user_purchases (
+  purchase_id SERIAL PRIMARY KEY NOT NULL,
+  u_id BIGINT REFERENCES ecom.all_users(u_id) ON DELETE CASCADE,
+  purchase_date DATE NOT NULL DEFAULT CURRENT_DATE,
+  p_id BIGINT NOT NULL,
+  quantity INTEGER NOT NULL
 );
 
 CREATE TABLE ecom.all_products (

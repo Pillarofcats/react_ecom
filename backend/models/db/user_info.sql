@@ -6,9 +6,7 @@ CREATE TABLE ecom.user_info (
 	lastname VARCHAR(255),
 	birthday VARCHAR(10),
   address VARCHAR(255),
-	phone VARCHAR(255),
-  purchases JSONB,
-  cart JSONB
+	phone VARCHAR(255)
 );
 
 -- GET USER'S REVIEWS: SELECT * FROM ecom.product_reviews WHERE u_id = u_id

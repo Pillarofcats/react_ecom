@@ -1,9 +1,10 @@
 import ProductCardCart from "./ProductCardCart"
 import { useAppSelector, useAppDispatch } from "../redux/hooks/default"
 import { clearCart } from "../redux/slices/cartSlice"
+import { tCartSlice } from "../types/types"
 
 export default function UserCart() {
-
+  const user  = useAppSelector((state) => state.user.user)
   const cart = useAppSelector((state) => state.cart.cart)
   const dispatch = useAppDispatch()
 
@@ -15,13 +16,16 @@ export default function UserCart() {
 
     if(!cart) return
 
+    const userCart:tCartSlice = {cart:cart}
+    if(user) userCart.u_id = user.u_id
+
     try {
       const response = await fetch("http://localhost:5000/api/products/purchase", {
         method: "POST",
         mode: "cors",
         credentials: "include",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({cart:cart})
+        body: JSON.stringify(userCart)
       })
 
       console.log("response", response)

@@ -26,24 +26,40 @@ const singleProduct = async function (req, res) {
     res.status(500);
 };
 const purchase = async function (req, res) {
-    const { cart } = req.body;
-    const queryValues = [];
+    const { cart, u_id } = req.body;
+    let queryValues = [];
+    if (u_id) {
+        for (const index in cart) {
+            queryValues.push([u_id, cart[index].item.p_id, cart[index].qty]);
+            console.log("updated Qty:", queryValues[index]);
+        }
+        try {
+            for (const index in queryValues) {
+                await dbQuery("INSERT INTO ecom.user_purchases (u_id, p_id, quantity) VALUES($1, $2, $3)", queryValues[index]);
+            }
+        }
+        catch (error) {
+            console.log("Error inserting user product purchases");
+        }
+    }
+    //Update quantity of purchased products
+    queryValues = [];
     let updatedProductQuantity;
     for (const index in cart) {
         updatedProductQuantity = cart[index].item.quantity - cart[index].qty;
         queryValues.push([updatedProductQuantity, cart[index].item.p_id]);
     }
-    //updatePurchasedProducts
     try {
         for (const index in queryValues) {
             console.log("updated Qty:", queryValues[index]);
             await dbQuery(`UPDATE ecom.all_products SET quantity = $1 WHERE p_id = $2`, queryValues[index]);
         }
+        return res.status(200).end();
     }
     catch (error) {
         console.log("Error updating product quantity");
     }
-    return res.status(200).end();
+    return res.status(500).end();
 };
 const productsController = {
     byType,

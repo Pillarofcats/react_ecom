@@ -39,7 +39,7 @@ export const cartSlice = createSlice({
     },
     setCart: (state, action:PayloadAction<tCartItem[]>) => {
       state.cart = action.payload
-    }
+    },
   }
 })
 
