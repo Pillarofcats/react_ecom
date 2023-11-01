@@ -4,17 +4,18 @@ import { getProducts } from "../../redux/slices/productsSlice"
 import { tType } from "../../types/types"
 import { shallowEqual } from "react-redux"
 
+import useURLParams from "../../hooks/useURLParams"
+import { useSearchParams } from "react-router-dom"
+
 import NavItemSearchTypeSelect from "./NavItemSearchTypeSelect"
 import NavItemSearchForm from "./NavItemSearchForm"
 
-import useURLParams from "../../hooks/useURLParams"
-
 export default function NavItemSearch() {
 
-  const { currentType, queryParams } = useURLParams()
+  const { currentSearch, currentType, queryParams } = useURLParams()
   const { products } = useAppSelector((state) => state.products, shallowEqual)
-
-  const [localSearch, setLocalSearch] = useState<string>("")
+  
+  const [localSearch, setLocalSearch] = useSearchParams({"search":currentSearch})
   const [toggleLocalSearch, setToggleLocalSearch] = useState<boolean>(false)
 
   const dispatch = useAppDispatch()
@@ -22,9 +23,12 @@ export default function NavItemSearch() {
   // const [toggleSearchByStars, setToggleSearchByStars] = useState(false)
   // const [toggleSearchByPrice, setToggleSearchByPrice] = useState(false)
 
+  console.log("localsearch", localSearch)
+  const search = localSearch.get("search") || ""
+
   const filteredProductsByLocalSearch = useMemo(() => {
-    return products.filter((product) => product.title.toLowerCase().includes(localSearch.toLowerCase())).slice(0,5)
-  }, [localSearch, products])
+    return products.filter((product) => product.title.toLowerCase().includes(search.toLowerCase())).slice(0,5)
+  }, [search, products])
 
   useEffect(() => {
     if(!currentType) return
