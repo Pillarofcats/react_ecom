@@ -1,6 +1,5 @@
 import { FaCartShopping } from "react-icons/fa6"
 import { Link } from "react-router-dom"
-
 import { useAppSelector } from "../redux/hooks/default"
 
 export default function NavItemCart() {

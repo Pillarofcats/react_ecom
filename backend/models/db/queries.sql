@@ -21,7 +21,10 @@ CREATE TABLE ecom.user_purchases (
   u_id BIGINT REFERENCES ecom.all_users(u_id) ON DELETE CASCADE,
   purchase_date DATE NOT NULL DEFAULT CURRENT_DATE,
   p_id BIGINT NOT NULL,
-  quantity INTEGER NOT NULL
+  stars INTEGER NOT NULL,
+  title VARCHAR(255) NOT NULL,
+  price_cent INTEGER NOT NULL,
+  qty_purchased INTEGER NOT NULL
 );
 
 CREATE TABLE ecom.all_products (
@@ -42,6 +45,7 @@ CREATE TABLE ecom.product_reviews (
   r_id SERIAL PRIMARY KEY,
   p_id BIGINT NOT NULL REFERENCES ecom.all_products(p_id) ON DELETE CASCADE,  
   u_id BIGINT NOT NULL REFERENCES ecom.user_info(u_id) ON DELETE CASCADE,
+  title VARCHAR(255) NOT NULL,
   r_date DATE NOT NULL DEFAULT CURRENT_DATE,
   username VARCHAR(255) NOT NULL,
   review VARCHAR(255) NOT NULL,

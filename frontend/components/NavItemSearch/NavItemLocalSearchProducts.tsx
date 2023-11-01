@@ -3,7 +3,13 @@ import { useNavigate } from "react-router-dom"
 import ProductCardLocalSearch from "../ProductCardLocalSearch"
 
 export default function NavLocalSearchProducts(
-  {filteredLocalSearchProducts, setLocalSearch}:{filteredLocalSearchProducts:tProduct[], setLocalSearch:React.Dispatch<React.SetStateAction<string>>}) {
+  {
+    filteredLocalSearchProducts,
+    setLocalSearch
+  }:{
+    filteredLocalSearchProducts:tProduct[],
+    setLocalSearch:React.Dispatch<React.SetStateAction<string>>
+  }) {
 
   const navigate = useNavigate()
 

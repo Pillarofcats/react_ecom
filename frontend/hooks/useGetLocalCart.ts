@@ -8,7 +8,7 @@ export default function useGetLocalCart() {
 
   useEffect(() => {
     const cart = window.localStorage.getItem("3b_cart")
-    console.log("localstorageCart", cart)
+
     if(!cart) return
     dispatch(setCart(JSON.parse(cart) as tCartItem[]))
   }, [])

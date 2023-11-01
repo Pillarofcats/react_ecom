@@ -1,10 +1,10 @@
-//COMPONENTS
+
 import SignUp from "../components/SignUp"
 import SignIn from "../components/SignIn"
-//LIBS
 import { useState } from "react"
 
 export default function PageSignIn() {
+  
   const [toggleSignIn, setToggleSignIn] = useState(true)
 
   return (

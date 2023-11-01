@@ -3,7 +3,6 @@ import { useMemo } from "react"
 import useURLParams from "../hooks/useURLParams"
 
 export default function Pagination({ numPages }:{ numPages: number }) {
-  console.log("Render Pagination")
 
   const navigate = useNavigate()
   const { currentPage, queryParams } = useURLParams()

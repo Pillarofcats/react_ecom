@@ -15,6 +15,10 @@ const updateUserInfo = async function (req, res) {
     queryValues.push(data.u_id);
     try {
         const updateUserInfo = await dbQuery(`UPDATE ecom.user_info SET ${queryStrings.join(", ")} WHERE u_id = $${queryInitStringNumber} RETURNING *`, queryValues);
+        if (data.username) {
+            await dbQuery(`UPDATE ecom.all_users SET username = $1 WHERE u_id = $2`, [data.username, data.u_id]);
+            await dbQuery(`UPDATE ecom.product_reviews SET username = $1 WHERE u_id = $2`, [data.username, data.u_id]);
+        }
         return res.status(200).json(updateUserInfo.rows[0]);
     }
     catch (error) {

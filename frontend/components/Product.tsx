@@ -1,7 +1,7 @@
-import ProductCardShort from "../components/ProductCardShort"
 import { tProduct } from "../types/types"
-
 import { useNavigate } from "react-router-dom"
+
+import ProductCardShort from "../components/ProductCardShort"
 
 export default function Product({ product }:{ product: tProduct }) {
 

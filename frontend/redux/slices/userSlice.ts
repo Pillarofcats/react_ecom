@@ -1,11 +1,33 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit"
-import { tUserInfo, tUserSlice } from "../../types/types"
+import { tReview, tUserInfo, tUserSlice } from "../../types/types"
 
 const initialState:tUserSlice = {
-  user: {} as tUserInfo | null,
+  user: {} ,
+  reviews:[],
   status: "pending",
   error: null
 }
+
+  export const getUserReviews = createAsyncThunk("getUserReviews", async function(u_id:number) {
+
+    try {
+      const response = await fetch("http://localhost:5000/api/reviews/userreviews", {
+        method: "POST",
+        mode: "cors",
+        credentials: "include",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({u_id:u_id})
+      })
+
+      if(response.ok) {
+        const data = await response.json()
+        return data
+      }
+      
+    } catch(error) {
+      console.log("Failed to get user reviews.")
+    }
+  })
 
 export const setUserInfoOnLoad = createAsyncThunk("setUserInfoOnLoad", async function() {
   try {
@@ -15,15 +37,13 @@ export const setUserInfoOnLoad = createAsyncThunk("setUserInfoOnLoad", async fun
       mode: "cors"
     })
 
-    if(!response.ok) throw new Error(`Failed to auth user`)
-
-    const data = await response.json()
-    console.log("data", data)
-
-    return data
+    if(response.ok) {
+      const data = await response.json()
+      return data
+    }
 
   } catch(error) {
-    console.error("Error:", error)
+    console.log("Failed to set user info on load.")
   }
 })
 
@@ -44,6 +64,17 @@ const userSlice = createSlice({
       state.status = "pending"
     }),
       builder.addCase(setUserInfoOnLoad.rejected, (state) => {
+      state.status = "rejected"
+      state.error = "Failed to fetch all products"
+    }),
+    builder.addCase(getUserReviews.fulfilled, (state, action:PayloadAction<tReview[]>) => {
+      state.reviews = action.payload
+      state.status = "fulfilled"
+    }),
+      builder.addCase(getUserReviews.pending, (state) => {
+      state.status = "pending"
+    }),
+      builder.addCase(getUserReviews.rejected, (state) => {
       state.status = "rejected"
       state.error = "Failed to fetch all products"
     })

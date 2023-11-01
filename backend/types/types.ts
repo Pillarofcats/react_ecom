@@ -42,6 +42,7 @@ type tUserInfo = {
 type tReview = {
   u_id: number,
   p_id: number,
+  title: string,
   r_date?: Date,
   username: string,
   review: string,

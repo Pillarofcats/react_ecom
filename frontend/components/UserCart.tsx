@@ -4,8 +4,8 @@ import { clearCart } from "../redux/slices/cartSlice"
 import { tCartSlice } from "../types/types"
 
 export default function UserCart() {
-  const user  = useAppSelector((state) => state.user.user)
-  const cart = useAppSelector((state) => state.cart.cart)
+  const {user} = useAppSelector((state) => state.user)
+  const {cart} = useAppSelector((state) => state.cart)
   const dispatch = useAppDispatch()
 
   const totalPrice = cart.reduce((acc, curr) => {
@@ -13,7 +13,6 @@ export default function UserCart() {
   }, 0)
 
   async function purchase() {
-
     if(!cart) return
 
     const userCart:tCartSlice = {cart:cart}
@@ -31,12 +30,11 @@ export default function UserCart() {
       console.log("response", response)
 
       if(response.ok) {
-        console.log("successful purchase")
         dispatch(clearCart())
       }
       
     } catch(error) {
-      console.log("error")
+      console.log("Failed to purchase items.")
     }
   }
 
@@ -46,10 +44,10 @@ export default function UserCart() {
 
       <div className="grid gap-2">
         {
-          cart.map((product, index) => {
+          cart.map((product) => {
             return (
-              <div className="flex flex-col self-center" key={index}>
-                <ProductCardCart product={product.item} />
+              <div className="flex flex-col self-center" key={product.item.p_id}>
+                <ProductCardCart product={product} />
               </div>
             )
           })

@@ -19,12 +19,12 @@ const productReview = async function(req:Request, res:Response) {
 }
 
 const addReview = async function(req:Request, res:Response) {
-  const  { p_id, u_id, username, review, stars } = req.body as tReview
-  console.log("review", review)
-  try {
+  const  { p_id, u_id, title, username, review, stars } = req.body as tReview
 
+  console.log("username", username, "title", title)
+  try {
     //Update review with new review
-    const addedReview = await dbQuery("INSERT INTO ecom.product_reviews (p_id, u_id, username, review, stars) VALUES($1, $2, $3, $4, $5) RETURNING *", [p_id, u_id, username, review, stars])
+    const addedReview = await dbQuery("INSERT INTO ecom.product_reviews (p_id, u_id, title, username, review, stars) VALUES($1, $2, $3, $4, $5, $6) RETURNING *", [p_id, u_id, title, username, review, stars])
     //Get product review for single product
     const reviews = await dbQuery("SELECT * FROM ecom.product_reviews WHERE p_id = $1", [p_id])
 
@@ -61,9 +61,18 @@ const addReview = async function(req:Request, res:Response) {
   res.status(500)
 }
 
+const userReviews = async function(req:Request, res:Response ) {
+  const {u_id} = req.body
+
+  const getUserReviews = await dbQuery("SELECT * FROM ecom.product_reviews WHERE u_id = $1", [u_id])
+
+  return res.status(200).json(getUserReviews.rows)
+}
+
 const reviewsController = {
   productReview,
-  addReview
+  addReview,
+  userReviews
 }
 
 export default reviewsController

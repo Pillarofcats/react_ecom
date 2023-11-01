@@ -1,30 +1,28 @@
 import React, { useRef, useState } from "react"
-import { tReview } from "../types/types"
+import { tReview, tProduct } from "../types/types"
 import { AiFillStar, AiOutlineStar } from "react-icons/ai"
 import { useAppDispatch } from "../redux/hooks/default"
 import { addReview } from "../redux/slices/reviewsSlice"
 import { getSingleProduct } from "../redux/slices/productsSlice"
 
-export default function ProductAddReview({u_id, p_id, username,}:{u_id:number|undefined, p_id:string|undefined, username:string|undefined}) {
-
-  console.log("review props:", u_id, p_id, username)
+export default function ProductAddReview({u_id, product, username,}:{u_id:number|undefined, product:tProduct | null, username:string|undefined}) {
+  
   const dispatch = useAppDispatch()
 
   const [hoverStars, setHoverStars] = useState<number>(0)
-  console.log("hover stars", hoverStars)
-
   const [stars, setStars] = useState<number>(0)
-  console.log("stars", stars)
+
   const reviewRef = useRef<HTMLTextAreaElement>(null)
 
   function handleFormSubmit(e:React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
-    if(!reviewRef.current?.value || !stars || !u_id || !username) return
+    if(!reviewRef.current?.value || !stars || !u_id || !username || !product) return
 
     const userReview = {} as tReview
     userReview.u_id = u_id
-    userReview.p_id = Number(p_id)
+    userReview.p_id = Number(product?.p_id)
+    userReview.title = product?.title
     userReview.username = username
     userReview.review = reviewRef.current.value
     userReview.stars = stars
@@ -41,18 +39,19 @@ export default function ProductAddReview({u_id, p_id, username,}:{u_id:number|un
         headers: {"Content-Type":"application/json"},
         body: JSON.stringify(userReview)
       })
-      const data = await response.json()
-      console.log("added Review", data)
 
-      dispatch(getSingleProduct( data.p_id ))
-      dispatch(addReview(data))
+      if(response.ok) {
+        const data = await response.json()
+        dispatch(getSingleProduct(data.p_id))
+        dispatch(addReview(data))
+      }
+
     } catch(error) {
-      console.error("Submit review error", error)
+      console.log("Failed to add review.")
     }
   }
 
   function fillStarOnMouseEnter(i:number) {
-    // if(hoverStars <= stars) setHoverStars(0)
     setHoverStars(i+1)
   }
 

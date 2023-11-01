@@ -40,12 +40,15 @@ export default function SignIn({ setToggleSignIn }:tSetToggleSignIn) {
         body: JSON.stringify(o)
       })
 
-      const data = await response.json()
-      dispatch(setUserInfoOnSignIn(data))
-      redirect("/sign-in")
+      if(response.ok) {
+        const data = await response.json()
+        dispatch(setUserInfoOnSignIn(data))
+        redirect("/sign-in")
+      }
+      
     }
     catch(error) {
-      console.log(error)
+      console.log("Failed to sign-in.")
     }
   }
 

@@ -4,7 +4,20 @@ import { BiSearch } from "react-icons/bi"
 
 import NavItemLocalSearchProducts from "./NavItemLocalSearchProducts"
 
-export default function NavItemSearchForm({ localSearch, setLocalSearch, toggleLocalSearch, setToggleLocalSearch, filteredProductsByLocalSearch }:{ localSearch:string, setLocalSearch:React.Dispatch<React.SetStateAction<string>>, toggleLocalSearch:boolean, setToggleLocalSearch:React.Dispatch<React.SetStateAction<boolean>>, filteredProductsByLocalSearch:tProduct[] }) {
+export default function NavItemSearchForm(
+  { 
+    localSearch,
+    setLocalSearch,
+    toggleLocalSearch,
+    setToggleLocalSearch,
+    filteredProductsByLocalSearch
+  }:{ 
+    localSearch:string, 
+    setLocalSearch:React.Dispatch<React.SetStateAction<string>>,
+    toggleLocalSearch:boolean,
+    setToggleLocalSearch:React.Dispatch<React.SetStateAction<boolean>>,
+    filteredProductsByLocalSearch:tProduct[] 
+  }) {
 
   const localSearchInputRef = useRef<HTMLInputElement>(null)
   const formSearchRef = useRef<HTMLFormElement>(null)
@@ -23,7 +36,7 @@ export default function NavItemSearchForm({ localSearch, setLocalSearch, toggleL
   function onMouseLeaveSearchBar(e:React.MouseEvent<HTMLFormElement, MouseEvent>) {
     if(localSearch.length < 1) return
     e.preventDefault()
-    console.log("Left the form")
+
     formSearchTimerRef.current = setTimeout(() => {
       setToggleLocalSearch(false)
     }, 500)
@@ -32,7 +45,7 @@ export default function NavItemSearchForm({ localSearch, setLocalSearch, toggleL
   function onMouseEnterSearchBar(e: React.MouseEvent<HTMLFormElement, MouseEvent>) {
     if(localSearch.length < 1) return
     e.preventDefault()
-    console.log("Enter the form")
+
     if(localSearch) setToggleLocalSearch(true)
     clearTimeout(formSearchTimerRef.current as NodeJS.Timeout)
   }

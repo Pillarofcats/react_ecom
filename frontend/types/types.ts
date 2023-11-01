@@ -46,6 +46,7 @@ type tUserInfo = {
 type tReview = {
   u_id: number,
   p_id: number,
+  title: string,
   r_date?: Date,
   username: string,
   review: string,
@@ -58,6 +59,7 @@ type tType = "all" | "apparel" | "cookware" | "cosmetics" | "electronics" | "fur
 //Redux toolkit state slice types
 type tUserSlice = {
   user: tUserInfo | null,
+  reviews?: tReview[],
   status: "pending" | "fulfilled" | "rejected",
   error: string | null
 }

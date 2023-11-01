@@ -31,7 +31,6 @@ app.use("/static", express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(helmet());
-// console.log("uuid", uuidv4())
 //Routes
 //GOOGLE OAUTH URI: http://localhost:5000/api/oauth/google/session
 app.use("/api/reviews", reviewsRouter);
@@ -39,18 +38,9 @@ app.use("/api/oauth", oauthRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/userinfo", userInfoRouter);
 app.use("/api/products", productsRouter);
-// app.get("/", (req:Request, res:Response) => {
-//   res.status(200).json("got it")
-// })
-console.log("is this the end");
 app.use("*", (req, res) => {
     res.send("404");
 });
-// app.post("/", (req:Request, res:Response) => {
-//   const body = req.body
-//   console.log("body", body)
-//   res.status(200).json(body)
-// })
 app.listen(expressPORT, () => {
     console.log(`Server started on PORT ${expressPORT}`);
 });

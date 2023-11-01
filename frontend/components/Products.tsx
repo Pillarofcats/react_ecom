@@ -7,16 +7,13 @@ import Product from "../components/Product"
 import Pagination from "../components/Pagination"
 
 export default function Products() {
-  console.log("Render Products")
 
   const { products } = useAppSelector( (state) => state.products, shallowEqual)
-  const { currentSearch, currentPage } = useURLParams()
+  const { currentPage } = useURLParams()
 
   const pageRange = 10
   const pagePointerStart = (currentPage * pageRange) - pageRange
   const pagePointerEnd = currentPage * pageRange
-
-  console.log("currentSearch", currentSearch)
   
   // const filteredProductsBySearch = useMemo(() => products.filter((product) => product.title.toLowerCase().includes(currentSearch.toLowerCase())), [products, currentSearch])
 

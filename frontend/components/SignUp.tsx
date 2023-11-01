@@ -6,7 +6,6 @@ export default function SignUp({ setToggleSignIn }:tSetToggleSignIn) {
   const usernameRef = useRef<HTMLInputElement>(null)
   const emailRef = useRef<HTMLInputElement>(null)
   const passwordRef = useRef<HTMLInputElement>(null)
-
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   function handleFormSubmit(e:React.FormEvent<HTMLFormElement>) {
@@ -20,7 +19,6 @@ export default function SignUp({ setToggleSignIn }:tSetToggleSignIn) {
       password: passwordRef.current.value
     }
 
-    console.log('Sending')
     formSubmit(data)
     usernameRef.current.value = ""
     emailRef.current.value = ""
@@ -32,9 +30,7 @@ export default function SignUp({ setToggleSignIn }:tSetToggleSignIn) {
     try {
       const response = await fetch("http://localhost:5000/api/users/signup", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
+        headers: {"Content-Type": "application/json"},
         body: JSON.stringify(o)
       })
 
@@ -46,7 +42,7 @@ export default function SignUp({ setToggleSignIn }:tSetToggleSignIn) {
     
     }
     catch(error) {
-      console.log(error)
+      console.log("Failed to sign-up.")
     }
   }
 

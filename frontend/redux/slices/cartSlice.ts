@@ -29,13 +29,22 @@ export const cartSlice = createSlice({
     },
     updateCartItemQty: (state, action:PayloadAction<{qty:number, product:tProduct}>) => {
       const productIndex = state.cart.findIndex((item) => item.item.p_id === action.payload.product.p_id)
-      state.cart[productIndex].qty = action.payload.qty
+      if(productIndex >= 0) {
+        state.cart[productIndex].qty = action.payload.qty
+
+        window.localStorage.setItem("3b_cart", JSON.stringify([...state.cart].map((product, index) => {
+          if(productIndex === index) product.qty = action.payload.qty
+          return product
+        })))
+      }
     },
     removeCartItem: (state, action:PayloadAction<string>) => {
       state.cart = state.cart.filter((product) => product.item.p_id !== action.payload)
+      window.localStorage.setItem("3b_cart", JSON.stringify([...state.cart].filter((product) => product.item.p_id !== action.payload)))
     },
     clearCart: (state) => {
       state.cart = []
+      window.localStorage.setItem("3b_cart", JSON.stringify([]))
     },
     setCart: (state, action:PayloadAction<tCartItem[]>) => {
       state.cart = action.payload

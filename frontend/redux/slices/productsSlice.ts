@@ -9,29 +9,39 @@ const initialState:tProductsSlice = {
 }
 
 export const getProducts = createAsyncThunk("getProducts", async function(productType:tType) {
-  // try {
+  try {
     const response = await fetch(`http://localhost:5000/api/products/bytype`, {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({ type: productType })
     })
-    return await response.json()
-  // } catch(error) {
-  //   console.log("Failed to get products")
-  // }
+
+    if(response.ok) {
+      const data = await response.json()
+      return data
+    }
+    
+  } catch(error) {
+    console.log("Failed to get products")
+  }
 })
 
 export const getSingleProduct = createAsyncThunk("querySingleProduct", async function(pid:number) {
-  // try{
+  try{
     const response = await fetch(`http://localhost:5000/api/products/singleproduct`, {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({ pid:pid })
     })
-    return await response.json()
-  // } catch(error) {
-  //   console.log("Failed to get single product")
-  // }
+
+    if(response.ok) {
+      const data = response.json()
+      return data
+    }
+    
+  } catch(error) {
+    console.log("Failed to get single product")
+  }
 })
 
 export const productsSlice = createSlice({
