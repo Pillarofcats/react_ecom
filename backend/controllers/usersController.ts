@@ -57,7 +57,9 @@ const userSignIn = async function(req:Request, res:Response) {
     const cookieOptions = {
       maxAge: 1000*60*60,
       httpOnly: false,
-      signed: true
+      signed: true,
+      secure: true,
+      domain:".railway.app"
     }
 
     console.log("signed in yay.")
