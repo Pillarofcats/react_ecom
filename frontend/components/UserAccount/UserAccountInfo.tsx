@@ -65,7 +65,7 @@ export default function UserAccountInfo() {
 
   async function formSubmit(data:tUserInfo) {
 
-    const response = await fetch("http://backend-production-e988.up.railway.app/api/userinfo/updateuser", {
+    const response = await fetch("https://backend-production-e988.up.railway.app/api/userinfo/updateuser", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)

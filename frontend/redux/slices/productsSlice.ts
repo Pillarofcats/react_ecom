@@ -10,7 +10,7 @@ const initialState:tProductsSlice = {
 
 export const getProducts = createAsyncThunk("getProducts", async function(productType:tType) {
   try {
-    const response = await fetch(`http://backend-production-e988.up.railway.app/api/products/bytype`, {
+    const response = await fetch(`https://backend-production-e988.up.railway.app/api/products/bytype`, {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({ type: productType })
@@ -28,7 +28,7 @@ export const getProducts = createAsyncThunk("getProducts", async function(produc
 
 export const getSingleProduct = createAsyncThunk("querySingleProduct", async function(pid:number) {
   try{
-    const response = await fetch(`http://backend-production-e988.up.railway.app/api/products/singleproduct`, {
+    const response = await fetch(`https://backend-production-e988.up.railway.app/api/products/singleproduct`, {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({ pid:pid })

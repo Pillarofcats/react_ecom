@@ -9,7 +9,7 @@ const initialState:tReviewsSlice = {
 
 export const getProductReviews = createAsyncThunk("getProductReviews", async function(pid:number) {
   try {
-    const response = await fetch("http://backend-production-e988.up.railway.app/api/reviews/productreview", {
+    const response = await fetch("https://backend-production-e988.up.railway.app/api/reviews/productreview", {
       method: "POST",
       mode: "cors",
       headers: {"Content-Type": "application/json"},
