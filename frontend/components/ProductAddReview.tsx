@@ -32,7 +32,7 @@ export default function ProductAddReview({u_id, product, username,}:{u_id:number
 
   async function submitReview(userReview:tReview) {
     try {
-      const response = await fetch("http://localhost:5000/api/reviews/addreview", {
+      const response = await fetch("http://backend-production-e988.up.railway.app/api/reviews/addreview", {
         method: "POST",
         credentials: "include",
         mode: "cors",

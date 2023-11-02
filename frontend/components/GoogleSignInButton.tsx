@@ -5,7 +5,7 @@ export default function GoogleSignInButton() {
   }
 
   async function googleAuth() {
-    const response = await fetch("http://localhost:5000/api/oauth/google/request", {
+    const response = await fetch("http://backend-production-e988.up.railway.app/api/oauth/google/request", {
     method: "POST"})
     const data = await response.json()
     console.log("GOOGLE DATA", data)

@@ -28,7 +28,7 @@ export default function SignUp({ setToggleSignIn }:tSetToggleSignIn) {
   async function formSubmit(o:tSignUp) {
     
     try {
-      const response = await fetch("http://localhost:5000/api/users/signup", {
+      const response = await fetch("http://backend-production-e988.up.railway.app/api/users/signup", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(o)

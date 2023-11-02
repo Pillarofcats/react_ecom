@@ -11,7 +11,7 @@ const initialState:tUserSlice = {
   export const getUserReviews = createAsyncThunk("getUserReviews", async function(u_id:number) {
 
     try {
-      const response = await fetch("http://localhost:5000/api/reviews/userreviews", {
+      const response = await fetch("http://backend-production-e988.up.railway.app/api/reviews/userreviews", {
         method: "POST",
         mode: "cors",
         credentials: "include",
@@ -31,7 +31,8 @@ const initialState:tUserSlice = {
 
 export const setUserInfoOnLoad = createAsyncThunk("setUserInfoOnLoad", async function() {
   try {
-    const response = await fetch("http://localhost:5000/api/users/auth", {
+    //localhost:5000
+    const response = await fetch("http://backend-production-e988.up.railway.app/api/users/auth", {
       method: "GET",
       credentials: "include",
       mode: "cors"
