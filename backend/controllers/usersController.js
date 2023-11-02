@@ -39,8 +39,8 @@ const userSignIn = async function (req, res) {
             maxAge: 1000 * 60 * 60,
             httpOnly: false,
             signed: true,
-            secure: true,
-            domain: ".railway.app"
+            // secure: true,
+            // domain:".railway.app"
         };
         console.log("signed in yay.");
         res.clearCookie("3b_uid");
@@ -58,7 +58,6 @@ const userAuth = async function (req, res) {
     if (!req.signedCookies["3b_uid"])
         return res.status(401);
     const token = req.signedCookies["3b_uid"];
-    console.log("token", token);
     let userId;
     try {
         userId = jwt.verify(token, process.env.JWT_SECRET);

@@ -58,8 +58,8 @@ const userSignIn = async function(req:Request, res:Response) {
       maxAge: 1000*60*60,
       httpOnly: false,
       signed: true,
-      secure: true,
-      domain:".railway.app"
+      // secure: true,
+      // domain:".railway.app"
     }
 
     console.log("signed in yay.")
@@ -84,8 +84,7 @@ const userAuth = async function(req:Request, res:Response) {
   if(!req.signedCookies["3b_uid"]) return res.status(401)
 
   const token = req.signedCookies["3b_uid"]
-  console.log("token", token)
-  
+
   let userId
 
   try {
