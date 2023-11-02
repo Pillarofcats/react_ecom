@@ -12,6 +12,8 @@ const { Pool } = pg
 //   port: Number(process.env.PSQL_PORT),
 // }
 
+console.log("ENV VARIABLE HOST", process.env.PGHOST)
+
 const remoteDBOptions = {
   user: process.env.PGUSER,
   host: process.env.PGHOST,
