@@ -13,7 +13,7 @@ export default function NavLocalSearchProducts({filteredLocalSearchProducts}:{fi
     {
       filteredLocalSearchProducts.map((product) => {
         return (
-          <button key={product.p_id} 
+          <button type="button" key={product.p_id} 
             onClick={() => navigate({pathname:`/products/${product.p_id}`})}>
             <ProductCardLocalSearch product={ product } />
           </button>

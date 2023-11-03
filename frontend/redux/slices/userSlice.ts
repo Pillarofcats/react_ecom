@@ -4,6 +4,7 @@ import { tReview, tUserInfo, tUserSlice } from "../../types/types"
 const initialState:tUserSlice = {
   user: {} ,
   reviews:[],
+  purchased: [] ,
   status: "pending",
   error: null
 }
@@ -27,6 +28,28 @@ const initialState:tUserSlice = {
       
     } catch(error) {
       console.log("Failed to get user reviews.")
+    }
+  })
+
+  export const getUserPurchases = createAsyncThunk("getUserPurchases", async function(u_id:number) {
+
+    try {
+      //https://backend-production-e988.up.railway.app/api/userinfo/userpurchases
+      const response = await fetch("http://localhost:5000/api/userinfo/userpurchases", {
+        method: "POST",
+        mode: "cors",
+        credentials: "include",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({u_id:u_id})
+      })
+
+      if(response.ok) {
+        const data = await response.json()
+        return data
+      }
+      
+    } catch(error) {
+      console.log("Failed to get user purchases.")
     }
   })
 

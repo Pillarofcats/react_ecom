@@ -36,8 +36,23 @@ const updateUserInfo = async function(req:Request, res:Response) {
   return res.status(500)
 }
 
+const userPurchases = async function(req:Request, res:Response) {
+  const {u_id} = req.body
+
+  try {
+    console.log("u_id", u_id)
+    return res.status(200).json("Whoo")
+
+  } catch(error) {
+    console.log("Error getting user purchases.")
+  }
+  
+  res.status(500)
+}
+
 const userInfoController = {
-  updateUserInfo
+  updateUserInfo,
+  userPurchases
 }
 
 export default userInfoController

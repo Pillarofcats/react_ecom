@@ -4,6 +4,7 @@ import { useAppSelector } from "../redux/hooks/default"
 import useURLParams from "../hooks/useURLParams"
 
 import Product from "../components/Product"
+import ProductsFilter from "./ProductsFilter"
 import Pagination from "../components/Pagination"
 
 export default function Products() {
@@ -23,12 +24,15 @@ export default function Products() {
 
   return (
     <>
-      <div className="productsContainer flex-1">
-        { filterProductsCurrentPage ?
-            filterProductsCurrentPage?.map((product) => <Product key={ product.p_id } product={ product }/>)
-            :
-            null
-        }
+      <div className="flex flex-1 w-full">
+        <ProductsFilter />
+        <div className="productsContainer flex-1">
+          { filterProductsCurrentPage ?
+              filterProductsCurrentPage?.map((product) => <Product key={ product.p_id } product={ product }/>)
+              :
+              null
+          }
+        </div>
       </div>
       <Pagination numPages={ numPages }/>
     </>

@@ -13,6 +13,7 @@ export default function UserAccount() {
           <>
             <UserAccountInfo />
             <UserAccountReviews />
+            {/*UserAccountPurchases => getUserPurchases() */}
           </>
           :
           <Navigate to="/sign-in"/>

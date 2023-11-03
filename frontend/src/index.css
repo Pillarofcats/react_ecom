@@ -18,6 +18,10 @@
     @apply nav-focus;
   }
 
+  input[type=checkbox] {
+    @apply hover:cursor-pointer;
+  }
+
   select {
     @apply bg-sky-300 font-medium px-2;
   }
@@ -46,7 +50,7 @@
   .productsContainer {
     width: 85%;
     display: grid;
-    padding: 1rem;
+    /* padding: 1rem; */
     gap: 1rem;
     grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr));
   }

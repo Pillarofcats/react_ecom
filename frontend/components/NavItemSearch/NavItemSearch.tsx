@@ -20,9 +20,6 @@ export default function NavItemSearch() {
 
   const dispatch = useAppDispatch()
 
-  // const [toggleSearchByStars, setToggleSearchByStars] = useState(false)
-  // const [toggleSearchByPrice, setToggleSearchByPrice] = useState(false)
-
   console.log("localsearch", localSearch)
   const search = localSearch.get("search") || ""
 

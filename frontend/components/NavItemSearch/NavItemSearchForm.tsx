@@ -29,8 +29,10 @@ export default function NavItemSearchForm(
 
   function handleSearchFormSubmit(e:React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    if (document.activeElement !== localSearchInputRef.current) return
-    if(filteredProductsByLocalSearch.length < 1) return
+    console.log("CURRENT TARGET", e.currentTarget)
+    console.log("SEARCH SUBMIT")
+    // if (document.activeElement !== localSearchInputRef.current) return
+    // if(filteredProductsByLocalSearch.length < 1) return
   }
 
   function onSearchChange(e:React.ChangeEvent<HTMLInputElement>) {
@@ -80,7 +82,7 @@ export default function NavItemSearchForm(
         onChange={ onSearchChange }
         className="w-full text-black h-8 indent-2 font-medium"
         value={ search }
-        type="text" name="search" id="search" placeholder={`Search.. `}
+        type="search" name="search" id="search" placeholder={`Search.. `}
       />
 
       { toggleLocalSearch ?

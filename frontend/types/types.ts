@@ -60,6 +60,7 @@ type tType = "all" | "apparel" | "cookware" | "cosmetics" | "electronics" | "fur
 type tUserSlice = {
   user: tUserInfo | null,
   reviews?: tReview[],
+  purchased?: tProduct[] ,
   status: "pending" | "fulfilled" | "rejected",
   error: string | null
 }
