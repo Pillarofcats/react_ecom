@@ -8,8 +8,10 @@ export default function useURLParams() {
   const currentSearch = queryParams.get("search") || ""
   const currentPage = Number(queryParams.get("page")) || 1
   const currentType = queryParams.get("type") || "all"
+  const currentStarFilter = queryParams.get("stars") || ""
 
   return {
+    currentStarFilter,
     currentSearch,
     currentPage,
     currentType,
