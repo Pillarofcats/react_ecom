@@ -72,7 +72,7 @@ export default function ProductCard({ product }:{ product:tProduct }) {
             :
             <div className="grid grid-cols-2 gap-2 ml-[18%]">
               <select className="hover:cursor-pointer hover:hover:bg-sky-400 rounded-l-md w-fit" 
-                      ref={ qtySelectRef } onChange={ onChangeSelectProductQty }  defaultValue="1">
+                      ref={ qtySelectRef } onChange={ onChangeSelectProductQty }  defaultValue={1}>
                       {
                         optionArray.map((qty) => <option key={qty} value={`${qty}`}>{`${qty}`}</option>)
                       }

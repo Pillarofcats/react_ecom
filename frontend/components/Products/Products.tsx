@@ -1,43 +1,24 @@
 import { useMemo, useState } from "react"
 import { shallowEqual } from "react-redux"
-import { useAppSelector } from "../redux/hooks/default"
-import useURLParams from "../hooks/useURLParams"
+import { useAppSelector } from "../../redux/hooks/default"
+import useURLParams from "../../hooks/useURLParams"
 import { useNavigate } from "react-router"
 
-import Product from "../components/Product"
-import ProductsFilter from "./ProductsFilter"
-import Pagination from "../components/Pagination"
+import Product from "../Product"
+import ProductsFilter from "../ProductsFilter"
+import Pagination from "../Pagination"
+
+import setInitalStarFilter from "./functions/setInitialStarFilter"
 
 export default function Products() {
 
   const navigate = useNavigate()
   const { products } = useAppSelector( (state) => state.products, shallowEqual)
-  const { currentPage, queryParams } = useURLParams()
+  const { currentPage, currentStars, queryParams } = useURLParams()
 
-  const pageRange = 10
-  const pagePointerStart = (currentPage * pageRange) - pageRange
-  const pagePointerEnd = currentPage * pageRange
-  
+  const [starFilter, setStarFilter] = useState<boolean[]>(() => setInitalStarFilter(currentStars))
 
-  function setInitalStarFilter() {
-    const starsURLParam = queryParams.get("stars")
-    const parsedStarFilterURLParam = starsURLParam?.split("")
-
-    const initalStarFilter = [false, false, false, false, false]
-
-    if(!parsedStarFilterURLParam) return initalStarFilter
-
-    for(let i=0; i < parsedStarFilterURLParam.length; i++) {
-      const zeroBaseIndex = Number(parsedStarFilterURLParam[i])-1
-      initalStarFilter[zeroBaseIndex] = true
-    }
-    return initalStarFilter
-  }
-
-  const [starFilter, setStarFilter] = useState<boolean[]>(setInitalStarFilter)
-
-// const [minMaxPriceFilter, setMinMaxPriceFilter] = useState<[number, number]>([0,0])
-// console.log("starFilter", starFilter)
+  // const [minMaxPriceFilter, setMinMaxPriceFilter] = useState<[number, number]>([0,0])
 
   function onChangeStarFilter(e:React.ChangeEvent<HTMLInputElement>) {
 
@@ -46,19 +27,12 @@ export default function Products() {
     if(e.target.checked) {
       updatedStarFilter[Number(e.target.dataset.index)] = true
     } else {
-      //Unchecked
       updatedStarFilter[Number(e.target.dataset.index)] = false
-      //Last unchecked case
-      if(updatedStarFilter.indexOf(true) === -1) {
-        setStarFilter(updatedStarFilter)
-        queryParams.set("stars", "")
-        navigate({ pathname:"/products", search: queryParams.toString() }, { replace: true })
-        return
-      }
     }
     
     setStarFilter(updatedStarFilter)
-    //Set URL params
+
+    //Set URL param for starFilter
     let starsQueryString = ""
 
     for(let i=0; i < updatedStarFilter.length; i++) {
@@ -84,14 +58,18 @@ export default function Products() {
 
   }, [starFilter, products])
 
+
+  const pageRange = 10
+  const pagePointerStart = (currentPage * pageRange) - pageRange
+  const pagePointerEnd = currentPage * pageRange
+
   const filterProductsCurrentPage = useMemo(() => {
-    if(starFilter.find((bool) => bool === true)) {
+    if(starFilter.some((bool:boolean) => bool === true)) {
       return productsByStars.slice(pagePointerStart, pagePointerEnd)
     } else {
       return products.slice(pagePointerStart, pagePointerEnd)
     }
-  
-}, [products, productsByStars, starFilter, pagePointerStart, pagePointerEnd])
+  }, [products, productsByStars, starFilter, pagePointerStart, pagePointerEnd])
 
   const numPages = useMemo(() => Math.ceil(products.length / pageRange), [products.length])
 
