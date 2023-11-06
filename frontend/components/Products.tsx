@@ -23,9 +23,9 @@ export default function Products() {
     const starsURLParam = queryParams.get("stars")
     const parsedStarFilterURLParam = starsURLParam?.split("")
 
-    if(!parsedStarFilterURLParam) return [false, false, false, false, false]
-
     const initalStarFilter = [false, false, false, false, false]
+
+    if(!parsedStarFilterURLParam) return initalStarFilter
 
     for(let i=0; i < parsedStarFilterURLParam.length; i++) {
       const zeroBaseIndex = Number(parsedStarFilterURLParam[i])-1
@@ -58,7 +58,6 @@ export default function Products() {
     }
     
     setStarFilter(updatedStarFilter)
-
     //Set URL params
     let starsQueryString = ""
 
@@ -74,9 +73,25 @@ export default function Products() {
 
 // }
 
-  // const filteredProductsBySearch = useMemo(() => products.filter((product) => product.title.toLowerCase().includes(currentSearch.toLowerCase())), [products, currentSearch])
+  const productsByStars = useMemo(() => { 
+    return products.filter((product) => {
+      if(starFilter[0] && product.stars === 1) return true
+      if(starFilter[1] && product.stars === 2) return true
+      if(starFilter[2] && product.stars === 3) return true
+      if(starFilter[3] && product.stars === 4) return true
+      if(starFilter[4] && product.stars === 5) return true
+    }).sort((a,b) => b.stars - a.stars)
 
-  const filterProductsCurrentPage = useMemo(() => products.slice(pagePointerStart, pagePointerEnd), [products, pagePointerStart, pagePointerEnd])
+  }, [starFilter, products])
+
+  const filterProductsCurrentPage = useMemo(() => {
+    if(starFilter.find((bool) => bool === true)) {
+      return productsByStars.slice(pagePointerStart, pagePointerEnd)
+    } else {
+      return products.slice(pagePointerStart, pagePointerEnd)
+    }
+  
+}, [products, productsByStars, starFilter, pagePointerStart, pagePointerEnd])
 
   const numPages = useMemo(() => Math.ceil(products.length / pageRange), [products.length])
 

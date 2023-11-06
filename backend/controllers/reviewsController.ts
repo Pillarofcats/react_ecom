@@ -21,7 +21,6 @@ const productReview = async function(req:Request, res:Response) {
 const addReview = async function(req:Request, res:Response) {
   const  { p_id, u_id, title, username, review, stars } = req.body as tReview
 
-  console.log("username", username, "title", title)
   try {
     //Update review with new review
     const addedReview = await dbQuery("INSERT INTO ecom.product_reviews (p_id, u_id, title, username, review, stars) VALUES($1, $2, $3, $4, $5, $6) RETURNING *", [p_id, u_id, title, username, review, stars])
@@ -32,26 +31,10 @@ const addReview = async function(req:Request, res:Response) {
       return acc += curr.stars
     }, 0)
 
-    console.log("total user stars:", TOTAL_USER_REVIEW_STARS)
-
     const NUM_REVIEWS = reviews.rows.length
-    const MAX_PRODUCT_STARS = 5
-    
-    const calcProductStars = (TOTAL_USER_REVIEW_STARS) / (NUM_REVIEWS * MAX_PRODUCT_STARS ) * 100
+    const calcProductStars =  Math.ceil((TOTAL_USER_REVIEW_STARS) / (NUM_REVIEWS))
 
-    console.log("calcStars", calcProductStars)
-
-    let updatedProductStars
-
-    if(calcProductStars <= 20) updatedProductStars = 1
-    else if(calcProductStars > 20 && calcProductStars <= 40) updatedProductStars = 2
-    else if (calcProductStars > 40 && calcProductStars <= 60) updatedProductStars = 3
-    else if(calcProductStars > 60 && calcProductStars <= 80) updatedProductStars = 4
-    else if(calcProductStars > 80) updatedProductStars = 5    
-    
-    console.log("updated product stars", updatedProductStars)
-
-    await dbQuery("UPDATE ecom.all_products SET stars = $1 WHERE p_id = $2", [updatedProductStars, p_id])
+    await dbQuery("UPDATE ecom.all_products SET stars = $1 WHERE p_id = $2", [calcProductStars, p_id])
 
     res.status(200).json(addedReview.rows[0])
   } catch(error) {
