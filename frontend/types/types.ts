@@ -22,7 +22,8 @@ type tProduct = {
   product_type: string,
   quantity: number,
   quantity_sold?: number | null,
-  stars: number
+  stars: number,
+  num_reviews?: number
 }
 
 type tCartItem = {
