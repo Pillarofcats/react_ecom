@@ -37,6 +37,7 @@ CREATE TABLE ecom.all_products (
   quantity INTEGER NOT NULL,
   stars INTEGER NOT NULL,
   quantity_sold INTEGER,
+  num_reviews INTEGER,
   colors JSONB,
   sizes JSONB
 );
