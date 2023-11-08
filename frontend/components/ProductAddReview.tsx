@@ -5,6 +5,7 @@ import { useAppDispatch } from "../redux/hooks/default"
 import { addReview } from "../redux/slices/reviewsSlice"
 import { getSingleProduct } from "../redux/slices/productsSlice"
 import { getProducts } from "../redux/slices/productsSlice"
+import { getUserReviews } from "../redux/slices/userSlice"
 
 export default function ProductAddReview({u_id, product, username,}:{u_id:number|undefined, product:tProduct | null, username:string|undefined}) {
   
@@ -46,6 +47,7 @@ export default function ProductAddReview({u_id, product, username,}:{u_id:number
         dispatch(getSingleProduct(data.p_id))
         dispatch(addReview(data))
         dispatch(getProducts("all"))
+        if(u_id) dispatch(getUserReviews(u_id))
       }
 
     } catch(error) {

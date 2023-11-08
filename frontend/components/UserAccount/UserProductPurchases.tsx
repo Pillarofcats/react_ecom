@@ -11,7 +11,7 @@ export default function UserProductPurchases({ purchases }:{purchases:tPurchase[
       <h1 className="text-center text-3xl font-semibold">User Purchases</h1>
       <button className="formButton" onClick={() => setToggleView(state => !state)}>View</button>
 
-      <div className={`flex flex-col gap-2 items-center h-[30rem] ${toggleView ? "overflow-y-scroll" : ""}`}>
+      <div className={`flex flex-col gap-2 items-center h-[30rem] ${toggleView && purchases.length > 0 ? "overflow-y-scroll" : ""}`}>
       {  toggleView ?
         purchases.map((item, i) => {
           return (
