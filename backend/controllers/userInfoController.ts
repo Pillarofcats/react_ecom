@@ -6,6 +6,8 @@ const updateUserInfo = async function(req:Request, res:Response) {
 
   const data = req.body as tUserInfo
 
+  console.log("DATAUSERINO", data)
+
   let queryInitStringNumber = 1
   const queryStrings = []
   const queryValues = []  
@@ -39,9 +41,13 @@ const updateUserInfo = async function(req:Request, res:Response) {
 const userPurchases = async function(req:Request, res:Response) {
   const {u_id} = req.body
 
+  //Get User Purchases
   try {
-    console.log("u_id", u_id)
-    return res.status(200).json("Whoo")
+    const getPurchases = await dbQuery("SELECT purchase_date, p_id, stars, title, price_cent, qty_purchased FROM ecom.user_purchases WHERE u_id = $1", [u_id])
+    const purchaseData = getPurchases.rows
+    console.log("Purchase data", purchaseData)
+
+    return res.status(200).json(purchaseData)
 
   } catch(error) {
     console.log("Error getting user purchases.")

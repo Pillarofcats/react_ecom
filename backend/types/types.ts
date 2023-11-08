@@ -9,6 +9,15 @@ type tSignIn = {
   password: string;
 }
 
+type tPurchase = {
+  purchase_date: string,
+  p_id: string,
+  stars: number,
+  title: string,
+  price_cent: number,
+  qty_purchased: number
+}
+
 type tProduct = {
   p_id: string,
   title: string,
@@ -87,5 +96,6 @@ export type {
   tUserInfo,
   tUserSlice,
   tReview,
-  tReviewsSlice
+  tReviewsSlice,
+  tPurchase
 }

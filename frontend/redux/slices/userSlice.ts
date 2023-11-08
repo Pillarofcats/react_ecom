@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit"
-import { tReview, tUserInfo, tUserSlice } from "../../types/types"
+import { tPurchase, tReview, tUserInfo, tUserSlice } from "../../types/types"
 
 const initialState:tUserSlice = {
   user: {} ,
@@ -100,6 +100,17 @@ const userSlice = createSlice({
       state.status = "pending"
     }),
       builder.addCase(getUserReviews.rejected, (state) => {
+      state.status = "rejected"
+      state.error = "Failed to fetch all products"
+    }),
+      builder.addCase(getUserPurchases.fulfilled, (state, action:PayloadAction<tPurchase[]>) => {
+      state.purchased = action.payload
+      state.status = "fulfilled"
+    }),
+      builder.addCase(getUserPurchases.pending, (state) => {
+      state.status = "pending"
+    }),
+      builder.addCase(getUserPurchases.rejected, (state) => {
       state.status = "rejected"
       state.error = "Failed to fetch all products"
     })

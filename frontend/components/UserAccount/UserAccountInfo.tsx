@@ -64,8 +64,8 @@ export default function UserAccountInfo() {
   }
 
   async function formSubmit(data:tUserInfo) {
-
-    const response = await fetch("https://backend-production-e988.up.railway.app/api/userinfo/updateuser", {
+    //"https://backend-production-e988.up.railway.app/api/userinfo/updateuser"
+    const response = await fetch("http://localhost:5000/api/userinfo/updateuser", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
@@ -77,7 +77,7 @@ export default function UserAccountInfo() {
   }
 
   return (
-      <div className="flex flex-col items-center p-2 flex-1">
+      <div className="flex flex-col items-center p-2 flex-1 w-full md:w-[75%] lg:w-[fit]">
         <h1 className="text-center text-3xl font-semibold">User Account</h1>
 
         <form onSubmit={ handleFormSubmit } className="flex flex-col gap-5 w-[70%]">
@@ -116,7 +116,7 @@ export default function UserAccountInfo() {
             <input className={`formInput ${ changedBirthday ? "text-black" : "text-gray-400" }`} onChange={() => setChangedBirthday(true)} ref={ birthdayRef } type="date" name="birthday" id="birthday" defaultValue={ user.user?.birthday }/>
           </div>
 
-          <button className="formButton" type="submit">Update account</button>
+          <button className="formButton" type="submit">Update</button>
         </form>
       </div>
   )

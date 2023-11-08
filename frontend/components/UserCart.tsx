@@ -27,8 +27,6 @@ export default function UserCart() {
         body: JSON.stringify(userCart)
       })
 
-      console.log("response", response)
-
       if(response.ok) {
         dispatch(clearCart())
       }
@@ -39,10 +37,10 @@ export default function UserCart() {
   }
 
   return (
-    <div className="flex flex-col gap-5">
-      <h1 className="text-center text-3xl font-semibold">Items in Cart</h1>
+    <div className="flex flex-col py-2 gap-2 h-full">
+      <h1 className="self-center flex items-center text-3xl font-semibold">Items in Cart</h1>
 
-      <div className="grid gap-2">
+      <div className="grid gap-2 flex-1">
         {
           cart.map((product) => {
             return (
@@ -54,7 +52,7 @@ export default function UserCart() {
         }
       </div>
       
-      <div className="flex flex-col items-center gap-2">
+      <div className="flex flex-col items-center gap-2 py-2">
         <h1 className="text-center text-3xl font-semibold">Total Price</h1>
         <p>{`Total Price: $${(totalPrice * .01).toFixed(2)}`}</p>
         <button className="productButton" onClick={ purchase }>Buy</button>

@@ -31,6 +31,15 @@ type tCartItem = {
   item: tProduct
 }
 
+type tPurchase = {
+  purchase_date: string,
+  p_id: string,
+  stars: number,
+  title: string,
+  price_cent: number,
+  qty_purchased: number
+}
+
 type tUserInfo = {
   u_id?: number,
   email?: string,
@@ -61,12 +70,13 @@ type tType = "all" | "apparel" | "cookware" | "cosmetics" | "electronics" | "fur
 type tUserSlice = {
   user: tUserInfo | null,
   reviews?: tReview[],
-  purchased?: tProduct[] ,
+  purchased?: tPurchase[] ,
   status: "pending" | "fulfilled" | "rejected",
   error: string | null
 }
 type tProductsSlice = {
   products: tProduct[],
+  filtered: tProduct[],
   dynamicPageProduct: tProduct | null,
   status: "pending" | "fulfilled" | "rejected",
   error: string | null
@@ -94,5 +104,6 @@ export type {
   tUserInfo,
   tUserSlice,
   tReview,
-  tReviewsSlice
+  tReviewsSlice,
+  tPurchase
 }

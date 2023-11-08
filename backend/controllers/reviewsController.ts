@@ -35,6 +35,7 @@ const addReview = async function(req:Request, res:Response) {
     const calcProductStars =  Math.ceil((TOTAL_USER_REVIEW_STARS) / (NUM_REVIEWS))
 
     await dbQuery("UPDATE ecom.all_products SET stars = $1 WHERE p_id = $2", [calcProductStars, p_id])
+    console.log("num reviews", NUM_REVIEWS, p_id)
     await dbQuery("UPDATE ecom.all_products SET num_reviews = $1 WHERE p_id = $2", [NUM_REVIEWS, p_id])
 
     res.status(200).json(addedReview.rows[0])

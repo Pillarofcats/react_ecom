@@ -4,6 +4,7 @@ import { AiFillStar, AiOutlineStar } from "react-icons/ai"
 import { useAppDispatch } from "../redux/hooks/default"
 import { addReview } from "../redux/slices/reviewsSlice"
 import { getSingleProduct } from "../redux/slices/productsSlice"
+import { getProducts } from "../redux/slices/productsSlice"
 
 export default function ProductAddReview({u_id, product, username,}:{u_id:number|undefined, product:tProduct | null, username:string|undefined}) {
   
@@ -44,6 +45,7 @@ export default function ProductAddReview({u_id, product, username,}:{u_id:number
         const data = await response.json()
         dispatch(getSingleProduct(data.p_id))
         dispatch(addReview(data))
+        dispatch(getProducts("all"))
       }
 
     } catch(error) {

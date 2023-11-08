@@ -30,12 +30,12 @@ const purchase = async function (req, res) {
     let queryValues = [];
     if (u_id) {
         for (const index in cart) {
-            queryValues.push([u_id, cart[index].item.p_id, cart[index].qty]);
+            queryValues.push([u_id, cart[index].item.p_id, cart[index].item.stars, cart[index].item.title, cart[index].item.price_cent, cart[index].qty]);
             console.log("updated Qty:", queryValues[index]);
         }
         try {
             for (const index in queryValues) {
-                await dbQuery("INSERT INTO ecom.user_purchases (u_id, p_id, quantity) VALUES($1, $2, $3)", queryValues[index]);
+                await dbQuery("INSERT INTO ecom.user_purchases (u_id, p_id, stars, title, price_cent, qty_purchased) VALUES($1, $2, $3, $4, $5, $6)", queryValues[index]);
             }
         }
         catch (error) {

@@ -3,6 +3,7 @@ import { tProductsSlice, tProduct, tType } from "../../types/types"
 
 const initialState:tProductsSlice = {
   products: [],
+  filtered: [],
   dynamicPageProduct: null,
   status: "pending",
   error: null
