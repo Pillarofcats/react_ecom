@@ -21,7 +21,6 @@ export default function NavItemSearchForm(
   }) {
 
   const search = localSearch.get("search") || ""
-  console.log("search:", search)
 
   const localSearchInputRef = useRef<HTMLInputElement>(null)
   const formSearchRef = useRef<HTMLFormElement>(null)
@@ -60,7 +59,6 @@ export default function NavItemSearchForm(
   }
 
   useEffect(() => {
-    console.log("searchLength",search, search.length)
     if(search.length > 0) {
       setToggleLocalSearch(true)
     } else {

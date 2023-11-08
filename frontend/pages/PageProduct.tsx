@@ -12,16 +12,19 @@ import ProductReviews from "../components/ProductReviews"
 import ProductAddReview from "../components/ProductAddReview"
 
 export default function PageProduct() {
+  console.log("PAGE PRODUCTS")
 
   const { pid } = useParams()
 
   const { dynamicPageProduct } = useAppSelector((state) => state.products, shallowEqual)
   const { user } = useAppSelector((state) => state.user, shallowEqual)
   const { reviews } = useAppSelector((state) => state.reviews, shallowEqual)
+  const { purchased } = useAppSelector((state) => state.user, shallowEqual)
   
   const dispatch = useAppDispatch()
 
-  const hasUserMadeReview = reviews.find((review) => review?.u_id === user?.u_id)
+  const hasUserPurchasedProduct = purchased?.some((purchase) => purchase?.p_id === pid)
+  const hasUserMadeReview = reviews?.some((review) => review?.u_id === user?.u_id)
 
   useEffect(() => {
     dispatch(getProductReviews( Number(pid) ))
@@ -41,7 +44,7 @@ export default function PageProduct() {
       </div>
 
       <div className="md:flex justify-center">
-        { !hasUserMadeReview && cookieAuth() ?
+        { !hasUserMadeReview && hasUserPurchasedProduct && cookieAuth() ?
             <ProductAddReview u_id={user?.u_id} product={dynamicPageProduct} username={user?.username} />
             :
             null

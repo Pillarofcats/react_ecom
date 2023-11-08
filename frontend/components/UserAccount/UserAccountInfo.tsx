@@ -59,20 +59,18 @@ export default function UserAccountInfo() {
     
     if(Object.keys(data).length === 1) return
 
-    console.log("dataSent", data)
     formSubmit(data)
   }
 
   async function formSubmit(data:tUserInfo) {
     //"https://backend-production-e988.up.railway.app/api/userinfo/updateuser"
-    const response = await fetch("http://localhost:5000/api/userinfo/updateuser", {
+    const response = await fetch("https://backend-production-e988.up.railway.app/api/userinfo/updateuser", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
     })
 
     const d = await response.json()
-    console.log("dataReturned", d)
     dispatch(setUserInfoOnSignIn(d))
   }
 

@@ -11,6 +11,7 @@ import NavItemSearchTypeSelect from "./NavItemSearchTypeSelect"
 import NavItemSearchForm from "./NavItemSearchForm"
 
 export default function NavItemSearch() {
+  console.log("NAVBAR")
 
   const { currentSearch, currentType, queryParams } = useURLParams()
   const { products } = useAppSelector((state) => state.products, shallowEqual)
@@ -20,7 +21,6 @@ export default function NavItemSearch() {
 
   const dispatch = useAppDispatch()
 
-  console.log("localsearch", localSearch)
   const search = localSearch.get("search") || ""
 
   const filteredProductsByLocalSearch = useMemo(() => {

@@ -3,7 +3,10 @@ import { useAppSelector, useAppDispatch } from "../redux/hooks/default"
 import { clearCart } from "../redux/slices/cartSlice"
 import { tCartSlice } from "../types/types"
 
+import { getUserPurchases } from "../redux/slices/userSlice"
+
 export default function UserCart() {
+  
   const {user} = useAppSelector((state) => state.user)
   const {cart} = useAppSelector((state) => state.cart)
   const dispatch = useAppDispatch()
@@ -19,7 +22,7 @@ export default function UserCart() {
     if(user) userCart.u_id = user.u_id
 
     try {
-      const response = await fetch("http://localhost:5000/api/products/purchase", {
+      const response = await fetch("https://backend-production-e988.up.railway.app/api/products/purchase", {
         method: "POST",
         mode: "cors",
         credentials: "include",
@@ -29,6 +32,7 @@ export default function UserCart() {
 
       if(response.ok) {
         dispatch(clearCart())
+        if(user?.u_id) dispatch(getUserPurchases(user.u_id))
       }
       
     } catch(error) {

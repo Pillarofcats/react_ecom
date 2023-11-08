@@ -11,11 +11,14 @@ import { Routes, Route, Navigate } from "react-router-dom"
 
 import useAuthUser from "../hooks/useAuthUser"
 import useGetLocalCart from "../hooks/useGetLocalCart"
+import useGetUserData from "../hooks/useGetUserData"
 
 export default function App() {
+  console.log("APP")
 
   useAuthUser()
   useGetLocalCart()
+  useGetUserData()
 
   return (
     <Routes>

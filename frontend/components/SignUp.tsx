@@ -1,7 +1,12 @@
-import React, { useRef, useEffect } from "react"
-import { tSignUp, tSetToggleSignIn } from "../types/types"
+import React, { useRef, useEffect, useState } from "react"
+import { tSignUp, tSetToggleSignIn, tServerMessage } from "../types/types"
+
+import ServerResponse from "../components/ServerResponse"
 
 export default function SignUp({ setToggleSignIn }:tSetToggleSignIn) {
+
+  const [serverMessage, setServerMessage] = useState<tServerMessage>(["err",""])
+  const [isServerMessage, setIsServerMessage] = useState<boolean>(false)
 
   const usernameRef = useRef<HTMLInputElement>(null)
   const emailRef = useRef<HTMLInputElement>(null)
@@ -28,16 +33,23 @@ export default function SignUp({ setToggleSignIn }:tSetToggleSignIn) {
   async function formSubmit(o:tSignUp) {
     
     try {
-      const response = await fetch("http://localhost:5000/api/users/signup", {
+      const response = await fetch("https://backend-production-e988.up.railway.app/api/users/signup", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(o)
       })
 
+      const data = await response.json()
+
+      if(data.message) {
+        setServerMessage(["ok", data.message])
+        setIsServerMessage(true)
+      }
+
       if(response.ok) {
         timeoutRef.current = setTimeout(() => {
           setToggleSignIn((prev) => !prev)
-        }, 1200)
+        }, 3000)
       }
     
     }
@@ -69,6 +81,13 @@ export default function SignUp({ setToggleSignIn }:tSetToggleSignIn) {
           <label htmlFor="registerPassword">Password</label>
           <input className="indent-1 border border-slate-800 rounded-sm" ref={passwordRef} type="password" id="registerPassword" name="registerPassword" />
         </div>
+
+        <ServerResponse 
+          isServerMessage={isServerMessage} 
+          setIsServerMessage={setIsServerMessage}
+          serverMessage={serverMessage[1]}
+          serverMessageStatus={serverMessage[0]}
+        />
         
         <button className="formButton" type="submit">Submit</button>
       </form>

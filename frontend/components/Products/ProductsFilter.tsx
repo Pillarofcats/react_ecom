@@ -21,14 +21,6 @@ export default function ProductsFilter(
     onChangePriceFilter:(e:React.ChangeEvent<HTMLInputElement>) => void
   }) {
 
-  // const minPriceRef = useRef<HTMLInputElement>(null)
-  // const maxPriceRef = useRef<HTMLInputElement>(null)
-
-  
-
-  // console.log("minRef", minPriceRef)
-  // console.log("mexRef", maxPriceRef)
-
   function handleSubmitPriceFilter(e:React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
@@ -39,9 +31,6 @@ export default function ProductsFilter(
 
     if(minPriceFilter) minPriceInput = Number(minPriceFilter)
     if(maxPriceFilter) maxPriceInput = Number(maxPriceFilter)
-
-    console.log("mininput", minPriceInput)
-    console.log("maxinput", maxPriceInput)
 
     if(minPriceInput && maxPriceInput && minPriceInput >= maxPriceInput) {
       setMaxPriceFilter("")

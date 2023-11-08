@@ -63,6 +63,8 @@ type tReview = {
   stars: number
 }
 
+type tServerMessage = ["ok"|"err", string]
+
 type tParams = (string | number)[]
 type tType = "all" | "apparel" | "cookware" | "cosmetics" | "electronics" | "furniture" | "food" | " instruments" | "jewelry" | "tools" | "toys"
 
@@ -105,5 +107,6 @@ export type {
   tUserSlice,
   tReview,
   tReviewsSlice,
-  tPurchase
+  tPurchase,
+  tServerMessage
 }
