@@ -39,8 +39,8 @@ const userSignIn = async function (req, res) {
             maxAge: 1000 * 60 * 60,
             httpOnly: false,
             signed: true,
-            // secure: true,
-            // domain:".railway.app"
+            secure: true,
+            domain: ".up.railway.app"
         };
         console.log("signed in yay.");
         res.clearCookie("3b_uid");

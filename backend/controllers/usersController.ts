@@ -59,7 +59,7 @@ const userSignIn = async function(req:Request, res:Response) {
       httpOnly: false,
       signed: true,
       secure: true,
-      domain:".railway.app"
+      domain:".up.railway.app"
     }
 
     console.log("signed in yay.")
