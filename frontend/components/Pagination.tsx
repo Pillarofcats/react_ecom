@@ -13,17 +13,20 @@ export default function Pagination({ numPages }:{ numPages: number }) {
     if(currentPage === 1) return
     queryParams.set("page", `${currentPage-1}`)
     navigate({ pathname:"/products", search: queryParams.toString() })
+    window.scrollTo(0, 0)
   }
 
   function pageClick(n:number) {
     queryParams.set("page", `${n}`)
-    navigate({ pathname:"/products", search: queryParams.toString() }) 
+    navigate({ pathname:"/products", search: queryParams.toString() })
+    window.scrollTo(0, 0)
   }
 
   function nextButton() { 
     if(currentPage === numPages) return
     queryParams.set("page", `${currentPage+1}`)
     navigate({ pathname:"/products", search: queryParams.toString() })
+    window.scrollTo(0, 0)
   }
 
   return (

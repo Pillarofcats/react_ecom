@@ -58,8 +58,8 @@ const userSignIn = async function(req:Request, res:Response) {
       maxAge: 1000*60*60,
       httpOnly: false,
       signed: true,
-      secure: true,
-      domain:".up.railway.app"
+      // secure: true,
+      // domain:".up.railway.app"
     }
 
     console.log("signed in yay.")

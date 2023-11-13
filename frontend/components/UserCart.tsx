@@ -22,7 +22,7 @@ export default function UserCart() {
     if(user) userCart.u_id = user.u_id
 
     try {
-      const response = await fetch("https://backend-production-e988.up.railway.app/api/products/purchase", {
+      const response = await fetch("http://localhost:5000/api/products/purchase", {
         method: "POST",
         mode: "cors",
         credentials: "include",

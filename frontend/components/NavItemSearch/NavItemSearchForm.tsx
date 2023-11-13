@@ -4,6 +4,11 @@ import { BiSearch } from "react-icons/bi"
 
 import NavItemLocalSearchProducts from "./NavItemLocalSearchProducts"
 import { SetURLSearchParams } from "react-router-dom"
+import { useAppDispatch } from "../../redux/hooks/default"
+import { getSearchProducts, resetProducts } from "../../redux/slices/productsSlice"
+
+import { useNavigate } from "react-router-dom"
+import useURLParams from "../../hooks/useURLParams"
 
 export default function NavItemSearchForm(
   { 
@@ -20,6 +25,10 @@ export default function NavItemSearchForm(
     filteredProductsByLocalSearch:tProduct[] 
   }) {
 
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+  const { queryParams } = useURLParams()
+
   const search = localSearch.get("search") || ""
 
   const localSearchInputRef = useRef<HTMLInputElement>(null)
@@ -28,10 +37,14 @@ export default function NavItemSearchForm(
 
   function handleSearchFormSubmit(e:React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    console.log("CURRENT TARGET", e.currentTarget)
-    console.log("SEARCH SUBMIT")
-    // if (document.activeElement !== localSearchInputRef.current) return
-    // if(filteredProductsByLocalSearch.length < 1) return
+    if(!localSearchInputRef.current) return
+    dispatch(resetProducts())
+
+    const { value } = localSearchInputRef.current
+    dispatch(getSearchProducts(value))
+
+    queryParams.set("page", "1")
+    navigate({ pathname:"/products", search: queryParams.toString() }, { replace: true })
   }
 
   function onSearchChange(e:React.ChangeEvent<HTMLInputElement>) {
@@ -53,8 +66,8 @@ export default function NavItemSearchForm(
   function onMouseEnterSearchBar(e: React.MouseEvent<HTMLFormElement, MouseEvent>) {
     if(search.length < 1) return
     e.preventDefault()
-
-    if(localSearch) setToggleLocalSearch(true)
+  
+    setToggleLocalSearch(true)
     clearTimeout(formSearchTimerRef.current as NodeJS.Timeout)
   }
 
@@ -63,8 +76,9 @@ export default function NavItemSearchForm(
       setToggleLocalSearch(true)
     } else {
       setToggleLocalSearch(false)
+      dispatch(resetProducts())
     }
-  }, [search, setToggleLocalSearch])
+  }, [search, setToggleLocalSearch, dispatch])
 
   useEffect(() => {
     return () => {
@@ -80,7 +94,8 @@ export default function NavItemSearchForm(
         onChange={ onSearchChange }
         className="w-full text-black h-8 indent-2 font-medium"
         value={ search }
-        type="search" name="search" id="search" placeholder={`Search.. `}
+        type="search" name="search" placeholder={`Search.. `}
+        autoComplete="off"
       />
 
       { toggleLocalSearch ?

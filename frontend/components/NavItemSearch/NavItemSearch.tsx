@@ -24,7 +24,7 @@ export default function NavItemSearch() {
   const search = localSearch.get("search") || ""
 
   const filteredProductsByLocalSearch = useMemo(() => {
-    return products.filter((product) => product.title.toLowerCase().includes(search.toLowerCase())).slice(0,5)
+    return products.filter((product) => product.title.toLowerCase().includes(search.toLowerCase())).slice(0,4)
   }, [search, products])
 
   useEffect(() => {
@@ -32,8 +32,10 @@ export default function NavItemSearch() {
     dispatch(getProducts(currentType as tType))
   }, [currentType, dispatch])
 
+
+  //hidden
   return (
-    <div  className="md:flex hidden h-8 self-center min-w-fit w-[50%]">
+    <div  className="flex h-8 self-center min-w-fit w-[50%]">
       <NavItemSearchTypeSelect
         currentType={currentType}
         queryParams={queryParams}/>

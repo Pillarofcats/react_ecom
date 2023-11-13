@@ -18,7 +18,6 @@ export default function Products() {
   const { currentPage, currentStars, currentMinPrice, currentMaxPrice, queryParams } = useURLParams()
 
   const [starFilter, setStarFilter] = useState<boolean[]>(() => setInitalStarFilter(currentStars))
-
   const [minPriceFilter, setMinPriceFilter] = useState<string>(currentMinPrice)
   const [maxPriceFilter, setMaxPriceFilter] = useState<string>(currentMaxPrice)
   const [submitPriceForm, setSubmitPriceForm] = useState<boolean>(false)
@@ -42,7 +41,9 @@ export default function Products() {
     for(let i=0; i < updatedStarFilter.length; i++) {
       if(updatedStarFilter[i] === true) starsQueryString = starsQueryString.concat(`${i+1}`)
     }
+
     queryParams.set("stars", starsQueryString)
+    queryParams.set("page", "1")
     navigate({ pathname:"/products", search: queryParams.toString() }, { replace: true })
   }
 
@@ -113,11 +114,11 @@ export default function Products() {
 
   const filterProductsCurrentPage = useMemo(() => filteredProducts.slice(pagePointerStart, pagePointerEnd), [filteredProducts, pagePointerStart, pagePointerEnd])
 
-  const numPages = useMemo(() => Math.ceil(products.length / pageRange), [products.length])
+  const numPages = useMemo(() => Math.ceil(filteredProducts.length / pageRange), [filteredProducts.length])
 
   return (
     <>
-      <div className="flex flex-1 w-full">
+      <div className="flex flex-col sm:items-stretch sm:flex-row flex-1 w-full">
         <ProductsFilter 
           starFilter={starFilter}
           onChangeStarFilter={onChangeStarFilter} 
@@ -128,7 +129,7 @@ export default function Products() {
           setSubmitPriceForm={setSubmitPriceForm}
           onChangePriceFilter={onChangePriceFilter}
           />
-        <div className="productsContainer flex-1">
+        <div className="productsContainer flex-1 w-full md:w-fit">
           { filterProductsCurrentPage ?
               filterProductsCurrentPage?.map((product) => <Product key={ product.p_id } product={ product }/>)
               :

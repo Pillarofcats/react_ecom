@@ -3,7 +3,7 @@ import { tProductsSlice, tProduct, tType } from "../../types/types"
 
 const initialState:tProductsSlice = {
   products: [],
-  filtered: [],
+  productsCpy: [],
   dynamicPageProduct: null,
   status: "pending",
   error: null
@@ -11,7 +11,7 @@ const initialState:tProductsSlice = {
 
 export const getProducts = createAsyncThunk("getProducts", async function(productType:tType) {
   try {
-    const response = await fetch(`https://backend-production-e988.up.railway.app/api/products/bytype`, {
+    const response = await fetch(`http://localhost:5000/api/products/bytype`, {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({ type: productType })
@@ -29,7 +29,7 @@ export const getProducts = createAsyncThunk("getProducts", async function(produc
 
 export const getSingleProduct = createAsyncThunk("querySingleProduct", async function(pid:number) {
   try{
-    const response = await fetch(`https://backend-production-e988.up.railway.app/api/products/singleproduct`, {
+    const response = await fetch(`http://localhost:5000/api/products/singleproduct`, {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({ pid:pid })
@@ -48,10 +48,19 @@ export const getSingleProduct = createAsyncThunk("querySingleProduct", async fun
 export const productsSlice = createSlice({
   name: "products",
   initialState,
-  reducers: {},
+  reducers: {
+    resetProducts: (state) => {
+      state.products = state.productsCpy
+    },
+    getSearchProducts: (state, action:PayloadAction<string>) => {
+      const products = [...state.products]
+      state.products = products.filter((item) => item.title.toLowerCase().includes(action.payload.toLowerCase()))
+    }
+  },
   extraReducers:(builder) => {
     builder.addCase(getProducts.fulfilled, (state, action:PayloadAction<tProduct[]>) => {
       state.products = action.payload
+      state.productsCpy = action.payload
       state.status = "fulfilled"
     }),
       builder.addCase(getProducts.pending, (state) => {
@@ -75,5 +84,5 @@ export const productsSlice = createSlice({
   }
 })
 
-// export const { } = productsSlice.actions
+export const { resetProducts, getSearchProducts } = productsSlice.actions
 export default productsSlice.reducer

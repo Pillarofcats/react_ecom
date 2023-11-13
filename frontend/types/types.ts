@@ -78,7 +78,7 @@ type tUserSlice = {
 }
 type tProductsSlice = {
   products: tProduct[],
-  filtered: tProduct[],
+  productsCpy: tProduct[],
   dynamicPageProduct: tProduct | null,
   status: "pending" | "fulfilled" | "rejected",
   error: string | null
