@@ -39,20 +39,20 @@ export default function ProductsFilter(
 
     if(minPriceInput && maxPriceInput && minPriceInput >= maxPriceInput) {
       setMaxPriceFilter("")
-      console.log("submitted min price range", minPriceInput)
+      // console.log("submitted min price range", minPriceInput)
     }
     else if(minPriceInput && maxPriceInput && minPriceInput < maxPriceInput) {
       setMinPriceFilter(`${minPriceInput}`)
       setMaxPriceFilter(`${maxPriceInput}`)
-      console.log("submitted price range", minPriceInput, " - ", maxPriceInput)
+      // console.log("submitted price range", minPriceInput, " - ", maxPriceInput)
     }
     else if(!minPriceInput && maxPriceInput) {
-      console.log("submitted max price range", maxPriceInput)
+      // console.log("submitted max price range", maxPriceInput)
       setMaxPriceFilter(`${maxPriceInput}`)
     }
     else if(minPriceInput && !maxPriceInput) {
       setMinPriceFilter(`${minPriceInput}`)
-      console.log("submitted min price range", minPriceInput)
+      // console.log("submitted min price range", minPriceInput)
     }
 
     queryParams.set("page", "1")

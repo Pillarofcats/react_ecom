@@ -8,9 +8,3 @@ CREATE TABLE ecom.user_info (
   address VARCHAR(255),
 	phone VARCHAR(255)
 );
-
--- GET USER'S REVIEWS: SELECT * FROM ecom.product_reviews WHERE u_id = u_id
-
--- PURCHASES JSONB SCHEMA: [{"p_id": "1"}, {"p_id": "2"}, {"p_id": "3"}]
-  
--- CART JSONB SCHEMA: [{"p_id": "1"}, {"p_id": "2"}, {"p_id": "3"}]

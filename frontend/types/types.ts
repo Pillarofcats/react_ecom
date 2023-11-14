@@ -13,6 +13,10 @@ type tSetToggleSignIn = {
   setToggleSignIn: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+type tUserId = {
+  u_id: string
+}
+
 type tProduct = {
   p_id: string,
   title: string,
@@ -108,5 +112,6 @@ export type {
   tReview,
   tReviewsSlice,
   tPurchase,
-  tServerMessage
+  tServerMessage,
+  tUserId
 }

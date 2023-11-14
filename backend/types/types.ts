@@ -9,6 +9,10 @@ type tSignIn = {
   password: string;
 }
 
+type tUserId = {
+  u_id: string
+}
+
 type tPurchase = {
   purchase_date: string,
   p_id: string,
@@ -97,5 +101,6 @@ export type {
   tUserSlice,
   tReview,
   tReviewsSlice,
-  tPurchase
+  tPurchase,
+  tUserId
 }

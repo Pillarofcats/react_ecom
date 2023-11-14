@@ -6,23 +6,20 @@ import { getSingleProduct } from "../redux/slices/productsSlice"
 import { getProductReviews } from "../redux/slices/reviewsSlice"
 
 import cookieAuth from "../utility/cookieAuth"
-
 import ProductCard from "../components/ProductCard"
 import ProductReviews from "../components/ProductReviews"
 import ProductAddReview from "../components/ProductAddReview"
 
 export default function PageProduct() {
-  console.log("PAGE PRODUCTS")
+  // console.log("PAGE PRODUCTS")
 
   const { pid } = useParams()
-
   const { dynamicPageProduct } = useAppSelector((state) => state.products, shallowEqual)
   const { user } = useAppSelector((state) => state.user, shallowEqual)
   const { reviews } = useAppSelector((state) => state.reviews, shallowEqual)
   const { purchased } = useAppSelector((state) => state.user, shallowEqual)
   
   const dispatch = useAppDispatch()
-
   const hasUserPurchasedProduct = purchased?.some((purchase) => purchase?.p_id === pid)
   const hasUserMadeReview = reviews?.some((review) => review?.u_id === user?.u_id)
 

@@ -1,10 +1,8 @@
 import dbQuery from "../models/db/db.js";
 const productReview = async function (req, res) {
     const { pid } = req.body;
-    console.log("pid", pid);
     try {
         const reviews = await dbQuery("SELECT * FROM ecom.product_reviews WHERE p_id = $1", [pid]);
-        console.log("reviews", reviews.rows);
         res.status(200).json(reviews.rows);
     }
     catch (error) {
@@ -25,7 +23,6 @@ const addReview = async function (req, res) {
         const NUM_REVIEWS = reviews.rows.length;
         const calcProductStars = Math.ceil((TOTAL_USER_REVIEW_STARS) / (NUM_REVIEWS));
         await dbQuery("UPDATE ecom.all_products SET stars = $1 WHERE p_id = $2", [calcProductStars, p_id]);
-        console.log("num reviews", NUM_REVIEWS, p_id);
         await dbQuery("UPDATE ecom.all_products SET num_reviews = $1 WHERE p_id = $2", [NUM_REVIEWS, p_id]);
         res.status(200).json(addedReview.rows[0]);
     }

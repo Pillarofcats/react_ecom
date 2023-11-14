@@ -13,7 +13,6 @@ const updateUserInfo = async function (req, res) {
         return res.status(200).json({ message: "Address must be > 0 char" });
     if (data.phone && data.phone.length < 12)
         return res.status(200).json({ message: "Phone format must be: ###-###-####" });
-    console.log("DATAUSERINO", data);
     let queryInitStringNumber = 1;
     const queryStrings = [];
     const queryValues = [];
@@ -45,7 +44,6 @@ const userPurchases = async function (req, res) {
     try {
         const getPurchases = await dbQuery("SELECT purchase_date, p_id, stars, title, price_cent, qty_purchased FROM ecom.user_purchases WHERE u_id = $1", [u_id]);
         const purchaseData = getPurchases.rows;
-        console.log("Purchase data", purchaseData);
         return res.status(200).json(purchaseData);
     }
     catch (error) {

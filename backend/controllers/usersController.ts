@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 import dbQuery from "../models/db/db.js"
-import { tSignUp, tSignIn } from "../types/types.js"
+import { tSignUp, tSignIn, tUserId } from "../types/types.js"
 import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
 
@@ -53,8 +53,8 @@ const userSignIn = async function(req:Request, res:Response) {
       maxAge: 1000*60*60,
       httpOnly: false,
       signed: true,
-      // secure: true,
-      // domain:".up.railway.app"
+      secure: true,
+      domain:".up.railway.app"
     }
 
     res.clearCookie("3b_uid")
@@ -71,9 +71,6 @@ const userSignIn = async function(req:Request, res:Response) {
 
 const userAuth = async function(req:Request, res:Response) {
 
-  console.log("cookies", req.cookies)
-  console.log("signed cookies", req.signedCookies)
-
   if(!req.signedCookies["3b_uid"]) return res.status(401).end()
 
   const token = req.signedCookies["3b_uid"]
@@ -88,12 +85,7 @@ const userAuth = async function(req:Request, res:Response) {
     return res.status(401).end()
   }
 
-  type tUserId = {
-    u_id: string
-  }
-  
   const { u_id } = userId as tUserId
-  console.log("u_id", u_id)
 
   const selectUserInfo = await dbQuery("SELECT * FROM ecom.user_info WHERE u_id = $1", [u_id])
 

@@ -11,7 +11,7 @@ import NavItemSearchTypeSelect from "./NavItemSearchTypeSelect"
 import NavItemSearchForm from "./NavItemSearchForm"
 
 export default function NavItemSearch() {
-  console.log("NAVBAR")
+  // console.log("NAVBAR")
 
   const { currentSearch, currentType, queryParams } = useURLParams()
   const { products } = useAppSelector((state) => state.products, shallowEqual)

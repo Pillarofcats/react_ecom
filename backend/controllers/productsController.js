@@ -31,7 +31,6 @@ const purchase = async function (req, res) {
     if (u_id) {
         for (const index in cart) {
             queryValues.push([u_id, cart[index].item.p_id, cart[index].item.stars, cart[index].item.title, cart[index].item.price_cent, cart[index].qty]);
-            console.log("updated Qty:", queryValues[index]);
         }
         try {
             for (const index in queryValues) {
@@ -51,7 +50,6 @@ const purchase = async function (req, res) {
     }
     try {
         for (const index in queryValues) {
-            console.log("updated Qty:", queryValues[index]);
             await dbQuery(`UPDATE ecom.all_products SET quantity = $1 WHERE p_id = $2`, queryValues[index]);
         }
         return res.status(200).end();

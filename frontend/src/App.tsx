@@ -14,7 +14,7 @@ import useGetLocalCart from "../hooks/useGetLocalCart"
 import useGetUserData from "../hooks/useGetUserData"
 
 export default function App() {
-  console.log("APP")
+  // console.log("APP")
 
   useAuthUser()
   useGetLocalCart()

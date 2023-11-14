@@ -37,8 +37,8 @@ const userSignIn = async function (req, res) {
             maxAge: 1000 * 60 * 60,
             httpOnly: false,
             signed: true,
-            // secure: true,
-            // domain:".up.railway.app"
+            secure: true,
+            domain: ".up.railway.app"
         };
         res.clearCookie("3b_uid");
         res.cookie("3b_uid", userIdToken, cookieOptions);
@@ -50,8 +50,6 @@ const userSignIn = async function (req, res) {
     return res.status(500).end();
 };
 const userAuth = async function (req, res) {
-    console.log("cookies", req.cookies);
-    console.log("signed cookies", req.signedCookies);
     if (!req.signedCookies["3b_uid"])
         return res.status(401).end();
     const token = req.signedCookies["3b_uid"];
@@ -64,7 +62,6 @@ const userAuth = async function (req, res) {
         return res.status(401).end();
     }
     const { u_id } = userId;
-    console.log("u_id", u_id);
     const selectUserInfo = await dbQuery("SELECT * FROM ecom.user_info WHERE u_id = $1", [u_id]);
     return res.status(200).json(selectUserInfo.rows[0]);
 };

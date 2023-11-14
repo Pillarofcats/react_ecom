@@ -4,7 +4,7 @@ import SignIn from "../components/SignIn"
 import { useState } from "react"
 
 export default function PageSignIn() {
-  console.log("PAGE SIGN IN")
+  // console.log("PAGE SIGN IN")
 
   const [toggleSignIn, setToggleSignIn] = useState(true)
 
