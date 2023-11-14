@@ -3,8 +3,15 @@ import { tUserInfo, tParams } from "../types/types.js"
 import dbQuery from "../models/db/db.js"
 
 const updateUserInfo = async function(req:Request, res:Response) {
-
   const data = req.body as tUserInfo
+
+  if(!data?.u_id) return res.status(401).end()
+
+  if(data.firstname && data.firstname.length < 1) return res.status(200).json({message: "Firstname must be > 0 char"})
+  if(data.lastname && data.lastname.length < 1) return res.status(200).json({message: "Lastname must be > 0 char"})
+  if(data.username && data.username.length < 1) return res.status(200).json({message: "Username must be > 0 char"})
+  if(data.address && data.address.length < 1) return res.status(200).json({message: "Address must be > 0 char"})
+  if(data.phone && data.phone.length < 12) return res.status(200).json({message: "Phone format must be: ###-###-####"})
 
   console.log("DATAUSERINO", data)
 
@@ -29,7 +36,7 @@ const updateUserInfo = async function(req:Request, res:Response) {
       await dbQuery(`UPDATE ecom.product_reviews SET username = $1 WHERE u_id = $2`, [data.username, data.u_id])
     }
     
-    return res.status(200).json(updateUserInfo.rows[0])
+    return res.status(200).json({message:"Update successful", data: updateUserInfo.rows[0], status: "ok"})
 
   } catch(error) {
     console.error(error)

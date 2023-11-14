@@ -11,7 +11,7 @@ export default function UserProductReviews({ rev }:{rev:tReview[]}) {
       <h1 className="text-center text-3xl font-semibold">User Reviews</h1>
       <button className="formButton" onClick={() => setToggleView(state => !state)}>View</button>
 
-      <div className={`flex flex-col gap-2 items-center h-[30rem] ${toggleView && rev.length > 0 ? "overflow-y-scroll" : ""}`}>
+      <div className={`flex flex-col gap-2 items-center ${toggleView && rev.length > 0 ? "overflow-y-scroll h-[30rem]" : ""}`}>
       { toggleView ?
         rev.map((rev,i) => {
           return (

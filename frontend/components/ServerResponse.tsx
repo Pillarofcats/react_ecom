@@ -16,7 +16,7 @@ export default function ServerResponse({
 
     const timeout = setTimeout(() => {
       setIsServerMessage(false)
-    }, 2000)
+    }, 4000)
 
     return () => {
       clearTimeout(timeout as NodeJS.Timeout)
@@ -28,11 +28,11 @@ export default function ServerResponse({
       {
         serverMessageStatus === "ok" ? 
           <div className={` font-semibold text-green-600 ${isServerMessage ? "visible" : "invisible" }`}>
-            {serverMessage}
+            {serverMessage || "placeholder"}
           </div>
           :
           <div className={` font-semibold text-red-600 ${isServerMessage ? "visible" : "invisible" }`}>
-            {serverMessage}
+            {serverMessage || "placeholder"}
           </div>
       }
       

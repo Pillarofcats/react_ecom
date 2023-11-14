@@ -25,9 +25,7 @@ export default function SignUp({ setToggleSignIn }:tSetToggleSignIn) {
     }
 
     formSubmit(data)
-    usernameRef.current.value = ""
-    emailRef.current.value = ""
-    passwordRef.current.value = ""
+
   }
 
   async function formSubmit(o:tSignUp) {
@@ -42,11 +40,17 @@ export default function SignUp({ setToggleSignIn }:tSetToggleSignIn) {
       const data = await response.json()
 
       if(data.message) {
-        setServerMessage(["ok", data.message])
+        setServerMessage([data.status, data.message])
         setIsServerMessage(true)
       }
 
-      if(response.ok) {
+      if(response.ok && data.status === "ok") {
+        if(usernameRef.current && emailRef.current && passwordRef.current) {
+          usernameRef.current.value = ""
+          emailRef.current.value = ""
+          passwordRef.current.value = ""
+        }
+
         timeoutRef.current = setTimeout(() => {
           setToggleSignIn((prev) => !prev)
         }, 3000)

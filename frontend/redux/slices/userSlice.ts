@@ -65,6 +65,8 @@ export const setUserInfoOnLoad = createAsyncThunk("setUserInfoOnLoad", async fun
     if(response.ok) {
       const data = await response.json()
       return data
+    } else {
+      return {}
     }
 
   } catch(error) {

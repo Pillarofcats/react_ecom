@@ -2,6 +2,8 @@ import React, { useRef, useState } from "react"
 import { tUserInfo } from "../../types/types"
 import { useAppSelector, useAppDispatch } from "../../redux/hooks/default"
 import { setUserInfoOnSignIn } from "../../redux/slices/userSlice"
+import ServerResponse from "../ServerResponse"
+import { tServerMessage } from "../../types/types"
 
 export default function UserAccountInfo() {
 
@@ -16,6 +18,9 @@ export default function UserAccountInfo() {
   const phoneRef = useRef<HTMLInputElement>(null)
   const birthdayRef = useRef<HTMLInputElement>(null)
   const [changedBirthday, setChangedBirthday] = useState(false)
+
+  const [serverMessage, setServerMessage] = useState<tServerMessage>(["err",""])
+  const [isServerMessage, setIsServerMessage] = useState<boolean>(false)
 
   function handleFormSubmit(e:React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -62,16 +67,24 @@ export default function UserAccountInfo() {
     formSubmit(data)
   }
 
-  async function formSubmit(data:tUserInfo) {
+  async function formSubmit(d:tUserInfo) {
     //"https://backend-production-e988.up.railway.app/api/userinfo/updateuser"
     const response = await fetch("http://localhost:5000/api/userinfo/updateuser", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
+      body: JSON.stringify(d)
     })
 
-    const d = await response.json()
-    dispatch(setUserInfoOnSignIn(d))
+    const data = await response.json()
+
+    if(data.message) {
+        setServerMessage([data.status, data.message])
+        setIsServerMessage(true)
+      }
+
+    if(response.ok && data.status === "ok") {
+      dispatch(setUserInfoOnSignIn(data.data))
+    }
   }
 
   return (
@@ -106,13 +119,23 @@ export default function UserAccountInfo() {
 
           <div className="flex flex-col">
             <label htmlFor="phone">Phone</label>
-            <input className="formInput" ref={ phoneRef } type="tel" name="phone" id="phone"  placeholder={user.user?.phone || "123-456-7890"} pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"/>
+            <input className="formInput" ref={ phoneRef } type="tel" name="phone" id="phone"  
+              placeholder={user.user?.phone || "123-456-7890"} 
+              pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+            />
           </div>
 
           <div className="flex flex-col">
             <label  htmlFor="birthday">Birthday</label>
             <input className={`formInput ${ changedBirthday ? "text-black" : "text-gray-400" }`} onChange={() => setChangedBirthday(true)} ref={ birthdayRef } type="date" name="birthday" id="birthday" defaultValue={ user.user?.birthday }/>
           </div>
+
+          <ServerResponse 
+            isServerMessage={isServerMessage} 
+            setIsServerMessage={setIsServerMessage}
+            serverMessage={serverMessage[1]}
+            serverMessageStatus={serverMessage[0]}
+          />
 
           <button className="formButton" type="submit">Update</button>
         </form>
