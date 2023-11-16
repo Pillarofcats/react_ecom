@@ -30,7 +30,7 @@ export default function Pagination({ numPages }:{ numPages: number }) {
   }
 
   return (
-    <div className='flex flex-wrap justify-evenly w-[50%]'>
+    <div className='flex flex-wrap justify-evenly w-full lg:w-[50%]'>
       <button onClick={ backButton }>Back</button>
       { 
         pageNumbers.map((n, i) => {
