@@ -12,7 +12,7 @@ export default function NavLocalSearchProducts({
   if (filteredLocalSearchProducts.length === 0) return null;
 
   return (
-    <div className="absolute top-[2rem] -left-[2px] flex flex-col gap-1 text-black bg-white p-3 border rounded-b-sm">
+    <div className="absolute top-[2rem] left-0 flex flex-col gap-1 text-black bg-white p-3 border rounded-b-sm">
       {filteredLocalSearchProducts.map((product) => {
         return (
           <button
