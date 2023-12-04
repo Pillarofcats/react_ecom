@@ -1,8 +1,8 @@
-import dotenv from "dotenv"
-dotenv.config()
-import { tParams } from "../../types/types.js"
-import pg from "pg"
-const { Pool } = pg
+import dotenv from "dotenv";
+dotenv.config();
+import { tParams } from "../../types/types.js";
+import pg from "pg";
+const { Pool } = pg;
 
 // const localDBOptions = {
 //   user: process.env.PSQL_USER,
@@ -18,12 +18,12 @@ const remoteDBOptions = {
   database: process.env.PGDATABASE,
   password: process.env.PGPASSWORD,
   port: Number(process.env.PGPORT),
-}
+};
 
-const pool = new Pool(remoteDBOptions)
+const pool = new Pool(remoteDBOptions);
 
 const dbQuery = (text: string, params: tParams) => {
-  return pool.query(text, params)
-}
+  return pool.query(text, params);
+};
 
-export default dbQuery
+export default dbQuery;

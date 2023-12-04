@@ -1,13 +1,13 @@
-import express from "express"
-import oauthController from "../controllers/oauthController.js"
+import express from "express";
+import oauthController from "../controllers/oauthController.js";
 
-const router = express.Router()
+const router = express.Router();
 
-router.post("/google/request", oauthController.oauthGoogleRequest)
-router.get("/google/session", oauthController.oauthGoogleSession)
+router.post("/google/request", oauthController.oauthGoogleRequest);
+router.get("/google/session", oauthController.oauthGoogleSession);
 
-router.all("*", (req:express.Request, res:express.Response) => {
-  res.send("404")
-})
+router.all("*", (req: express.Request, res: express.Response) => {
+  res.send("404");
+});
 
-export default router
+export default router;

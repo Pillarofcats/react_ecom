@@ -1,18 +1,11 @@
-import { useAppSelector } from "../../redux/hooks/default"
-import UserProductReviews from "../UserAccount/UserProductReviews"
+import { useAppSelector } from "../../redux/hooks/default";
+import UserAccountProductReviews from "./UserAccountProductReviews";
 
 export default function UserAccountReviews() {
-  
-  const user = useAppSelector((state) => state.user)
-  const userReviews = user.reviews
+  const user = useAppSelector((state) => state.user);
+  const userReviews = user.reviews;
 
   return (
-    <>
-      { userReviews ?
-        <UserProductReviews rev={userReviews} />
-        :
-        null
-      }
-    </>
-  )
+    <>{userReviews ? <UserAccountProductReviews rev={userReviews} /> : null}</>
+  );
 }

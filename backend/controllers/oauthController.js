@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 const oauthGoogleRequest = async function (req, res) {
     res.header("Access-Control-Allow-Origin", "http://localhost:5173");
-    res.header("Access-Control-Allow-Credentials", 'true');
+    res.header("Access-Control-Allow-Credentials", "true");
     res.header("Referrer-Policy", "no-referrer-when-downgrade");
     const redirectURL = process.env.OAUTH_GOOGLE_URI;
     const oAuth2Client = new OAuth2Client(process.env.OAUTH_GOOGLE_CLIENT_ID, process.env.OAUTH_GOOGLE_CLIENT_SECRET, redirectURL);
@@ -11,7 +11,7 @@ const oauthGoogleRequest = async function (req, res) {
     const genAuthURL = oAuth2Client.generateAuthUrl({
         access_type: "offline",
         scope: "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile openid",
-        prompt: "consent"
+        prompt: "consent",
     });
     res.json({ url: genAuthURL });
 };
@@ -41,6 +41,6 @@ const getGoogleUserData = async function (access_token) {
 };
 const oauthController = {
     oauthGoogleRequest,
-    oauthGoogleSession
+    oauthGoogleSession,
 };
 export default oauthController;

@@ -1,8 +1,7 @@
-import { Outlet } from "react-router-dom"
-import Navbar from "./Navbar"
+import { Outlet } from "react-router-dom";
+import Navbar from "./Navbar/Navbar";
 
 export default function RootLayout() {
-
   return (
     <>
       <Navbar />
@@ -10,5 +9,5 @@ export default function RootLayout() {
         <Outlet />
       </div>
     </>
-  )
+  );
 }

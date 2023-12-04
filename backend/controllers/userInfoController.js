@@ -12,7 +12,9 @@ const updateUserInfo = async function (req, res) {
     if (data.address && data.address.length < 1)
         return res.status(200).json({ message: "Address must be > 0 char" });
     if (data.phone && data.phone.length < 12)
-        return res.status(200).json({ message: "Phone format must be: ###-###-####" });
+        return res
+            .status(200)
+            .json({ message: "Phone format must be: ###-###-####" });
     let queryInitStringNumber = 1;
     const queryStrings = [];
     const queryValues = [];
@@ -28,10 +30,17 @@ const updateUserInfo = async function (req, res) {
     try {
         const updateUserInfo = await dbQuery(`UPDATE ecom.user_info SET ${queryStrings.join(", ")} WHERE u_id = $${queryInitStringNumber} RETURNING *`, queryValues);
         if (data.username) {
-            await dbQuery(`UPDATE ecom.all_users SET username = $1 WHERE u_id = $2`, [data.username, data.u_id]);
+            await dbQuery(`UPDATE ecom.all_users SET username = $1 WHERE u_id = $2`, [
+                data.username,
+                data.u_id,
+            ]);
             await dbQuery(`UPDATE ecom.product_reviews SET username = $1 WHERE u_id = $2`, [data.username, data.u_id]);
         }
-        return res.status(200).json({ message: "Update successful", data: updateUserInfo.rows[0], status: "ok" });
+        return res.status(200).json({
+            message: "Update successful",
+            data: updateUserInfo.rows[0],
+            status: "ok",
+        });
     }
     catch (error) {
         console.error(error);
@@ -53,6 +62,6 @@ const userPurchases = async function (req, res) {
 };
 const userInfoController = {
     updateUserInfo,
-    userPurchases
+    userPurchases,
 };
 export default userInfoController;

@@ -2,8 +2,14 @@ import dbQuery from "../models/db/db.js";
 const byType = async function (req, res) {
     const { type } = req.body;
     const productType = type.charAt(0).toUpperCase() + type.slice(1);
-    const queryAll = ["SELECT * FROM ecom.all_products ORDER BY p_id", []];
-    const queryType = ["SELECT * FROM ecom.all_products WHERE product_type = $1 ORDER BY p_id", [productType]];
+    const queryAll = [
+        "SELECT * FROM ecom.all_products ORDER BY p_id",
+        [],
+    ];
+    const queryType = [
+        "SELECT * FROM ecom.all_products WHERE product_type = $1 ORDER BY p_id",
+        [productType],
+    ];
     const query = productType === "All" ? queryAll : queryType;
     try {
         const products = await dbQuery(query[0], query[1]);
@@ -30,7 +36,14 @@ const purchase = async function (req, res) {
     let queryValues = [];
     if (u_id) {
         for (const index in cart) {
-            queryValues.push([u_id, cart[index].item.p_id, cart[index].item.stars, cart[index].item.title, cart[index].item.price_cent, cart[index].qty]);
+            queryValues.push([
+                u_id,
+                cart[index].item.p_id,
+                cart[index].item.stars,
+                cart[index].item.title,
+                cart[index].item.price_cent,
+                cart[index].qty,
+            ]);
         }
         try {
             for (const index in queryValues) {
@@ -62,6 +75,6 @@ const purchase = async function (req, res) {
 const productsController = {
     byType,
     singleProduct,
-    purchase
+    purchase,
 };
 export default productsController;

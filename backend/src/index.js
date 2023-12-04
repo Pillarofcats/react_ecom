@@ -24,7 +24,10 @@ const app = express();
 app.use(cors({
     credentials: true,
     methods: ["GET", "PUT", "POST", "DELETE"],
-    origin: ["http://localhost:5173", "https://frontend-production-2a82.up.railway.app"],
+    origin: [
+        "http://localhost:5173",
+        "https://frontend-production-2a82.up.railway.app",
+    ],
 }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use("/static", express.static(path.join(__dirname, "public")));

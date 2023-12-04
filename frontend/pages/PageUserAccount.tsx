@@ -1,4 +1,4 @@
-import UserAccount from "../components/UserAccount/UserAccount"
+import UserAccount from "../components/UserAccount/UserAccount";
 
 export default function PageUserAccount() {
   // console.log("PAGE USER ACCOUNT")
@@ -6,5 +6,5 @@ export default function PageUserAccount() {
     <div className="flex items-center justify-center flex-1">
       <UserAccount />
     </div>
-  )
+  );
 }
