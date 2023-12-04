@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useAppSelector, useAppDispatch } from "../../../redux/hooks/default";
 import { getProducts } from "../../../redux/slices/productsSlice";
 import { tType } from "../../../types/types";

@@ -1,4 +1,3 @@
-import React from "react";
 import { tProduct } from "../../../types/types";
 import { useNavigate } from "react-router-dom";
 import ProductCardLocalSearch from "../../ProductCard/ProductCardLocalSearch";
