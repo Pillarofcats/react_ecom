@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function GoogleSignInButton() {
   function externalNavigate(url: string) {
     window.location.href = url;
