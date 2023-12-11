@@ -5,7 +5,7 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
-    
+
     /* vitest */
     "types": ["vitest/globals"],
 
@@ -23,6 +23,17 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": [
+    "src",
+    "components",
+    "hooks",
+    "pages",
+    "redux",
+    "types",
+    "utility",
+    "vite.config.ts",
+    "__tests__/setupTests.ts",
+    "__tests__/App.test.tsx"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
